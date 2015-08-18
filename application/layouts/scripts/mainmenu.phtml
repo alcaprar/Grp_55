@@ -1,0 +1,27 @@
+<ul class="nav navbar-nav collapse navbar-collapse">
+    <li><a href="" <?= $this->url(array(
+            'controller' => 'index',
+            'action'     => 'index',
+        ),
+            'default',true
+        );
+        ?>" class="active">Home</a></li>
+    <li><a href="
+                <?= $this->url(array(
+            'controller' => 'index',
+            'action'     => 'viewstatic',
+            'staticPage' => 'who'),
+            'default',true
+        );
+        ?>">Chi Siamo</a></li>
+    <li><a href="
+                <?= $this->url(array(
+            'controller' => 'index',
+            'action'     => 'viewstatic',
+            'staticPage' => 'where'),
+            'default',true
+        );
+        ?>">Dove Siamo</a></li>
+    <li><a href="404.html">Contatti</a></li>
+    <li><a href="contact-us.html">FAQ</a></li>
+</ul>
