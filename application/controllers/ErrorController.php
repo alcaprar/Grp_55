@@ -19,8 +19,7 @@ class ErrorController extends Zend_Controller_Action
                 // 404 error -- controller or action not found
                 $this->getResponse()->setHttpResponseCode(404);
                 $priority = Zend_Log::NOTICE;
-                $this->view->message = 'Page not founda';
-                $this->renderScript('error/404.phtml');
+                $this->view->message = 'Page not found';
                 break;
             default:
                 // application error
@@ -29,6 +28,7 @@ class ErrorController extends Zend_Controller_Action
                 $this->view->message = 'Application error';
                 break;
         }
+        $this->renderScript('error/404.phtml');
         
         // Log exception, if logger available
         if ($log = $this->getLog()) {
