@@ -15,10 +15,8 @@ class IndexController extends Zend_Controller_Action
 
     public function viewstaticAction () {
         $page = $this->_getParam('staticPage');
-        echo $page;
         $this->render($page);
     }
-
 
 }
 
