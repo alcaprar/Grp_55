@@ -1,6 +1,6 @@
 <?php 
-$USER="root";
-$DB="grp_55";
-$HOST="localhost";
-$PASSWORD="root";
+$USER="grp55tw";
+$DB="grp55twdb";
+$HOST="db4free.net";
+$PASSWORD="tecweb";
 ?>

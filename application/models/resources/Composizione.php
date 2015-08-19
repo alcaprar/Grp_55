@@ -2,7 +2,7 @@
 
 class Application_Resource_Category extends Zend_Db_Table_Abstract
 {
-    protected $_name    = 'Categorie';
+    protected $_name    = 'Composizione';
     protected $_primary  = 'id';
     protected $_rowClass = 'Application_Resource_Category_Item';
 
@@ -21,7 +21,7 @@ class Application_Resource_Category extends Zend_Db_Table_Abstract
     {
         $select = $this->select()
             ->where('Tipo IN(?)', $top)
-            ->order('Nome');
+            ->order('name');
         return $this->fetchAll($select);
     }
 }
