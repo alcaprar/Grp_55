@@ -20,7 +20,7 @@ class Application_Model_Catalog extends App_Model_Abstract
 
     public function getCatsByParId($parId)
     {
-        return $this->getResource('Category')->getCatsByParId($parId);
+        return $this->getResource('Category')->getCats($parId);
     }
 
     public function getProdsByCat($catId, $paged=null, $order=null, $deep=true)
