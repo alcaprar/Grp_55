@@ -6,13 +6,13 @@
  * Time: 16.11
  */
 
-require_once 'App\Model\Abstract.php';
+//require_once 'App\Model\Abstract.php';
 
 class Application_Model_Catalog extends App_Model_Abstract
 {
     public function __construct()
     {
-        $this->_logger = Zend_Registry::get('log');
+        //$this->_logger = Zend_Registry::get('log');
     }
 
     public function getCatById($id)
@@ -33,5 +33,10 @@ class Application_Model_Catalog extends App_Model_Abstract
             $catId = $ids;
         }
         return $this->getResource('Product')->getProdsByCat($catId, $paged, $order);
+    }
+
+    public function getProdByCat2($catName)
+    {
+        return $this->getResource('Product')->getProd($catName);
     }
 }

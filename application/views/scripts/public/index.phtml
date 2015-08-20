@@ -16,8 +16,15 @@
                         <div class="panel-body">
                             <ul>
                             <?php
-                            foreach($this->CategorieAM as $cat){
-                                echo '<li><a href="#">' . $cat->Nome . '</a></li>';
+
+                            foreach($this->CategorieA as $cat){
+                                echo '<li><a href='.$this->url(array(
+                                        'controller' => 'public',
+                                        'action'     => 'index',
+                                        'categoria' => $cat->Nome
+                                    ),
+                                        'default',true
+                                    ).'>' . $cat->Nome . '</a></li>';
                             }
                             ?>
                             </ul>
@@ -38,7 +45,13 @@
                             <ul>
                                 <?php
                                 foreach($this->CategorieM as $cat){
-                                    echo '<li><a href="#">' . $cat->Nome . '</a></li>';
+                                    echo '<li><a href='.$this->url(array(
+                                            'controller' => 'public',
+                                            'action'     => 'index',
+                                            'categoria' => $cat->Nome
+                                        ),
+                                            'default',true
+                                        ).'>' . $cat->Nome . '</a></li>';
                                 }
                                 ?>
                             </ul>
@@ -53,49 +66,28 @@
     <div class="col-sm-9 padding-right">
         <div class="features_items"><!--features_items-->
             <h2 class="title text-center">Home</h2>
-            <style>
-                a:link,
-                a:visited
-                {
-                    color: #0398CA;
+            <?php
+            if(is_null($this->Parametro)){
+                echo 'HOME-PAGE';
+            }else{
+                echo 'CATALOGO - '.$this->Parametro;
+
+                foreach($this->Prodotti as $prod){
+                    echo'<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+										<div class="productinfo text-center">
+											<img src="images/home/product1.jpg" alt="" />
+											<h2>'.$prod->Nome.'</h2>
+											<p>'.$prod->DescrizioneBreve .'</p>
+											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Vai alla scheda</a>
+										</div>
+								</div>
+							</div>
+						</div>';
                 }
-
-                span#zf-name
-                {
-                    color: #91BE3F;
-                }
-
-                div#welcome
-                {
-                    color: #FFFFFF;
-                    background-image: url(http://framework.zend.com/images/bkg_header.jpg);
-                    width:  600px;
-                    height: 400px;
-                    border: 2px solid #444444;
-                    overflow: hidden;
-                    text-align: center;
-                }
-
-                div#more-information
-                {
-                    background-image: url(http://framework.zend.com/images/bkg_body-bottom.gif);
-                    height: 100%;
-                }
-            </style>
-            <div id="welcome">
-                <h1>Welcome to the <span id="zf-name">Zend Framework!</span></h1>
-
-                <h3>This is your project's maiaaaan page</h3>
-
-                <div id="more-information">
-                    <p><img src="http://framework.zend.com/images/PoweredBy_ZF_4LightBG.png" /></p>
-                    <p>
-                        Helpful Links: <br />
-                        <a href="http://framework.zend.com/">Zend Framework Website</a> |
-                        <a href="http://framework.zend.com/manual/en/">Zend Framework Manual</a>
-                    </p>
-                </div>
-            </div>
+            }
+            ?>
 
         </div><!--features_items-->
 
