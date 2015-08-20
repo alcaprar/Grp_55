@@ -17,14 +17,15 @@ class Application_Resource_Product extends Zend_Db_Table_Abstract
     }
 
     // Estrae tutti i prodotti di una categoria
-    public function getProd($cat)
+    public function getProdsByCat($cat)
     {
         $select = $this->select()
             ->setIntegrityCheck(false)
             ->from('Prodotti')
             ->where('Categorie.Nome = ?', $cat)
-            ->join('Categorie','Categorie.id = Prodotti.idCategoria');
+            ->join('Categorie','Categorie.id = Prodotti.idCategoria',array());
         return $this->fetchAll($select);
     }
+
 }
 

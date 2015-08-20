@@ -65,22 +65,27 @@
 
     <div class="col-sm-9 padding-right">
         <div class="features_items"><!--features_items-->
-            <h2 class="title text-center">Home</h2>
             <?php
-            if(is_null($this->Parametro)){
-                echo 'HOME-PAGE';
+            if(is_null($this->Categoria)){
+                echo '<h2 class="title text-center">Home-Page</h2>';
             }else{
-                echo 'CATALOGO - '.$this->Parametro;
-
+                echo '<h2 class="title text-center">Catalogo - '.$this->Categoria.'</h2>';
                 foreach($this->Prodotti as $prod){
                     echo'<div class="col-sm-4">
 							<div class="product-image-wrapper">
 								<div class="single-products">
 										<div class="productinfo text-center">
-											<img src="images/home/product1.jpg" alt="" />
+											<img src="'. $this->baseURL().'/images/home/product1.jpg" alt="" />
 											<h2>'.$prod->Nome.'</h2>
 											<p>'.$prod->DescrizioneBreve .'</p>
-											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Vai alla scheda</a>
+											<p></p>
+											<a href='.$this->url(array(
+                            'controller' => 'public',
+                            'action'     => 'index',
+                            'prodotto' => $prod->id
+                        ),
+                            'default',true
+                        ).' class="btn btn-default add-to-cart"><i class="fa fa-info">  Vai alla scheda</i></a>
 										</div>
 								</div>
 							</div>

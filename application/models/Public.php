@@ -8,7 +8,7 @@
 
 //require_once 'App\Model\Abstract.php';
 
-class Application_Model_Catalog extends App_Model_Abstract
+class Application_Model_Public extends App_Model_Abstract
 {
     public function __construct()
     {
@@ -35,8 +35,13 @@ class Application_Model_Catalog extends App_Model_Abstract
         return $this->getResource('Product')->getProdsByCat($catId, $paged, $order);
     }
 
-    public function getProdByCat2($catName)
+    public function getProdsByCat2($catName)
     {
-        return $this->getResource('Product')->getProd($catName);
+        return $this->getResource('Product')->getProdsByCat($catName);
+    }
+
+    public function getProdById($idProdotto)
+    {
+        return $this->getResource('Product')->getProdById($idProdotto);
     }
 }
