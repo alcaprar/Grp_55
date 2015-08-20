@@ -65,10 +65,6 @@
     <div class="col-sm-9 padding-right">
         <div class="features_items"><!--features_items-->
             <?php
-            if(is_null($this->Categoria)){
-                echo '<h2 class="title text-center">Benvenuto nel centro assistenza BMW</h2><br>
-                      <img align=center src="/images/home/bmw-service-partner.jpg"><br>';
-            }else{
             if(!is_null($this->Prodotto)){
                 echo'<h2 class="title text-center">Scheda Prodotto - '.$this->Prodotto->Nome.'</h2>
                     <div class="col-sm-9 padding-right">
@@ -141,14 +137,11 @@
                 }
             } else
             {
-                echo '<h2 class="title text-center">Home-Page</h2>';
+                echo '<h2 class="title text-center">Benvenuto nel centro assistenza BMW</h2><br>
+                      <img align=center src="/images/home/bmw-service-partner.jpg"><br>';
             }
             ?>
 
         </div><!--features_items-->
 
     </div>
-
-
-
-
