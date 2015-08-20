@@ -21,8 +21,8 @@ class PublicController extends Zend_Controller_Action
         //recupero i parametri
         $nomeCategoria = $this->_getParam('categoria', null);
         $idProdotto = $this->_getParam('prodotto',null);
-        $this->_logger->log('$categoria: '. var_export(is_null($nomeCategoria),true),Zend_Log::DEBUG);
-        $this->_logger->log('$prodotto: '. var_export(is_null($idProdotto),true),Zend_Log::DEBUG);
+        $this->_logger->log('$categoriaPar is_null: '. var_export(is_null($nomeCategoria),true),Zend_Log::DEBUG);
+        $this->_logger->log('$prodottoPar is_null: '. var_export(is_null($idProdotto),true),Zend_Log::DEBUG);
 
         //se è passato il parametro categoria recupera i prodotti
         $prodotti=null;
@@ -38,8 +38,7 @@ class PublicController extends Zend_Controller_Action
             $prodotto = $this->_publicModel->getProdById($idProdotto);
         }
 
-        $this->_logger->log('$prodotti: '. var_export(is_null($prodotti),true),Zend_Log::DEBUG);
-        $this->_logger->log($prodotti,Zend_Log::DEBUG);
+        $this->_logger->log($prodotto,Zend_Log::DEBUG);
 
         //recupera le categorie dal db attraverso il model
         $CategorieA = $this->_publicModel->getCatsByParId('A');

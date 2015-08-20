@@ -66,9 +66,54 @@
     <div class="col-sm-9 padding-right">
         <div class="features_items"><!--features_items-->
             <?php
-            if(is_null($this->Categoria)){
-                echo '<h2 class="title text-center">Home-Page</h2>';
-            }else{
+            if(!is_null($this->Prodotto)){
+                echo'<h2 class="title text-center">Scheda Prodotto - '.$this->Prodotto->Nome.'</h2>
+                    <div class="col-sm-9 padding-right">
+					<div class="product-details"><!--product-details-->
+						<div class="col-sm-5">
+							<div class="view-product">
+								<img src="images/product-details/1.jpg" alt="" />
+							</div>
+
+						</div>
+						<div class="col-sm-7">
+							<div class="product-information"><!--/product-information-->
+								<img src="images/product-details/new.jpg" class="newarrival" alt="" />
+								<h2>'.$this->Prodotto->Nome.'</h2>
+								<p>Web ID:'.$this->Prodotto->id.'</p>
+								<img src="images/product-details/rating.png" alt="" />
+								<p><b>Availability:</b> In Stock</p>
+								<p><b>Condition:</b> New</p>
+								<p><b>Brand:</b> E-SHOPPER</p>
+								<a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>
+							</div><!--/product-information-->
+						</div>
+					</div><!--/product-details-->
+
+					<div class="category-tab shop-details-tab"><!--category-tab-->
+						<div class="col-sm-12">
+							<ul class="nav nav-tabs">
+							    <li class="active"><a href="#descrizione" data-toggle="tab">Descrizione</a></li>
+								<li><a href="#ntbu" data-toggle="tab">Note tecniche buon uso</a></li>
+
+							</ul>
+						</div>
+						<div class="tab-content">
+						    <div class="tab-pane fade active in" id="descrizione" >
+								<div class="col-sm-12">
+								    <p>'.$this->Prodotto->DescrizioneLunga.'</p>
+								</div>
+							</div>
+							<div class="tab-pane fade" id="ntbu" >
+								<div class="col-sm-12">
+								    <p>'.$this->Prodotto->NTBU.'</p>
+
+								</div>
+							</div>
+						</div>
+					</div><!--/category-tab-->
+				</div>';
+            }elseif(!is_null($this->Categoria)){
                 echo '<h2 class="title text-center">Catalogo - '.$this->Categoria.'</h2>';
                 foreach($this->Prodotti as $prod){
                     echo'<div class="col-sm-4">
@@ -91,13 +136,13 @@
 							</div>
 						</div>';
                 }
+            } else
+            {
+                echo '<h2 class="title text-center">Home-Page</h2>';
             }
             ?>
 
         </div><!--features_items-->
-
-
-
 
     </div>
 
