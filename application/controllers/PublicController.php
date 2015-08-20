@@ -21,8 +21,10 @@ class PublicController extends Zend_Controller_Action
         //recupero i parametri
         $nomeCategoria = $this->_getParam('categoria', null);
         $idProdotto = $this->_getParam('prodotto',null);
-        $this->_logger->log('$categoriaPar is_null: '. var_export(is_null($nomeCategoria),true),Zend_Log::DEBUG);
-        $this->_logger->log('$prodottoPar is_null: '. var_export(is_null($idProdotto),true),Zend_Log::DEBUG);
+        $viewStatic = $this->_getParam('viewStatic',null);
+        $this->_logger->log('is_null($nomeCategoria): '. var_export(is_null($nomeCategoria),true),Zend_Log::DEBUG);
+        $this->_logger->log('isnull($idProdotto): '. var_export(is_null($idProdotto),true),Zend_Log::DEBUG);
+        $this->_logger->log('is_null($viewStatic): '. var_export(is_null($viewStatic),true),Zend_Log::DEBUG);
 
         //se è passato il parametro categoria recupera i prodotti
         $prodotti=null;
@@ -38,9 +40,9 @@ class PublicController extends Zend_Controller_Action
             $prodotto = $this->_publicModel->getProdById($idProdotto);
         }
 
-        $this->_logger->log($prodotto,Zend_Log::DEBUG);
 
         //recupera le categorie dal db attraverso il model
+        //serve per il menu
         $CategorieA = $this->_publicModel->getCatsByParId('A');
         $CategorieM = $this->_publicModel->getCatsByParId('M');
 
@@ -53,6 +55,11 @@ class PublicController extends Zend_Controller_Action
                 'Prodotto' => $prodotto
             )
         );
+
+        if(!is_null($viewStatic))
+        {
+            $this->render($viewStatic);
+        }
 
     }
 
