@@ -62,7 +62,13 @@
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
                             <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
-                            <li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+                            <li><a href="<?= $this->url(array(
+                                    'controller' => 'public',
+                                    'action'     => 'index',
+                                    'viewStatic' => 'login'),
+                                    'default',true
+                                );
+                                ?>"><i class="fa fa-lock"></i> Login</a></li>
                         </ul>
                     </div>
                 </div>
@@ -97,12 +103,9 @@
 </header><!--/header-->
 
 
-<section>
-    <div class="container">
+
         <?php echo $this->layout()->content; ?>
-        </div>
-    </div>
-</section>
+
 
 <footer id="footer"><!--Footer-->
     <div class="footer-top">
