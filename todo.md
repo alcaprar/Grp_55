@@ -1,1 +1,2 @@
 - [ ] aggiungere i file per le tabelle del db.
+- [ ] bisogna rivedere i link rapidi nel footer. dal layuot non è possibile caricare dinamicamente le categorie

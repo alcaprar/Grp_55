@@ -35,9 +35,9 @@ class Application_Model_Public extends App_Model_Abstract
         return $this->getResource('Product')->getProdsByCat($catId, $paged, $order);
     }
 
-    public function getProdsByCat2($catName)
+    public function getProdsByCat2($catName, $paged=null, $order=null)
     {
-        return $this->getResource('Product')->getProdsByCat($catName);
+        return $this->getResource('Product')->getProdsByCat($catName, $paged, $order);
     }
 
     public function getProdById($idProdotto)
