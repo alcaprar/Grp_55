@@ -1,75 +1,74 @@
 <section>
     <div class="container">
-<div class="row">
-    <div class="col-sm-3">
-        <div class="left-sidebar">
-            <h2>Category</h2>
-            <div class="panel-group category-products" id="accordian"><!--category-productsr-->
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
-                                <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                Auto
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="sportswear" class="panel-collapse in">
-                        <div class="panel-body">
-                            <ul>
-                                <?php
-
-                                foreach($this->CategorieA as $cat){
-                                    echo '<li><a href='.$this->url(array(
-                                            'controller' => 'public',
-                                            'action'     => 'index',
-                                            'categoria' => $cat->Nome
-                                        ),
-                                            'default',true
-                                        ).'>' . $cat->Nome . '</a></li>';
-                                }
-                                ?>
-                            </ul>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="left-sidebar">
+                    <h2>Categorie</h2>
+                    <div class="panel-group category-products" id="accordian"><!--category-productsr-->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordian" href="#auto">
+                                        <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+                                        Auto
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="auto" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul>
+                                        <?php
+                                        foreach($this->CategorieA as $cat){
+                                            echo '<li><a href='.$this->url(array(
+                                                    'controller' => 'public',
+                                                    'action'     => 'index',
+                                                    'categoria' => $cat->Nome
+                                                ),
+                                                    'default',true
+                                                ).'>' . $cat->Nome . '</a></li>';
+                                        }
+                                        ?>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordian" href="#mens">
-                                <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                Moto
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="mens" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <ul>
-                                <?php
-                                foreach($this->CategorieM as $cat){
-                                    echo '<li><a href='.$this->url(array(
-                                            'controller' => 'public',
-                                            'action'     => 'index',
-                                            'categoria' => $cat->Nome
-                                        ),
-                                            'default',true
-                                        ).'>' . $cat->Nome . '</a></li>';
-                                }
-                                ?>
-                            </ul>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordian" href="#moto">
+                                        <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+                                        Moto
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="moto" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul>
+                                        <?php
+                                        foreach($this->CategorieM as $cat){
+                                            echo '<li><a href='.$this->url(array(
+                                                    'controller' => 'public',
+                                                    'action'     => 'index',
+                                                    'categoria' => $cat->Nome
+                                                ),
+                                                    'default',true
+                                                ).'>' . $cat->Nome . '</a></li>';
+                                        }
+                                        ?>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div><!--/category-products-->
+                    </div><!--/category-products-->
 
-        </div>
-    </div>
+                </div>
+            </div>
 
     <div class="col-sm-9 padding-right">
         <div class="features_items"><!--features_items-->
             <h2 class="title text-center">Dove Siamo</h2>
             <div class="static">
-                <iframe width="638" height="525" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.it/maps?f=q&amp;source=s_q&amp;hl=it&amp;geocode=&amp;q=Via+Brecce+Bianche,+12,+Ancona&amp;aq=0&amp;sll=41.442726,12.392578&amp;sspn=23.377375,53.657227&amp;ie=UTF8&amp;hq=&amp;hnear=Via+Brecce+Bianche,+12,+60131+Ancona,+Marche&amp;z=14&amp;ll=43.581248,13.515684&amp;output=embed"></iframe><br /><small><a href="http://maps.google.it/maps?f=q&amp;source=embed&amp;hl=it&amp;geocode=&amp;q=Via+Brecce+Bianche,+12,+Ancona&amp;aq=0&amp;sll=41.442726,12.392578&amp;sspn=23.377375,53.657227&amp;ie=UTF8&amp;hq=&amp;hnear=Via+Brecce+Bianche,+12,+60131+Ancona,+Marche&amp;z=14&amp;ll=43.581248,13.515684" style="color:#0000FF;text-align:left">Visualizzazione ingrandita della mappa</a></small>
+                <iframe width="800" height="525" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.it/maps?f=q&amp;source=s_q&amp;hl=it&amp;geocode=&amp;q=Via+Brecce+Bianche,+12,+Ancona&amp;aq=0&amp;sll=41.442726,12.392578&amp;sspn=23.377375,53.657227&amp;ie=UTF8&amp;hq=&amp;hnear=Via+Brecce+Bianche,+12,+60131+Ancona,+Marche&amp;z=14&amp;ll=43.581248,13.515684&amp;output=embed"></iframe><br /><small><a href="http://maps.google.it/maps?f=q&amp;source=embed&amp;hl=it&amp;geocode=&amp;q=Via+Brecce+Bianche,+12,+Ancona&amp;aq=0&amp;sll=41.442726,12.392578&amp;sspn=23.377375,53.657227&amp;ie=UTF8&amp;hq=&amp;hnear=Via+Brecce+Bianche,+12,+60131+Ancona,+Marche&amp;z=14&amp;ll=43.581248,13.515684" style="color:#0000FF;text-align:left">Visualizzazione ingrandita della mappa</a></small>
             </div>
         </div><!--features_items-->
     </div>
