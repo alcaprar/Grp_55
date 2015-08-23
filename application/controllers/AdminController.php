@@ -36,8 +36,10 @@ class AdminController extends Zend_Controller_Action
     }
 
     private function getProductForm(){
+        $urlHelper = $this->_helper->getHelper('url');
+
         $this->_form = new Application_Form_Admin_Product_Add();
-        $this->_form->setAction($this->url(array(
+        $this->_form->setAction($urlHelper->url(array(
             'controller' => 'admin',
             'action' => 'addProduct'
             ),
