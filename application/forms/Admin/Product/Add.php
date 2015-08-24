@@ -35,7 +35,7 @@ class Application_Form_Admin_Product_Add extends App_Form_Abstract
 		));
 		*/
 
-
+        /*
 		$this->addElement('file', 'Foto', array(
 			'label' => 'Immagine',
 			'destination' => APPLICATION_PATH . '/../public/images/products',
@@ -45,7 +45,7 @@ class Application_Form_Admin_Product_Add extends App_Form_Abstract
 			array('Extension', false, array('jpg', 'gif'))),
             'decorators' => $this->fileDecorators,
 		));
-
+        */
 
 		$this->addElement('text', 'DescrizioneBreve', array(
             'label' => 'Descrizione Breve',
@@ -86,15 +86,21 @@ class Application_Form_Admin_Product_Add extends App_Form_Abstract
             'label' => 'Cilindrata',
             'filters' => array('StringTrim'),
             'required' => true,
-            'validators' => array(array('StringLength',true, array(1,25))),
+            'validators' => array(
+				array('Int', true),
+				array('Between', true, array(0,10000))
+				),
             'decorators' => $this->elementDecorators,
         ));
 
         $this->addElement('text', 'Potenza', array(
-            'label' => 'Potenza',
+            'label' => 'Potenza (kW)',
             'filters' => array('StringTrim'),
             'required' => true,
-            'validators' => array(array('StringLength',true, array(1,25))),
+            'validators' => array(
+				array('Int', true),
+				array('GreaterThan', true, array(0))
+			),
             'decorators' => $this->elementDecorators,
         ));
 
@@ -102,7 +108,10 @@ class Application_Form_Admin_Product_Add extends App_Form_Abstract
             'label' => 'Massa a vuoto',
             'filters' => array('StringTrim'),
             'required' => true,
-            'validators' => array(array('StringLength',true, array(1,25))),
+            'validators' => array(
+                array('Int', true),
+                array('GreaterThan', true, array(0))
+            ),
             'decorators' => $this->elementDecorators,
         ));
 
@@ -110,7 +119,10 @@ class Application_Form_Admin_Product_Add extends App_Form_Abstract
             'label' => 'Velocità massima',
             'filters' => array('StringTrim'),
             'required' => true,
-            'validators' => array(array('StringLength',true, array(1,25))),
+            'validators' => array(
+                array('Int', true),
+                array('GreaterThan', true, array(0))
+            ),
             'decorators' => $this->elementDecorators,
         ));
 

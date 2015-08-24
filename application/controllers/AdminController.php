@@ -54,7 +54,7 @@ class AdminController extends Zend_Controller_Action
             $this->_logger->log('!isValid',Zend_Log::DEBUG);
             //Se non è stato validato rivisualizzo il risultato dell'azione registrautente
             //Rivisualizzo quindi la form popolata (Aggiungendo però i messaggi di errore!)
-            return $this->render('insertnewfaq'); //Esco poi dal controller con return
+            return $this->render('addnewproduct'); //Esco poi dal controller con return
         }
 
         $this->_logger->log('isValid',Zend_Log::DEBUG);
