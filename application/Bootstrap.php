@@ -56,6 +56,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             ->addResourceType('modelResource','models/resources','Resource');
     }
 
+    protected function _initFrontControllerPlugin()
+    {
+        //Prende l'istanza del singleton FrontController, cioè il componente al quale il plugin va agganciato
+        $front = Zend_Controller_Front::getInstance();
+        //Attiviamo un suo metodo predefinito a cui passiamo l'istanza della classe plugin da noi definita)
+        $front->registerPlugin(new App_Controller_Plugin_Acl());
+    }
+
     protected function _initDbParms()
     {
         //include il file con i parametri per la connessione
