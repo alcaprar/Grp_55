@@ -33,4 +33,8 @@ class Application_Model_Admin extends App_Model_Abstract
         return $this->getResource('Product')->getProdById($idProdotto);
     }
 
+    public function getUserByName($info)
+    {
+        return $this->getResource('Utenti')->getUserByName($info);
+    }
 }

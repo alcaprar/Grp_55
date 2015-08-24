@@ -19,7 +19,7 @@ class Application_Service_Auth
         if (!$result->isValid()) {
             return false;
         }
-        $user = $this->_adminModel->getUserByName($credentials['Username']);
+        $user = $this->_adminModel->getUserByName($credentials['username']);
         $auth->getStorage()->write($user);
         return true;
     }
@@ -54,8 +54,8 @@ class Application_Service_Auth
             'Username',
             'Password'
         );
-        $authAdapter->setIdentity($values['Username']);
-        $authAdapter->setCredential($values['Password']);
+        $authAdapter->setIdentity($values['username']);
+        $authAdapter->setCredential($values['password']);
         return $authAdapter;
     }
 }

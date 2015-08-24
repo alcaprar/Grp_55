@@ -13,6 +13,7 @@ class PublicController extends Zend_Controller_Action
         $this->_logger = Zend_Registry::get('log');
         $this->_publicModel = new Application_Model_Public();
         $this->_authService = new Application_Service_Auth();
+        $this->view->loginForm = $this->getLoginForm();
     }
 
     public function indexAction()
@@ -73,7 +74,6 @@ class PublicController extends Zend_Controller_Action
     //carica la view per la form di login
     public function loginAction()
     {
-        $this->view->loginForm = $this->getLoginForm();
     }
 
     //metodo per la verifica del login
@@ -88,11 +88,12 @@ class PublicController extends Zend_Controller_Action
             $form->setDescription('Attenzione: alcuni dati inseriti sono errati.');
             return $this->render('login');
         }
+
         if (false === $this->_authService->authenticate($form->getValues())) {
             $form->setDescription('Autenticazione fallita. Riprova');
             return $this->render('login');
         }
-        return $this->_helper->redirector('index', $this->_authService->getIdentity()->role);
+        return $this->_helper->redirector('index', $this->_authService->getIdentity()->Ruolo);
     }
 
     public function viewstaticAction () {
@@ -108,7 +109,7 @@ class PublicController extends Zend_Controller_Action
         $this->_loginForm = new Application_Form_Public_Auth_Login();
         $this->_loginForm->setAction($urlHelper->url(array(
             'controller' => 'public',
-            'action' => 'effettualogin' //da realizzare
+            'action' => 'effettualogin'
             ),
             'default'
         ));
