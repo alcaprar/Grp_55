@@ -1,12 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Christian
- * Date: 19/08/2015
- * Time: 16.11
- */
-
-//require_once 'App\Model\Abstract.php';
 
 class Application_Model_Public extends App_Model_Abstract
 {
