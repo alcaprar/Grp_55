@@ -23,9 +23,9 @@ class Application_Model_Admin extends App_Model_Abstract
         return $this->getResource('Product')->deleteProduct($id);
     }
 
-    public function updateProduct($prodotto)
+    public function updateProduct($prodotto, $id)
     {
-        return $this->getResource('Product')->updateProduct($prodotto);
+        return $this->getResource('Product')->updateProduct($prodotto,$id);
     }
 
     public function getProdById($idProdotto)

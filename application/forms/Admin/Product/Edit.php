@@ -133,7 +133,7 @@ class Application_Form_Admin_Product_Edit extends App_Form_Abstract
         ));
 
         $this->addElement('submit', 'add', array(
-            'label' => 'Aggiungi Prodotto',
+            'label' => 'Modifica Prodotto',
             'decorators' => $this->buttonDecorators,
         ));
 

@@ -68,5 +68,20 @@ class Application_Resource_Product extends Zend_Db_Table_Abstract
         $this->fetchRow($this->select()->where('id = ?', $id))->delete();
     }
 
+    //aggiorna il prodotto
+    public function updateProduct($prodotto, $id)
+    {
+        //Fa la SELECT, essendo il risultato una sola riga, faccio fetchRow
+        $old = $this->fetchRow($this->select()->where('id = ?', $id));   // (filtro) seleziona l'utente con l'id specificato
+
+        //Aggiorno poi i campi desiderati
+        foreach ($prodotto as $key => $value) {
+            $old->$key = $value;
+        }
+
+        //Aggiorna (UPDATE) la riga nel database con i nuovi valori
+        $old->save($old);
+
+    }
 }
 

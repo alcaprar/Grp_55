@@ -85,7 +85,7 @@ class AdminController extends Zend_Controller_Action
 
     }
 
-    public function aggiungiprodottotAction()
+    public function aggiungiprodottoAction()
     {
         //Si attiva solo se la richiesta che ha attivato questa azione è di tipo post
         //Se non lo è...
@@ -118,7 +118,6 @@ class AdminController extends Zend_Controller_Action
         $this->_logger->log($values,Zend_Log::DEBUG);
 
         $this->_adminModel->insertProduct($values);   //Definita in Model/Amministratore.php
-        //$this->_helper->redirector('faq');
 
     }
 
@@ -144,6 +143,9 @@ class AdminController extends Zend_Controller_Action
             $this->_logger->log('!isPost',Zend_Log::DEBUG);
         }
 
+        //recupero l'id
+        $id = intval($this->_request->getParam('id'));
+
         $this->_logger->log('isPost',Zend_Log::DEBUG);
         //Il server ha ricreato l'applicazione avendo inviato il form,
         // devo incrociare i dati che mi sono arrivati, perciò devo reistanziare il form
@@ -157,8 +159,6 @@ class AdminController extends Zend_Controller_Action
             //Se non è stato validato rivisualizzo il risultato dell'azione registrautente
             //Rivisualizzo quindi la form popolata (Aggiungendo però i messaggi di errore!)
 
-            //recupero l'id del prodotto da modificare
-            $id = intval($this->_request->getParam('id'));
 
             $urlHelper = $this->_helper->getHelper('url');
             $this->_editProductForm->setAction($urlHelper->url(array(
@@ -180,8 +180,8 @@ class AdminController extends Zend_Controller_Action
         $values = $form->getValues();
         $this->_logger->log($values,Zend_Log::DEBUG);
 
-        $this->_adminModel->updateProduct($values);   //Definita in Model/Amministratore.php
-        //$this->_helper->redirector('faq');
+        $this->_adminModel->updateProduct($values,$id);   //Definita in Model/Amministratore.php
+        //$this->_helper->redirector('modificacancellaprodotto','admin');
 
     }
 
