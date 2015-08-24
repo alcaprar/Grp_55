@@ -117,13 +117,13 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordian" href="#auto">
+                                    <a data-toggle="collapse" data-parent="#accordian" href="#prodotti">
                                         <span class="badge pull-right"><i class="fa fa-plus"></i></span>
                                         Gestisci Prodotti
                                     </a>
                                 </h4>
                             </div>
-                            <div id="auto" class="panel-collapse collapse">
+                            <div id="prodotti" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <ul>
                                         <li><a href=" <?= $this->url(array(
@@ -147,16 +147,29 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordian" href="#moto">
+                                    <a data-toggle="collapse" data-parent="#accordian" href="#utenti">
                                         <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                        Gestisci utenti
+                                        Gestisci Utenti
                                     </a>
                                 </h4>
                             </div>
-                            <div id="moto" class="panel-collapse collapse">
+                            <div id="utenti" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <ul>
-
+                                        <li><a href=" <?= $this->url(array(
+                                                'controller' => 'admin',
+                                                'action' => 'adduser'),
+                                                'default',true
+                                            );
+                                            ?>">Aggiungi Utente</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href=" <?= $this->url(array(
+                                                'controller' => 'admin',
+                                                'action' => 'modificacancellautente'),
+                                                'default',true
+                                            );
+                                            ?>">Modifica/cancella utente</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -164,16 +177,59 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordian" href="#moto">
+                                    <a data-toggle="collapse" data-parent="#accordian" href="#faq">
                                         <span class="badge pull-right"><i class="fa fa-plus"></i></span>
                                         Gestisci FAQ
                                     </a>
                                 </h4>
                             </div>
-                            <div id="moto" class="panel-collapse collapse">
+                            <div id="faq" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <ul>
-
+                                        <li><a href=" <?= $this->url(array(
+                                                'controller' => 'admin',
+                                                'action' => 'addfaq'),
+                                                'default',true
+                                            );
+                                            ?>">Aggiungi Faq</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href=" <?= $this->url(array(
+                                                'controller' => 'admin',
+                                                'action' => 'modificacancellafaq'),
+                                                'default',true
+                                            );
+                                            ?>">Modifica/cancella FAQ</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordian" href="#centriassistenza">
+                                        <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+                                        Gestisci Centri Assistenza
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="centriassistenza" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul>
+                                        <li><a href=" <?= $this->url(array(
+                                                'controller' => 'admin',
+                                                'action' => 'addcentro'),
+                                                'default',true
+                                            );
+                                            ?>">Aggiungi Centro assistenza</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href=" <?= $this->url(array(
+                                                'controller' => 'admin',
+                                                'action' => 'modificacancellacentro'),
+                                                'default',true
+                                            );
+                                            ?>">Modifica/cancella centro assistenza</a></li>
                                     </ul>
                                 </div>
                             </div>

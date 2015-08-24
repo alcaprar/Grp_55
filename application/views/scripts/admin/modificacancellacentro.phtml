@@ -1,0 +1,34 @@
+<?php
+echo '<div class="features_items"><!--features_items-->
+    <h2 class="title text-center">MODIFICA Centri assistenza</h2>';
+foreach($this->Centro as $centro){
+    echo'<div class="media commnets">
+						<div class="media-body">
+							<h4 class="media-heading">Nome: </h4>
+							<p>'.$centro->Nome .'</p>
+							<h4 class="media-heading">Indirizzo: </h4>
+							<p>'.$centro->Indirizzo .'</p>
+							<div class="blog-socials">
+								<ul>
+									<li><a href="'.$this->url(array(
+            'controller' => 'admin',
+            'action'     => 'updatecentro',
+            'id' => $centro->id
+        ),
+            'default',true
+        ).'"><i class="fa fa-pencil"></i>Modifica</a></li>
+									<li><a href="'.$this->url(array(
+            'controller' => 'admin',
+            'action'     => 'cancellacentro',
+            'id' => $centro->id
+        ),
+            'default',true
+        ).'"><i class="fa fa-trash-o"></i>Cancella</a></li>
+								</ul>
+							</div>
+						</div>
+						</div>';
+}
+if($this->Prodotti instanceof Zend_Paginator) {
+    echo '<div class="text-center">'.$this->paginationControl($this->Prodotti,'Elastic','admin/_paginatorCentro.phtml').'</div>';
+};
