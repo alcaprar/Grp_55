@@ -34,7 +34,6 @@ class AdminController extends Zend_Controller_Action
     //carica la view per l'inserimento di un prodotto
     public function addproductAction()
     {
-
     }
 
     //popola la form per la modifica
