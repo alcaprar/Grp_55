@@ -83,5 +83,6 @@ class Application_Resource_Product extends Zend_Db_Table_Abstract
         $old->save($old);
 
     }
+
 }
 
