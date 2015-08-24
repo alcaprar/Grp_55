@@ -4,12 +4,15 @@ class PublicController extends Zend_Controller_Action
 {
     protected $_catalogModel;
     protected $_logger;
+    protected $_loginForm;
+    protected $_authService;
 
     public function init()
     {
         $this->_helper->layout->setLayout('layout');
         $this->_logger = Zend_Registry::get('log');
         $this->_publicModel = new Application_Model_Public();
+        $this->_authService = new Application_Service_Auth();
     }
 
     public function indexAction()
@@ -67,9 +70,49 @@ class PublicController extends Zend_Controller_Action
 
     }
 
+    //carica la view per la form di login
+    public function loginAction()
+    {
+        $this->view->loginForm = $this->getLoginForm();
+    }
+
+    //metodo per la verifica del login
+    public function effettualoginAction()
+    {
+        $request = $this->getRequest();
+        if (!$request->isPost()) {
+            return $this->_helper->redirector('login');
+        }
+        $form = $this->_loginForm;
+        if (!$form->isValid($request->getPost())) {
+            $form->setDescription('Attenzione: alcuni dati inseriti sono errati.');
+            return $this->render('login');
+        }
+        if (false === $this->_authService->authenticate($form->getValues())) {
+            $form->setDescription('Autenticazione fallita. Riprova');
+            return $this->render('login');
+        }
+        return $this->_helper->redirector('index', $this->_authService->getIdentity()->role);
+    }
+
     public function viewstaticAction () {
         $page = $this->_getParam('staticPage');
         $this->render($page);
+    }
+
+    //ottiene la form di login, richiamato dall'action login
+    private function getLoginForm()
+    {
+        $urlHelper = $this->_helper->getHelper('url');
+
+        $this->_loginForm = new Application_Form_Public_Auth_Login();
+        $this->_loginForm->setAction($urlHelper->url(array(
+            'controller' => 'public',
+            'action' => 'effettualogin' //da realizzare
+            ),
+            'default'
+        ));
+        return $this->_loginForm;
     }
 }
 
