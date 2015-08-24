@@ -26,7 +26,7 @@ class Application_Form_Public_Auth_Login extends App_Form_Abstract
             'required'   => true,
             'label'      => 'Username',
             'decorators' => $this->elementDecorators,
-        ));
+        ))->setAttrib('placeholder', 'Username');;
 
         //Input per la passoword
         $this->addElement('password', 'password', array(
