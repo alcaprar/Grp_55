@@ -13,7 +13,7 @@ class Application_Form_Admin_Product_Add extends App_Form_Abstract
 		$this->setAction('');
 
 		//nome del prodotto
-		$this->addElement('text', 'name', array(
+		$this->addElement('text', 'Nome', array(
             'label' => 'Nome',
             'filters' => array('StringTrim'),
             'required' => true,
@@ -35,9 +35,8 @@ class Application_Form_Admin_Product_Add extends App_Form_Abstract
 		));
 		*/
 
-		//immagine del prodotto
-		/*
-		 	$this->addElement('file', 'image', array(
+
+		$this->addElement('file', 'Foto', array(
 			'label' => 'Immagine',
 			'destination' => APPLICATION_PATH . '/../public/images/products',
 			'validators' => array(
@@ -45,18 +44,18 @@ class Application_Form_Admin_Product_Add extends App_Form_Abstract
 			array('Size', false, 102400),
 			array('Extension', false, array('jpg', 'gif'))),
             'decorators' => $this->fileDecorators,
-			));
-		*/
+		));
 
-		$this->addElement('text', 'descShort', array(
+
+		$this->addElement('text', 'DescrizioneBreve', array(
             'label' => 'Descrizione Breve',
             'required' => true,
             'filters' => array('StringTrim'),
-            'validators' => array(array('StringLength',true, array(1,30))),
+            'validators' => array(array('StringLength',true, array(1,250))),
 			'decorators' => $this->elementDecorators,
 		));
 
-		$this->addElement('textarea', 'descLong', array(
+		$this->addElement('textarea', 'DescrizioneLunga', array(
             'label' => 'Descrizione Estesa',
         	'cols' => '60', 'rows' => '20',
             'filters' => array('StringTrim'),
@@ -64,6 +63,56 @@ class Application_Form_Admin_Product_Add extends App_Form_Abstract
             'validators' => array(array('StringLength',true, array(1,2500))),
 			'decorators' => $this->elementDecorators,
 		));
+
+		$this->addElement('textarea', 'NTBU', array(
+			'label' => 'Note tecniche di buon uso',
+			'cols' => '60', 'rows' => '20',
+			'filters' => array('StringTrim'),
+			'required' => true,
+			'validators' => array(array('StringLength',true, array(1,2500))),
+			'decorators' => $this->elementDecorators,
+		));
+
+        $this->addElement('textarea', 'ModInstallazione', array(
+            'label' => 'Modalità di installazione particolari',
+            'cols' => '60', 'rows' => '20',
+            'filters' => array('StringTrim'),
+            'required' => true,
+            'validators' => array(array('StringLength',true, array(1,2500))),
+            'decorators' => $this->elementDecorators,
+        ));
+
+        $this->addElement('text', 'Cilindrata', array(
+            'label' => 'Cilindrata',
+            'filters' => array('StringTrim'),
+            'required' => true,
+            'validators' => array(array('StringLength',true, array(1,25))),
+            'decorators' => $this->elementDecorators,
+        ));
+
+        $this->addElement('text', 'Potenza', array(
+            'label' => 'Potenza',
+            'filters' => array('StringTrim'),
+            'required' => true,
+            'validators' => array(array('StringLength',true, array(1,25))),
+            'decorators' => $this->elementDecorators,
+        ));
+
+        $this->addElement('text', 'MassaVuoto', array(
+            'label' => 'Massa a vuoto',
+            'filters' => array('StringTrim'),
+            'required' => true,
+            'validators' => array(array('StringLength',true, array(1,25))),
+            'decorators' => $this->elementDecorators,
+        ));
+
+        $this->addElement('text', 'VelocitaMax', array(
+            'label' => 'Velocità massima',
+            'filters' => array('StringTrim'),
+            'required' => true,
+            'validators' => array(array('StringLength',true, array(1,25))),
+            'decorators' => $this->elementDecorators,
+        ));
 
 		$this->addElement('submit', 'add', array(
             'label' => 'Aggiungi Prodotto',

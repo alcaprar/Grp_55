@@ -37,5 +37,11 @@ class Application_Resource_Product extends Zend_Db_Table_Abstract
         return $this->fetchAll($select);
     }
 
+    //aggiunge un prodotto
+    public function insertProduct($prodotto)
+    {
+        $this->insert($prodotto);
+    }
+
 }
 

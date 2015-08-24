@@ -9,7 +9,7 @@ class AdminController extends Zend_Controller_Action
     {
         $this->_helper->layout->setLayout('admin');
         $this->_logger = Zend_Registry::get('log');
-        //$this->_publicModel = new Application_Model_Public(); //sostituire con il model per Admin da creare
+        $this->_adminModel = new Application_Model_Admin();
 
         $this->view->productForm = $this->getProductForm();
     }
@@ -48,7 +48,6 @@ class AdminController extends Zend_Controller_Action
         $form = $this->_form;
 
 
-
         //Fa un incrocio fra $post e i campi ricevuti dalla form, restituisce true se sono compatibili, false altrimenti
         if (!$form->isValid($_POST)) {
             $form->setDescription('ATTENZIONE: alcuni dati inseriti sono errati!');
@@ -65,7 +64,7 @@ class AdminController extends Zend_Controller_Action
         $values = $form->getValues();
         $this->_logger->log($values,Zend_Log::DEBUG);
 
-        //$this->_adminModel->saveFaq($values);   //Definita in Model/Amministratore.php
+        $this->_adminModel->insertProduct($values);   //Definita in Model/Amministratore.php
         //$this->_helper->redirector('faq');
 
     }
