@@ -68,12 +68,11 @@
                                 );
                                 ?>"><i class="fa fa-user"></i>Admin</a></li>
                             <li><a href="<?= $this->url(array(
-                                    'controller' => 'public',
-                                    'action'     => 'index',
-                                    'viewStatic' => 'login'),
+                                    'controller' => 'admin',
+                                    'action'     => 'logout'),
                                     'default',true
                                 );
-                                ?>"><i class="fa fa-lock"></i> Login</a></li>
+                                ?>"><i class="fa fa-lock"></i> Logout</a></li>
                         </ul>
                     </div>
                 </div>

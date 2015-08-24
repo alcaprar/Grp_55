@@ -5,6 +5,7 @@ class AdminController extends Zend_Controller_Action
     protected $_logger;
     protected $_addProductForm;
     protected $_editProductForm;
+    protected $_authService;
 
     public function init()
     {
@@ -14,6 +15,7 @@ class AdminController extends Zend_Controller_Action
 
         $this->view->addProductForm = $this->getProductForm();
         $this->view->editProductForm = $this->getEditProductForm();
+        $this->_authService = new Application_Service_Auth();
     }
 
     public function indexAction()
@@ -212,7 +214,7 @@ class AdminController extends Zend_Controller_Action
     //Cancella l'identità e poi reindirizza all'azione index del controller public
     public function logoutAction()
     {
-        //$this->_authService->clear();
+        $this->_authService->clear();
         return $this->_helper->redirector('index', 'public');
     }
 }
