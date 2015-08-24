@@ -129,10 +129,18 @@
                                     <ul>
                                         <li><a href=" <?= $this->url(array(
                                                 'controller' => 'admin',
-                                                'action' => 'addnewproduct'),
+                                                'action' => 'addproduct'),
                                                 'default',true
                                             );
-                                            ?>">Admin</a></li>
+                                            ?>">Aggiungi Prodotto</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href=" <?= $this->url(array(
+                                                'controller' => 'admin',
+                                                'action' => 'modificacancellaprodotto'),
+                                                'default',true
+                                            );
+                                            ?>">Modifica/cancella prodotto</a></li>
                                     </ul>
                                 </div>
                             </div>

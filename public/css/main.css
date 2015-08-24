@@ -2203,7 +2203,7 @@ h2.title {
 }
 
 .commnets {
-  border: 1px solid #F7F7F0;
+  border: 5px solid #73736A;
   padding: 18px 18px 18px 0;
   margin-bottom: 50px
 }
@@ -2244,10 +2244,10 @@ h2.title {
 .blog-socials ul li {
   
   float: left;
-  height: 17px;
+  height: 25px;
   margin-right: 5px;
   text-align: center;
-  width: 17px;
+
 }
 
 
