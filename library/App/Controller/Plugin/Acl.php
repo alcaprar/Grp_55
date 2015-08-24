@@ -25,6 +25,6 @@ class App_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
     {
         $this->_request->setModuleName('default')
             ->setControllerName('public')
-            ->setActionName('index');
+            ->setActionName('accessonegato');
     }
 }

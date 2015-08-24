@@ -115,5 +115,16 @@ class PublicController extends Zend_Controller_Action
         ));
         return $this->_loginForm;
     }
+
+    public function accessonegatoAction()
+    {
+        $redirect = $this->_helper->getHelper('url')->url(array(
+            'controller' => 'public',
+            'action' => 'index'
+        ),
+            'default'
+        );
+        $this->view->assign(array('redirect' => $redirect));
+    }
 }
 
