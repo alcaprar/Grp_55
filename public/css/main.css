@@ -1560,6 +1560,10 @@ h2.title {
   content: " ";
 }
 
+tr.border_bottom td {
+  border-bottom:1pt solid black;
+}
+
 #cart_items .cart_info {
   border: 1px solid #E6E4DF;
   margin-bottom: 50px
@@ -1580,11 +1584,11 @@ h2.title {
 
 
 #cart_items .cart_info .table.table-condensed tr {
-  border-bottom: 1px solid#F7F7F0
+  border-bottom: 2px solid#a8a8a3
 }
 
 #cart_items .cart_info .table.table-condensed tr:last-child {
-  border-bottom: 0
+  border-bottom: 2px
 }
 
 .cart_info table tr td {
@@ -1628,7 +1632,7 @@ h2.title {
 
 .cart_product {
   display: block;
-  margin: 15px -70px 10px 25px;
+  margin: 15px -70px 10px 5px;
 }
 
 .cart_quantity_button a {
@@ -1662,7 +1666,7 @@ h2.title {
 
 
 .cart_delete a {
-  background:#F0F0E9;
+  background:#a8a8a3;
   color: #FFFFFF;
   padding: 5px 7px;
   font-size: 16px

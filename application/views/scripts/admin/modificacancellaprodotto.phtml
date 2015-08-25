@@ -1,36 +1,53 @@
 <?php
 echo '<div class="features_items"><!--features_items-->
     <h2 class="title text-center">MODIFICA PRODOTTI</h2>';
+echo'<div class="table-responsive cart_info">
+				<table class="table table-condensed">
+					<thead>
+						<tr class="cart_menu border_bottom">
+							<td class="image">Immagine</td>
+							<td class="description">Prodotto</td>
+							<td class="price">Descrizione</td>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody>';
     foreach($this->Prodotti as $prod){
         $urlfoto = ($prod->Foto=='' || is_null($prod->Foto))?($this->baseURL().'/images/product-details/image-coming-soon.png'):($this->baseURL().'/images/products/'. $prod->Foto);
-        echo'<div class="media commnets">
-						<a class="pull-left" href="#">
-							<img class="media-object" height="150" width="150" src="'. $urlfoto.'" alt="">
-						</a>
-						<div class="media-body">
-							<h4 class="media-heading">'.$prod->Nome.'</h4>
-							<p>'.$prod->DescrizioneBreve .'</p>
-							<div class="blog-socials">
-								<ul>
-									<li><a href="'.$this->url(array(
-                                                'controller' => 'admin',
-                                                'action'     => 'updateproduct',
-                                                'id' => $prod->id
-                                                 ),
-                                                    'default',true
-                                                 ).'"><i class="fa fa-pencil"></i>Modifica</a></li>
-									<li><a href="'.$this->url(array(
-                                                 'controller' => 'admin',
-                                                'action'     => 'cancellaprodotto',
-                                                'id' => $prod->id
-                                                 ),
-                                                     'default',true
-                                                   ).'"><i class="fa fa-trash-o"></i>Cancella</a></li>
-								</ul>
-							</div>
-						</div>
-						</div>';
+        echo '
+						<tr class="border_bottom">
+							<td style="width:20%">
+								<a href=""><img height="100" width="100" src="'. $urlfoto.'" alt=""></a>
+							</td>
+							<td style="width:20%">
+								<h4>'.$prod->Nome.'</h4>
+								<p>ID: '.$prod->id.'</p>
+							</td>
+							<td style="width:40%">
+								<p>'.$prod->DescrizioneBreve.'</p>
+							</td>
+							<td  style="width:40%">
+							    <a href="'.$this->url(array(
+                'controller' => 'admin',
+                'action'     => 'updateproduct',
+                'id' => $prod->id
+            ),
+                'default',true
+            ).'" class="cart_quantity_delete" href=""><i class="fa fa-pencil"></i>Modifica</a>
+								<a href="'.$this->url(array(
+                'controller' => 'admin',
+                'action'     => 'cancellaprodotto',
+                'id' => $prod->id
+            ),
+                'default',true
+            ).'" class="cart_quantity_delete" href=""><i class="fa fa-times"></i>Cancella</a>
+							</td>
+						</tr>
+					';
     }
+echo'</tbody>
+				</table>
+			</div>';
 if($this->Prodotti instanceof Zend_Paginator) {
 echo '<div class="text-center">'.$this->paginationControl($this->Prodotti,'Elastic','admin/_paginatorProdotti.phtml').'</div>';
 };
