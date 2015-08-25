@@ -39,6 +39,23 @@ class AdminController extends Zend_Controller_Action
     //carica la view per l'inserimento di un prodotto
     public function addproductAction()
     {
+        $select = $this->_addProductForm->getElement('idCategoria');
+
+        $rows = $this->_adminModel->getCategorie();
+
+        $this->_logger->log($rows->toArray(),Zend_Log::DEBUG);
+
+        $categorie = [];
+
+        foreach($rows->toArray() as $row)
+        {
+            $this->_logger->log($row['id'],Zend_Log::DEBUG);
+            $categorie[$row['id']] = $row['Nome'];
+        }
+
+        $this->_logger->log($categorie,Zend_Log::DEBUG);
+        $select->setMultiOptions($categorie);
+
     }
 
     //popola la form per la modifica

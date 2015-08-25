@@ -112,4 +112,9 @@ class Application_Model_Admin extends App_Model_Abstract
     {
         return $this->getResource('Utenti')->getUserByName($info);
     }
+
+    public function getCategorie()
+    {
+        return $this->getResource('Category')->getCategorie();
+    }
 }

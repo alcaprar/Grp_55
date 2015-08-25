@@ -24,4 +24,13 @@ class Application_Resource_Category extends Zend_Db_Table_Abstract
             ->order('Nome');
         return $this->fetchAll($select);
     }
+
+    //estrae tutte le categorie
+    public function getCategorie()
+    {
+        $select = $this->select()
+            ->from('Categorie')
+            ->order('Nome');
+        return $this->fetchAll($select);
+    }
 }
