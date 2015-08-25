@@ -86,7 +86,7 @@ class AdminController extends Zend_Controller_Action
 
         //se la foto non è stata inserita aggiungo l'elemento alla form
         if($vector['Foto']==''){
-            $this->_editProductFormForm->addElement('file', 'Foto', array(
+            $this->_editProductForm->addElement('file', 'Foto', array(
                 'label' => 'Immagine',
                 'destination' => APPLICATION_PATH . '/../public/images/products',
                 'validators' => array(
