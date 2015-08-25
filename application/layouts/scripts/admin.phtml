@@ -50,7 +50,7 @@
                 <div class="col-sm-4">
                     <div class="logo pull-left">
                         <a href=" <?= $this->url(array(
-                            'controller' => 'index',
+                            'controller' => 'admin',
                             'action'     => 'index',
                         ),
                             'default',true
@@ -61,18 +61,12 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href=" <?= $this->url(array(
-                                    'controller' => 'admin',
-                                    'action' => 'index'),
-                                    'default',true
-                                );
-                                ?>"><i class="fa fa-user"></i>Admin</a></li>
                             <li><a href="<?= $this->url(array(
                                     'controller' => 'admin',
                                     'action'     => 'logout'),
                                     'default',true
                                 );
-                                ?>"><i class="fa fa-lock"></i> Logout</a></li>
+                                ?>"><i class="fa fa-lock"></i>Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -92,10 +86,7 @@
                             <span class="icon-bar"></span>
                         </button>
                     </div>
-                    <div class="mainmenu pull-left">
-                        <?= $this->render('mainmenu.phtml') ?>
                     </div>
-                </div>
                 <div class="col-sm-3">
                     <div class="search_box pull-right">
                         <input type="text" placeholder="Search"/>
