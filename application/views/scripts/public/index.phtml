@@ -68,7 +68,7 @@
 
             <?php
             if(!is_null($this->Prodotto)){
-                $urlfoto = ($this->Prodotto->Foto=='' || is_null($this->Prodotto->Foto))?($this->baseURL().'/images/product-details/image-coming-soon.png'):($this->baseURL() + $this->Prodotto->Foto);
+                $urlfoto = ($this->Prodotto->Foto=='' || is_null($this->Prodotto->Foto))?($this->baseURL().'/images/product-details/image-coming-soon.png'):($this->baseURL() .'/images/products/'. $this->Prodotto->Foto);
                 echo'<div class="features_items"><!--features_items-->
                     <h2 class="title text-center">Catalogo Pubblico</h2>
                     <div class="col-sm-9 padding-right">
@@ -119,7 +119,7 @@
                 echo '<div class="features_items"><!--features_items-->
                       <h2 class="title text-center">Catalogo Pubblico - '.$this->Categoria.'</h2>';
                 foreach($this->Prodotti as $prod){
-                    $urlfoto = ($prod->Foto=='' || is_null($prod->Foto))?($this->baseURL().'/images/product-details/image-coming-soon.png'):($this->baseURL() + $prod->Foto);
+                    $urlfoto = ($prod->Foto=='' || is_null($prod->Foto))?($this->baseURL().'/images/product-details/image-coming-soon.png'):($this->baseURL().'/images/products/'. $prod->Foto);
                     echo'<div class="col-sm-4">
 							<div class="product-image-wrapper">
 								<div class="single-products">

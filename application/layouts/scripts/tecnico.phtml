@@ -52,7 +52,7 @@
                 <div class="col-sm-4">
                     <div class="logo pull-left">
                         <a href=" <?= $this->url(array(
-                            'controller' => 'index',
+                            'controller' => 'tecnico',
                             'action'     => 'index',
                         ),
                             'default',true
@@ -63,13 +63,23 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="<?= $this->url(array(
-                                    'controller' => 'public',
-                                    'action'     => 'login'),
+                            <li><a href=" <?= $this->url(array(
+                                    'controller' => 'tecnico',
+                                    'action'     => 'index',
+                                ),
                                     'default',true
                                 );
-                                ?>"><i class="fa fa-lock"></i> Login</a></li>
+                                ?>" >Home</a></li>
+                            <li><a href="<?= $this->url(array(
+                                    'controller' => 'tecnico',
+                                    'action'     => 'logout'),
+                                    'default',true
+                                );
+                                ?>"><i class="fa fa-lock"></i>Logout</a></li>
                         </ul>
+                    </div>
+                    <div class="search_box pull-right">
+                        <input type="text" placeholder="Search"/>
                     </div>
                 </div>
             </div>
@@ -88,14 +98,9 @@
                             <span class="icon-bar"></span>
                         </button>
                     </div>
-                    <div class="mainmenu pull-left">
-                        <?= $this->render('mainmenu.phtml') ?>
-                    </div>
                 </div>
                 <div class="col-sm-3">
-                    <div class="search_box pull-right">
-                        <input type="text" placeholder="Search"/>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -104,7 +109,7 @@
 
 
 
-        <?php echo $this->layout()->content; ?>
+<?php echo $this->layout()->content; ?>
 
 
 <footer id="footer"><!--Footer-->
@@ -182,56 +187,6 @@
                     <div class="address">
                         <img src="<?php echo $this->baseURL();?>/images/home/map.png" alt="" />
                         <p>Via Brecce Bianche, Ancona (AN), Italia</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="footer-widget">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-2">
-                    <div class="single-widget">
-                        <h2>Servizi</h2>
-                        <ul class="nav nav-pills nav-stacked">
-                            <li><a href="#">Help-Desk</a></li>
-                            <li><a href="<?= $this->url(array(
-                                    'controller' => 'public',
-                                    'action'     => 'index',
-                                    'viewStatic' => 'contact'),
-                                    'default',true
-                                );
-                                ?>">Contattaci</a></li>
-                            <li><a href="<?= $this->url(array(
-                                    'controller' => 'public',
-                                    'action'     => 'index',
-                                    'viewStatic' => 'faq'),
-                                    'default',true
-                                );
-                                ?>">FAQ's</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <div class="single-widget">
-                        <h2>Su di noi</h2>
-                        <ul class="nav nav-pills nav-stacked">
-                            <li><a href="<?= $this->url(array(
-                                    'controller' => 'public',
-                                    'action'     => 'index',
-                                    'viewStatic' => 'who'),
-                                    'default',true
-                                );
-                                ?>">Informazioni sull'azienda</a></li>
-                            <li><a href="<?= $this->url(array(
-                                    'controller' => 'public',
-                                    'action'     => 'index',
-                                    'viewStatic' => 'copyright'),
-                                    'default',true
-                                );
-                                ?>">Copyright</a></li>
-                        </ul>
                     </div>
                 </div>
             </div>
