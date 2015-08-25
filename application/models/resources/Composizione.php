@@ -1,27 +1,21 @@
 <?php
 
-class Application_Resource_Category extends Zend_Db_Table_Abstract
+class Application_Resource_Composizione extends Zend_Db_Table_Abstract
 {
     protected $_name    = 'Composizione';
-    protected $_primary  = 'id';
-    protected $_rowClass = 'Application_Resource_Category_Item';
+    protected $_rowClass = 'Application_Resource_Composizione_Item';
 
     public function init()
     {
+
     }
 
-    // Estrae i dati della categoria $id
-    public function getCatById($id)
-    {
-        return $this->find($id)->current();
-    }
-
-    // Estrae tutte le Categorie di uno dei due macro-gruppi
-    public function getCats($top)
+    //Estrae i componenti di un prodotto
+    public function getCompositionById($id)
     {
         $select = $this->select()
-            ->where('Tipo IN(?)', $top)
-            ->order('name');
+            ->where('idProdotto IN(?)', $id)
+            ->order('idComponente');
         return $this->fetchAll($select);
     }
 }
