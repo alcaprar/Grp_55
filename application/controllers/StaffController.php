@@ -8,7 +8,7 @@ class StaffController extends Zend_Controller_Action
 
     public function init()
     {
-        $this->_helper->layout->setLayout('admin');
+        $this->_helper->layout->setLayout('staff');
         $this->_logger = Zend_Registry::get('log');
         $this->_staffModel = new Application_Model_Staff();
         $this->_authService = new Application_Service_Auth();
@@ -17,11 +17,6 @@ class StaffController extends Zend_Controller_Action
     public function indexAction()
     {
 
-    }
-
-    public function viewstaticAction () {
-        $page = $this->_getParam('staticPage');
-        $this->render($page);
     }
 
     //Cancella l'identità e poi reindirizza all'azione index del controller public
