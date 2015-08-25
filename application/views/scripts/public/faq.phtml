@@ -67,7 +67,31 @@
     <div class="col-sm-9 padding-right">
         <div class="features_items"><!--features_items-->
             <h2 class="title text-center">Frequently Asked Questions</h2>
-            FAQ
+            <?php
+            echo '<dl id="faqs">';
+            foreach ($this->Faq as $faq)
+            {
+                echo'<dt id="domanda" > <i id="iconadomanda" class="fa fa-plus-circle"></i>'.$faq->Domanda.'</dt>
+                     <dd id="risposta">'.$faq->Risposta.'</dd>
+                    ';
+            }
+            echo'</dl>
+                   <script>
+                   $("#risposta").hide();
+$( "#domanda" ).click(function() {
+  $( "#risposta" ).toggle( "slow", function() {
+    if($( "#iconadomanda" ).hasClass( "fa fa-plus-circle" )){
+    $("#iconadomanda").removeClass("fa fa-plus-circle");
+    $("#iconadomanda").addClass( "fa fa-minus-circle" );
+    } else {
+    $("#iconadomanda").removeClass( "fa fa-minus-circle" );
+    $("#iconadomanda").addClass("fa fa-plus-circle");
+    }
+  });
+});
+</script>';
+            ?>
+
         </div><!--features_items-->
     </div>
 </div>

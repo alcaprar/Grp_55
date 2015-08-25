@@ -53,13 +53,17 @@ class PublicController extends Zend_Controller_Action
         $CategorieA = $this->_publicModel->getCatsByParId('A');
         $CategorieM = $this->_publicModel->getCatsByParId('M');
 
+        //recupero le faq
+        $faq = $this->_publicModel->selectFaq($paged=null, $order=null);
+
         // Definisce le variabili per il viewer
         $this->view->assign(array(
                 'CategorieA' => $CategorieA,
                 'CategorieM' => $CategorieM,
                 'Categoria' => $nomeCategoria,
                 'Prodotti' => $prodotti,
-                'Prodotto' => $prodotto
+                'Prodotto' => $prodotto,
+                'Faq' => $faq
             )
         );
 

@@ -36,4 +36,9 @@ class Application_Model_Public extends App_Model_Abstract
     {
         return $this->getResource('Product')->getProdById($idProdotto);
     }
+
+    public function selectFaq($paged, $order)
+    {
+        return $this->getResource('Faq')->selectFaq($paged, $order);
+    }
 }

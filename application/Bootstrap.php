@@ -43,6 +43,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $this->_view->headLink()->appendStylesheet($this->_view->baseUrl('css/animate.css'));
         $this->_view->headLink()->appendStylesheet($this->_view->baseUrl('css/responsive.css'));
         $this->_view->headLink()->appendStylesheet($this->_view->baseUrl('css/main.css'));
+        $this->_view->headScript()->appendFile('https://code.jquery.com/jquery-1.10.2.js');
         $this->_view->headTitle('Grp_55 TecWeb')
             ->setSeparator(' - ');
     }
