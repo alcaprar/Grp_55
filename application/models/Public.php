@@ -17,16 +17,6 @@ class Application_Model_Public extends App_Model_Abstract
         return $this->getResource('Category')->getCats($parId);
     }
 
-    public function getProdsByCat($catId, $paged=null, $order=null, $deep=true)
-    {
-        if (true === $deep) {
-            $ids = $this->getResource('Category')->getCatChilIds($catId, true);
-            $ids[] = $catId;
-            $catId = $ids;
-        }
-        return $this->getResource('Product')->getProdsByCat($catId, $paged, $order);
-    }
-
     public function getProdsByCat2($catName, $paged=null, $order=null)
     {
         return $this->getResource('Product')->getProdsByCat($catName, $paged, $order);

@@ -1,0 +1,36 @@
+<?php
+echo '<div class="features_items"><!--features_items-->
+    <h2 class="title text-center">MODIFICA COMPONENTI</h2>';
+foreach($this->Componenti as $comp){
+    $urlfoto = ($comp->Foto=='' || is_null($comp->Foto))?($this->baseURL().'/images/product-details/image-coming-soon.png'):($this->baseURL().'/images/products/'. $comp->Foto);
+    echo'<div class="media commnets">
+						<a class="pull-left" href="#">
+							<img class="media-object" height="150" width="150" src="'.$urlfoto .'" alt="">
+						</a>
+						<div class="media-body">
+							<h4 class="media-heading">'.$comp->Nome.'</h4>
+							<p>'.$comp->Descrizione .'</p>
+							<div class="blog-socials">
+								<ul>
+									<li><a href="'.$this->url(array(
+            'controller' => 'admin',
+            'action'     => 'updatecomponent',
+            'id' => $comp->id
+        ),
+            'default',true
+        ).'"><i class="fa fa-pencil"></i>Modifica</a></li>
+									<li><a href="'.$this->url(array(
+            'controller' => 'admin',
+            'action'     => 'cancellacomponente',
+            'id' => $comp->id
+        ),
+            'default',true
+        ).'"><i class="fa fa-trash-o"></i>Cancella</a></li>
+								</ul>
+							</div>
+						</div>
+						</div>';
+}
+if($this->Componenti instanceof Zend_Paginator) {
+    echo '<div class="text-center">'.$this->paginationControl($this->Componenti,'Elastic','admin/_paginatorComponenti.phtml').'</div>';
+};

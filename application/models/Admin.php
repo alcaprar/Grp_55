@@ -33,6 +33,31 @@ class Application_Model_Admin extends App_Model_Abstract
         return $this->getResource('Product')->getProdById($idProdotto);
     }
 
+    public function insertComponent($componente)
+    {
+        return $this->getResource('Component')->insertComponent($componente);
+    }
+
+    public function selectComponent($paged, $order)
+    {
+        return $this->getResource('Component')->selectComponent($paged, $order);
+    }
+
+    public function deleteComponent($id)
+    {
+        return $this->getResource('Component')->deleteComponent($id);
+    }
+
+    public function updateComponent($componente, $id)
+    {
+        return $this->getResource('Component')->updateComponent($componente,$id);
+    }
+
+    public function getComponentById($idComponent)
+    {
+        return $this->getResource('Component')->getComponentById($idComponent);
+    }
+
     public function insertFaq($faq)
     {
         return $this->getResource('Faq')->insertFaq($faq);

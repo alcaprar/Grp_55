@@ -35,17 +35,15 @@ class Application_Form_Admin_Product_Add extends App_Form_Abstract
 		));
 		*/
 
-        /*
-		$this->addElement('file', 'Foto', array(
-			'label' => 'Immagine',
-			'destination' => APPLICATION_PATH . '/../public/images/products',
-			'validators' => array(
-			array('Count', false, 1),
-			array('Size', false, 102400),
-			array('Extension', false, array('jpg', 'gif'))),
+        $this->addElement('file', 'Foto', array(
+            'label' => 'Immagine',
+            'destination' => APPLICATION_PATH . '/../public/images/products',
+            'validators' => array(
+                array('Count', false, 1),
+                array('Size', false, 102400),
+                array('Extension', false, array('jpg', 'gif'))),
             'decorators' => $this->fileDecorators,
-		));
-        */
+        ));
 
 		$this->addElement('text', 'DescrizioneBreve', array(
             'label' => 'Descrizione Breve',
