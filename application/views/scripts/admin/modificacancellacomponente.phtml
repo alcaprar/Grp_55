@@ -1,36 +1,57 @@
 <?php
-echo '<div class="features_items"><!--features_items-->
-    <h2 class="title text-center">MODIFICA COMPONENTI</h2>';
+echo'<div class="col-sm-9 padding-right">
+                <div class="features_items"><!--features_items-->
+                    <h2 class="title text-center">Modifica componenti</h2>
+                    <div  id="cart_items" >
+                        <div  class="table-responsive cart_info">
+                            <table  class="table table-condensed">
+                                <thead>
+                                <tr class="cart_menu">
+                                    <td class="image">Immagine</td>
+                                    <td class="description">Componente</td>
+                                    <td class="description">Descrizione</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                </thead>
+                                <tbody>';
 foreach($this->Componenti as $comp){
-    $urlfoto = ($comp->Foto=='' || is_null($comp->Foto))?($this->baseURL().'/images/product-details/image-coming-soon.png'):($this->baseURL().'/images/products/'. $comp->Foto);
-    echo'<div class="media commnets">
-						<a class="pull-left" href="#">
-							<img class="media-object" height="150" width="150" src="'.$urlfoto .'" alt="">
-						</a>
-						<div class="media-body">
-							<h4 class="media-heading">'.$comp->Nome.'</h4>
-							<p>'.$comp->Descrizione .'</p>
-							<div class="blog-socials">
-								<ul>
-									<li><a href="'.$this->url(array(
+    $urlfoto = ($comp->Foto=='' || is_null($comp->Foto))?($this->baseURL().'/images/product-details/image-coming-soon.png'):($this->baseURL().'/images/component/'. $comp->Foto);
+    echo'<tr>
+                                    <td class="cart_product">
+                                        <img height="100" width="100" src="'. $urlfoto.'" alt="">
+                                    </td>
+                                    <td  class="cart_description">
+                                        <h4>'.$comp->Nome.'</h4>
+                                        <p>ID: '.$comp->id.'</p>
+                                    </td>
+                                    <td  class="cart_description">
+                                        <p>'.$comp->Descrizione.'</p>
+                                    </td>
+                                    <td  class="cart_delete">
+                                        <p><a class="cart_quantity_delete" href="'.$this->url(array(
             'controller' => 'admin',
             'action'     => 'updatecomponent',
             'id' => $comp->id
         ),
             'default',true
-        ).'"><i class="fa fa-pencil"></i>Modifica</a></li>
-									<li><a href="'.$this->url(array(
+        ).'"><i class="fa fa-pencil">Modifica</i></a></p>
+                                        <p><a class="cart_quantity_delete" href="'.$this->url(array(
             'controller' => 'admin',
             'action'     => 'cancellacomponente',
             'id' => $comp->id
         ),
             'default',true
-        ).'"><i class="fa fa-trash-o"></i>Cancella</a></li>
-								</ul>
-							</div>
-						</div>
-						</div>';
+        ).'"><i class="fa fa-times">Cancella</i></a></p>
+                                    </td>
+                                </tr>';
 }
-if($this->Componenti instanceof Zend_Paginator) {
-    echo '<div class="text-center">'.$this->paginationControl($this->Componenti,'Elastic','admin/_paginatorComponenti.phtml').'</div>';
+echo'</tbody>
+                            </table>
+                        </div>
+                    </div>';
+if($this->Prodotti instanceof Zend_Paginator) {
+    echo '<div class="text-center">'.$this->paginationControl($this->Prodotti,'Elastic','admin/_paginatorProdotti.phtml').'</div>';
 };
+echo '</div><!--features_items-->
+            </div>';
