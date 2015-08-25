@@ -25,9 +25,7 @@ class Application_Form_Admin_Product_Add extends App_Form_Abstract
             'label' => 'Categoria',
             'required' =>true,
             'decorators' => $this->elementDecorators,
-            'options' => array(
-                'disable_inarray_validator' => true,
-            ),
+            'registerInArrayValidator' => false
         ));
 
         $this->addElement('file', 'Foto', array(

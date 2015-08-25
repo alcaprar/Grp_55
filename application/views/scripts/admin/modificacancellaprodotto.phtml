@@ -2,9 +2,10 @@
 echo '<div class="features_items"><!--features_items-->
     <h2 class="title text-center">MODIFICA PRODOTTI</h2>';
     foreach($this->Prodotti as $prod){
-    echo'<div class="media commnets">
+        $urlfoto = ($prod->Foto=='' || is_null($prod->Foto))?($this->baseURL().'/images/product-details/image-coming-soon.png'):($this->baseURL().'/images/products/'. $prod->Foto);
+        echo'<div class="media commnets">
 						<a class="pull-left" href="#">
-							<img class="media-object" src="'. $this->baseURL().'/images/blog/man-one.jpg" alt="">
+							<img class="media-object" height="150" width="150" src="'. $urlfoto.'" alt="">
 						</a>
 						<div class="media-body">
 							<h4 class="media-heading">'.$prod->Nome.'</h4>

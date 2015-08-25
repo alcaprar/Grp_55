@@ -41,13 +41,13 @@ class Application_Resource_Faq extends Zend_Db_Table_Abstract
     }
 
     //rimuove una faq
-    public function deleteProduct($id)
+    public function deleteFaq($id)
     {
         $this->fetchRow($this->select()->where('id = ?', $id))->delete();
     }
 
     //aggiorna la faq
-    public function updateProduct($faq, $id)
+    public function updateFaq($faq, $id)
     {
         //Fa la SELECT, essendo il risultato una sola riga, faccio fetchRow
         $old = $this->fetchRow($this->select()->where('id = ?', $id));   // (filtro) seleziona l'utente con l'id specificato

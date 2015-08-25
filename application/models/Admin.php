@@ -75,7 +75,7 @@ class Application_Model_Admin extends App_Model_Abstract
 
     public function updateFaq($faq, $id)
     {
-        return $this->getResource('Faq')->updateProduct($faq,$id);
+        return $this->getResource('Faq')->updateFaq($faq,$id);
     }
 
     public function getFaqById($idFaq)
@@ -111,6 +111,21 @@ class Application_Model_Admin extends App_Model_Abstract
     public function getUserByName($info)
     {
         return $this->getResource('Utenti')->getUserByName($info);
+    }
+
+    public function getUserById($id)
+    {
+        return $this->getResource('Utenti')->getUserById($id);
+    }
+
+    public function selectUser($paged, $order)
+    {
+        return $this->getResource('Utenti')->selectUser($paged, $order);
+    }
+
+    public function insertUser($user)
+    {
+        return $this->getResource('Utenti')->insertUser($user);
     }
 
     public function getCategorie()
