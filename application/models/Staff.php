@@ -7,6 +7,11 @@ class Application_Model_Staff extends App_Model_Abstract
         //$this->_logger = Zend_Registry::get('log');
     }
 
+    public function getMalfunctionById($id)
+    {
+        return $this->getResource('Malfunction')->getMalfunctionById($id);
+    }
+
     public function insertMalf($newMalf, $idProdotto)
     {
         return (
@@ -20,4 +25,10 @@ class Application_Model_Staff extends App_Model_Abstract
     {
         return $this->getResource('Malfunction')->updateMalfunction($updateMalf, $idMalf);
     }
+
+    public function deleteMalf($idMalf)
+    {
+        return $this->getResource('Malfunction')->deleteMalfunction($idMalf);
+    }
+
 }
