@@ -55,6 +55,24 @@ class Application_Form_Admin_Product_Add extends App_Form_Abstract
 			'decorators' => $this->elementDecorators,
 		));
 
+        $this->addElement (
+            'multiCheckbox', 'Componenti',
+            array (
+                'label' => 'Componenti',
+                'required' => 'true',
+                'rows' => '4',
+                'decorators' => $this->elementDecorators,
+                'value' => array('11.com', '3.com'), // select these 2 values
+                'multiOptions' => array(
+                    '11.com' => '.com',
+                    '12.com' => '12.com',
+                    '16.com' => '16.com',
+                    '3.com' => '17.com',
+                    'a'=>'b'
+                )
+            )
+        );
+
 		$this->addElement('textarea', 'NTBU', array(
 			'label' => 'Note tecniche di buon uso',
 			'cols' => '60', 'rows' => '20',
@@ -130,8 +148,4 @@ class Application_Form_Admin_Product_Add extends App_Form_Abstract
 		));
 	}
 
-    public function populateCategory($data)
-    {
-
-    }
 }
