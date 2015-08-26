@@ -40,13 +40,15 @@ class TecnicoController extends Zend_Controller_Action
             $temp = $this->_tecnicoModel->getComponentsByProd($idProdotto);
             foreach($temp as $t)
             {
-
-                $components = $this->_tecnicoModel->getComponentById($t->idComponente);
+                $component = $this->_tecnicoModel->getComponentById($t->idComponente);
+                $components[] = $component->Nome;
             }
+
             $temp = $this->_tecnicoModel->getMalfunctionsByProd($idProdotto);
             foreach($temp as $t)
             {
-                $malfunctions = $this->_tecnicoModel->getMalfunctionById($t->idMalfunzionamento);
+                $malfunction = $this->_tecnicoModel->getMalfunctionById($t->idMalfunzionamento);
+                $malfunctions[] = $malfunction->Malfunzionamento;
             }
         }
 

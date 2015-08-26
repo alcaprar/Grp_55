@@ -10,16 +10,8 @@ class Application_Resource_Component extends Zend_Db_Table_Abstract
     {
     }
 
-    // Estrae i dati di un prodotto
-    public function getComponentById($id)
-    {
-        $select = $this->select()
-            ->where('id = ?', $id);
-        return $this->fetchAll($select);
-    }
-
     // Estrae i dati di un componente
-    public function getComponentByIdFind($id)
+    public function getComponentById($id)
     {
         return $this->find($id)->current();
     }

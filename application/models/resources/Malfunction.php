@@ -13,9 +13,7 @@ class Application_Resource_Malfunction extends Zend_Db_Table_Abstract
     // Estrae i malfunzionamenti di un prodotto
     public function getMalfunctionById($id)
     {
-        $select = $this->select()
-        ->where('id = ?', $id);
-        return $this->fetchAll($select);
+        $select = $this->find($id)->current();
     }
 
     // Estrae i dati di un componente
