@@ -59,7 +59,8 @@ class Application_Resource_Product extends Zend_Db_Table_Abstract
     //aggiunge un prodotto
     public function insertProduct($prodotto)
     {
-        $this->insert($prodotto);
+        return $this->insert($prodotto);
+
     }
 
     //rimuove un prodotto

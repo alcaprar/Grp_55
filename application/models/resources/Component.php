@@ -18,6 +18,12 @@ class Application_Resource_Component extends Zend_Db_Table_Abstract
         return $this->fetchAll($select);
     }
 
+    // Estrae i dati di un componente
+    public function getComponentByIdFind($id)
+    {
+        return $this->find($id)->current();
+    }
+
     // Estrae tutti i componenti , eventualmente paginati ed ordinati
     public function selectComponent($paged=null, $order=null)
     {

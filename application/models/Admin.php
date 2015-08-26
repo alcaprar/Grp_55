@@ -33,6 +33,11 @@ class Application_Model_Admin extends App_Model_Abstract
         return $this->getResource('Product')->getProdById($idProdotto);
     }
 
+    public function associateComponent($idProdotto, $idComponente)
+    {
+        return $this->getResource('Composition')->associateComponent($idProdotto,$idComponente);
+    }
+
     public function insertComponent($componente)
     {
         return $this->getResource('Component')->insertComponent($componente);
@@ -56,6 +61,11 @@ class Application_Model_Admin extends App_Model_Abstract
     public function getComponentById($idComponent)
     {
         return $this->getResource('Component')->getComponentById($idComponent);
+    }
+
+    public function getComponentByIdFind($idComponente)
+    {
+        return $this->getResource('Component')->getComponentByIdFind($idComponente);
     }
 
     public function insertFaq($faq)

@@ -10,6 +10,17 @@ class Application_Resource_Composition extends Zend_Db_Table_Abstract
     {
     }
 
+    public function associateComponent($idProdotto, $idComponente)
+    {
+        $composizione = array(
+            'idProdotto' => $idProdotto,
+            'idComponente' => $idComponente
+        );
+
+        return $this->insert($composizione);
+
+    }
+
     public function getComponentsByProd($idProdotto)
     {
         $select = $this->select()

@@ -48,34 +48,24 @@ class Application_Form_Admin_Product_Add extends App_Form_Abstract
 
 		$this->addElement('textarea', 'DescrizioneLunga', array(
             'label' => 'Descrizione Estesa',
-        	'cols' => '60', 'rows' => '20',
+        	'cols' => '60', 'rows' => '10',
             'filters' => array('StringTrim'),
             'required' => true,
             'validators' => array(array('StringLength',true, array(1,2500))),
 			'decorators' => $this->elementDecorators,
 		));
 
-        $this->addElement (
-            'multiCheckbox', 'Componenti',
-            array (
+        $this->addElement('multiCheckbox', 'Componenti', array(
                 'label' => 'Componenti',
                 'required' => 'true',
-                'rows' => '4',
                 'decorators' => $this->elementDecorators,
-                'value' => array('11.com', '3.com'), // select these 2 values
-                'multiOptions' => array(
-                    '11.com' => '.com',
-                    '12.com' => '12.com',
-                    '16.com' => '16.com',
-                    '3.com' => '17.com',
-                    'a'=>'b'
-                )
+                'registerInArrayValidator' => false
             )
         );
 
 		$this->addElement('textarea', 'NTBU', array(
 			'label' => 'Note tecniche di buon uso',
-			'cols' => '60', 'rows' => '20',
+			'cols' => '60', 'rows' => '5',
 			'filters' => array('StringTrim'),
 			'required' => true,
 			'validators' => array(array('StringLength',true, array(1,2500))),
@@ -84,7 +74,7 @@ class Application_Form_Admin_Product_Add extends App_Form_Abstract
 
         $this->addElement('textarea', 'ModInstallazione', array(
             'label' => 'Modalità di installazione particolari',
-            'cols' => '60', 'rows' => '20',
+            'cols' => '60', 'rows' => '5',
             'filters' => array('StringTrim'),
             'required' => true,
             'validators' => array(array('StringLength',true, array(1,2500))),

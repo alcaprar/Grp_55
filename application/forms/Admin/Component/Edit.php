@@ -11,7 +11,7 @@ class Application_Form_Admin_Component_Edit extends App_Form_Abstract
     public function init()
     {
         $this->setMethod('post');
-        $this->setName('addcomponent');
+        $this->setName('editcomponent');
         $this->setAction('');
 
         //nome del prodotto

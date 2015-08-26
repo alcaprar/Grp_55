@@ -33,7 +33,6 @@ class AdminController extends Zend_Controller_Action
         $this->view->editComponentForm = $this->getEditComponentForm();
         $this->view->addUserForm = $this->getAddUserForm();
         $this->view->editUserForm = $this->getEditUserForm();
-        $this->view->associateProductForm = $this->getAssociateProductForm();
 
         $this->_authService = new Application_Service_Auth();
     }
@@ -57,6 +56,19 @@ class AdminController extends Zend_Controller_Action
         }
 
         $select->setMultiOptions($categorie);
+
+        //recupero i componenti
+        $multicheckbox = $this->_addProductForm->getElement('Componenti');
+
+        $rows = $this->_adminModel->selectComponent($paged=null,$order=null);
+        $componenti = [];
+
+        foreach($rows->toArray() as $row)
+        {
+            $componenti[$row['id']] = $row['Nome'];
+        }
+
+        $multicheckbox->setMultiOptions($componenti);
 
     }
 
@@ -85,6 +97,7 @@ class AdminController extends Zend_Controller_Action
         foreach($row as $key=>$value) {
             $vector[$key]=$value;
         }
+        $this->_logger->log($vector,Zend_Log::DEBUG);
 
         //se la foto non è stata inserita aggiungo l'elemento alla form
         if($vector['Foto']==''){
@@ -287,16 +300,17 @@ class AdminController extends Zend_Controller_Action
         ));
 
         //recupero il prodotto
-        $row = $this->_adminModel->getComponentById($id);
+        $row = $this->_adminModel->getComponentByIdFind($id);
         foreach($row as $key=>$value) {
             $vector[$key]=$value;
         }
 
+        $this->_logger->log($vector['Foto'],Zend_Log::DEBUG);
         //se la foto non è stata inserita aggiungo l'elemento alla form
-        if($vector['Foto']==''){
+        if($vector['Foto']=='' || is_null($vector['Foto'])){
             $this->_editComponentForm->addElement('file', 'Foto', array(
                 'label' => 'Immagine',
-                'destination' => APPLICATION_PATH . '/../public/images/component',
+                'destination' => APPLICATION_PATH . '/../public/images/products',
                 'validators' => array(
                     array('Count', false, 1),
                     array('Size', false, 102400),
@@ -306,6 +320,7 @@ class AdminController extends Zend_Controller_Action
 
         $this->view->assign('vector',$vector);
 
+        $this->_logger->log($vector,Zend_Log::DEBUG);
 
         //rimuovo i campi che non ci sono nella form
         unset($vector['id']);
@@ -387,45 +402,60 @@ class AdminController extends Zend_Controller_Action
         if (!$this->getRequest()->isPost()) {
             //...ritorna alla home page dell'admin (actionIndex)
             $this->_helper->redirector('logout', 'admin');        //Specificando solo il controller (index) prende come azione di default indexAction
-            $this->_logger->log('!isPost',Zend_Log::DEBUG);
         }
 
-        $this->_logger->log('isPost',Zend_Log::DEBUG);
         //Il server ha ricreato l'applicazione avendo inviato il form,
         // devo incrociare i dati che mi sono arrivati, perciò devo reistanziare il form
         $form = $this->_addProductForm;
 
-        //carico le categorie
-        $select = $this->_addProductForm->getElement('idCategoria');
-
-        $rows = $this->_adminModel->getCategorie();
-        $categorie = [];
-
-        foreach($rows->toArray() as $row)
-        {
-            $categorie[$row['id']] = $row['Nome'];
-        }
-
-        $select->setMultiOptions($categorie);
-
-
         //Fa un incrocio fra $post e i campi ricevuti dalla form, restituisce true se sono compatibili, false altrimenti
         if (!$form->isValid($_POST)) {
             $form->setDescription('ATTENZIONE: alcuni dati inseriti sono errati!');
-            $this->_logger->log('!isValid',Zend_Log::DEBUG);
+
+            //carico le categorie
+            $select = $this->_addProductForm->getElement('idCategoria');
+
+            $rows = $this->_adminModel->getCategorie();
+            $categorie = [];
+
+            foreach($rows->toArray() as $row)
+            {
+                $categorie[$row['id']] = $row['Nome'];
+            }
+
+            $select->setMultiOptions($categorie);
+
+            //recupero i componenti
+            $multicheckbox = $this->_addProductForm->getElement('Componenti');
+
+            $rows = $this->_adminModel->selectComponent($paged=null,$order=null);
+            $componenti = [];
+
+            foreach($rows->toArray() as $row)
+            {
+                $componenti[$row['id']] = $row['Nome'];
+            }
+
+            $multicheckbox->setMultiOptions($componenti);
             //Se non è stato validato rivisualizzo il risultato dell'azione registrautente
             //Rivisualizzo quindi la form popolata (Aggiungendo però i messaggi di errore!)
             return $this->render('addproduct'); //Esco poi dal controller con return
         }
 
-        $this->_logger->log('isValid',Zend_Log::DEBUG);
-
         //Con getValues estraggo tutti i valori validati
         //Diventa un array di coppie nome-valori pronto per essere scritto sul DB se ho associato correttamente i nomi
         $values = $form->getValues();
-        $this->_logger->log($values,Zend_Log::DEBUG);
 
-        $this->_adminModel->insertProduct($values);   //Definita in Model/Amministratore.php
+        $componenti = $values['Componenti'];
+        unset($values['Componenti']);
+
+
+        $idIns = $this->_adminModel->insertProduct($values);   //Definita in Model/Amministratore.php
+
+        foreach($componenti as $componente)
+        {
+            $this->_adminModel->associateComponent($idIns,$componente);
+        }
 
     }
 
@@ -1022,19 +1052,6 @@ class AdminController extends Zend_Controller_Action
         return $this->_editUserForm;
     }
 
-    private function getAssociateProductForm()
-    {
-        $urlHelper = $this->_helper->getHelper('url');
-
-        $this->_associateProductForm = new Application_Form_Admin_Product_AssociaComp();
-        $this->_associateProductForm->setAction($urlHelper->url(array(
-            'controller' => 'admin',
-            'action' => 'associaprodotto'
-        ),
-            'default'
-        ));
-        return $this->_associateProductForm;
-    }
 
     //Cancella l'identità e poi reindirizza all'azione index del controller public
     public function logoutAction()

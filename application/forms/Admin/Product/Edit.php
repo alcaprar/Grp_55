@@ -38,16 +38,17 @@ class Application_Form_Admin_Product_Edit extends App_Form_Abstract
 
         $this->addElement('textarea', 'DescrizioneLunga', array(
             'label' => 'Descrizione Estesa',
-            'cols' => '60', 'rows' => '20',
+            'cols' => '60', 'rows' => '10',
             'filters' => array('StringTrim'),
             'required' => true,
             'validators' => array(array('StringLength', true, array(1, 2500))),
             'decorators' => $this->elementDecorators,
         ));
 
+
         $this->addElement('textarea', 'NTBU', array(
             'label' => 'Note tecniche di buon uso',
-            'cols' => '60', 'rows' => '20',
+            'cols' => '60', 'rows' => '5',
             'filters' => array('StringTrim'),
             'required' => true,
             'validators' => array(array('StringLength', true, array(1, 2500))),
@@ -56,7 +57,7 @@ class Application_Form_Admin_Product_Edit extends App_Form_Abstract
 
         $this->addElement('textarea', 'ModInstallazione', array(
             'label' => 'Modalità di installazione particolari',
-            'cols' => '60', 'rows' => '20',
+            'cols' => '60', 'rows' => '5',
             'filters' => array('StringTrim'),
             'required' => true,
             'validators' => array(array('StringLength', true, array(1, 2500))),
