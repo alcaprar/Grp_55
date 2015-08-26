@@ -1,0 +1,34 @@
+<?php
+echo '<div class="features_items"><!--features_items-->
+    <h2 class="title text-center">MODIFICA Malfunzionamenti</h2>';
+foreach($this->Malfunzionamenti as $malf){
+    echo'<div class="media commnets">
+						<div class="media-body">
+							<h4 class="media-heading">Malfunzionamento: </h4>
+							<p>'.$malf->Malfunzionamento .'</p>
+							<h4 class="media-heading">Soluzione: </h4>
+							<p>'.$malf->Soluzione .'</p>
+							<div class="blog-socials">
+								<ul>
+									<li><a href="'.$this->url(array(
+            'controller' => 'staff',
+            'action'     => 'updatemalfunction',
+            'id' => $malf->id
+        ),
+            'default',true
+        ).'"><i class="fa fa-pencil"></i>Modifica</a></li>
+									<li><a href="'.$this->url(array(
+            'controller' => 'staff',
+            'action'     => 'cancellamalfunzionamento',
+            'id' => $malf->id
+        ),
+            'default',true
+        ).'"><i class="fa fa-trash-o"></i>Cancella</a></li>
+								</ul>
+							</div>
+						</div>
+						</div>';
+}
+if($this->Malfunzionamenti instanceof Zend_Paginator) {
+    echo '<div class="text-center">'.$this->paginationControl($this->Malfunzionamenti,'Elastic','staff/_paginatorMalf.phtml').'</div>';
+};

@@ -21,7 +21,6 @@ class TecnicoController extends Zend_Controller_Action
         //recupero i parametri
         $nomeCategoria = $this->_getParam('categoria', null);
         $idProdotto = $this->_getParam('prodotto',null);
-        $viewStatic = $this->_getParam('viewStatic',null);
         $paged = $this->_getParam('page', 1);
 
         //se è passato il parametro categoria recupera i prodotti
@@ -69,6 +68,8 @@ class TecnicoController extends Zend_Controller_Action
                 'Malfunzionamenti' => $malfunctions
             )
         );
+
+        $this->_logger->log($components,Zend_Log::DEBUG);
     }
 
     //Cancella l'identità e poi reindirizza all'azione index del controller public
