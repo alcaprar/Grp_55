@@ -20,18 +20,11 @@ class PublicController extends Zend_Controller_Action
     {
         //Estrae le sottocategorie e le inserisce nella sidebar
 
-        $this->_logger->log('Public - Index!', Zend_Log::DEBUG);
-
         //recupero i parametri
         $nomeCategoria = $this->_getParam('categoria', null);
         $idProdotto = $this->_getParam('prodotto',null);
         $viewStatic = $this->_getParam('viewStatic',null);
         $paged = $this->_getParam('page', 1);
-        //log parametri
-        $this->_logger->log('is_null($nomeCategoria): '. var_export(is_null($nomeCategoria),true),Zend_Log::DEBUG);
-        $this->_logger->log('isnull($idProdotto): '. var_export(is_null($idProdotto),true),Zend_Log::DEBUG);
-        $this->_logger->log('is_null($viewStatic): '. var_export(is_null($viewStatic),true),Zend_Log::DEBUG);
-        $this->_logger->log('$paged= '. var_export($paged,true),Zend_Log::DEBUG);
 
         //se è passato il parametro categoria recupera i prodotti
         $prodotti=null;

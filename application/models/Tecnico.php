@@ -1,6 +1,6 @@
 <?php
 
-class Application_Model_Public extends App_Model_Abstract
+class Application_Model_Tecnico extends App_Model_Abstract
 {
     public function __construct()
     {

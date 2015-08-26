@@ -12,12 +12,12 @@ class Application_Model_Acl extends Zend_Acl
             ->allow('unregistered', array('public','error','index'));
 
         // ACL per tecnico
-        $this->addRole(new Zend_Acl_Role('tec'), 'unregistered')
-            ->add(new Zend_Acl_Resource('tec'))
-            ->allow('tec','tec');
+        $this->addRole(new Zend_Acl_Role('tecnico'), 'unregistered')
+            ->add(new Zend_Acl_Resource('tecnico'))
+            ->allow('tecnico','tecnico');
 
         // ACL per staff tecnico
-        $this->addRole(new Zend_Acl_Role('staff'), 'tec')
+        $this->addRole(new Zend_Acl_Role('staff'), 'tecnico')
             ->add(new Zend_Acl_Resource('staff'))
             ->allow('staff','staff');
 

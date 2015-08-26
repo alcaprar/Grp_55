@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?= $this->headLink(); ?>
     <?= $this->headTitle(); ?>
-    <?= $this->headScript(); ?>
 
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
@@ -52,7 +51,7 @@
                 <div class="col-sm-4">
                     <div class="logo pull-left">
                         <a href=" <?= $this->url(array(
-                            'controller' => 'index',
+                            'controller' => 'staff',
                             'action'     => 'index',
                         ),
                             'default',true
@@ -63,13 +62,23 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="<?= $this->url(array(
-                                    'controller' => 'public',
-                                    'action'     => 'login'),
+                            <li><a href=" <?= $this->url(array(
+                                    'controller' => 'staff',
+                                    'action'     => 'index',
+                                ),
                                     'default',true
                                 );
-                                ?>"><i class="fa fa-lock"></i> Login</a></li>
+                                ?>" >Home</a></li>
+                            <li><a href="<?= $this->url(array(
+                                    'controller' => 'staff',
+                                    'action'     => 'logout'),
+                                    'default',true
+                                );
+                                ?>"><i class="fa fa-lock"></i>Logout</a></li>
                         </ul>
+                    </div>
+                    <div class="search_box pull-right">
+                        <input type="text" placeholder="Search"/>
                     </div>
                 </div>
             </div>
@@ -88,14 +97,6 @@
                             <span class="icon-bar"></span>
                         </button>
                     </div>
-                    <div class="mainmenu pull-left">
-                        <?= $this->render('mainmenu.phtml') ?>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="search_box pull-right">
-                        <input type="text" placeholder="Search"/>
-                    </div>
                 </div>
             </div>
         </div>
@@ -103,8 +104,33 @@
 </header><!--/header-->
 
 
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="left-sidebar">
+                    <h2>Menu Staff Amministrazione</h2>
+                    <div class="panel-group category-products" id="accordian"><!--category-productsr-->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"><a href=" <?= $this->url(array(
+                                        'controller' => 'staff',
+                                        'action' => 'index'),
+                                        'default',true
+                                    );
+                                    ?>">Gestisci prodotti</a></h4>
+                            </div>
+                        </div>
+                    </div><!--/category-products-->
 
-        <?php echo $this->layout()->content; ?>
+                </div>
+            </div>
+
+
+            <?php echo $this->layout()->content; ?>
+
+        </div>
+</section>
 
 
 <footer id="footer"><!--Footer-->
@@ -188,55 +214,6 @@
         </div>
     </div>
 
-    <div class="footer-widget">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-2">
-                    <div class="single-widget">
-                        <h2>Servizi</h2>
-                        <ul class="nav nav-pills nav-stacked">
-                            <li><a href="#">Help-Desk</a></li>
-                            <li><a href="<?= $this->url(array(
-                                    'controller' => 'public',
-                                    'action'     => 'index',
-                                    'viewStatic' => 'contact'),
-                                    'default',true
-                                );
-                                ?>">Contattaci</a></li>
-                            <li><a href="<?= $this->url(array(
-                                    'controller' => 'public',
-                                    'action'     => 'index',
-                                    'viewStatic' => 'faq'),
-                                    'default',true
-                                );
-                                ?>">FAQ's</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <div class="single-widget">
-                        <h2>Su di noi</h2>
-                        <ul class="nav nav-pills nav-stacked">
-                            <li><a href="<?= $this->url(array(
-                                    'controller' => 'public',
-                                    'action'     => 'index',
-                                    'viewStatic' => 'who'),
-                                    'default',true
-                                );
-                                ?>">Informazioni sull'azienda</a></li>
-                            <li><a href="<?= $this->url(array(
-                                    'controller' => 'public',
-                                    'action'     => 'index',
-                                    'viewStatic' => 'copyright'),
-                                    'default',true
-                                );
-                                ?>">Copyright</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="footer-bottom">
         <div class="container">

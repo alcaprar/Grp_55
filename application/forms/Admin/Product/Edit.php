@@ -27,31 +27,6 @@ class Application_Form_Admin_Product_Edit extends App_Form_Abstract
             'decorators' => $this->elementDecorators,
         ));
 
-        //tipo del prodotto, prima creare il model dell'admin
-        /*$categories = array();
-        $cats = $this->_adminModel->getSubCats();
-        foreach ($cats as $cat) {
-            $categories[$cat -> catId] = $cat->name;
-        }
-        $this->addElement('select', 'catId', array(
-            'label' => 'Categoria',
-            'required' => true,
-            'multiOptions' => $categories,
-            'decorators' => $this->elementDecorators,
-        ));
-        */
-
-        /*
-		$this->addElement('file', 'Foto', array(
-			'label' => 'Immagine',
-			'destination' => APPLICATION_PATH . '/../public/images/products',
-			'validators' => array(
-			array('Count', false, 1),
-			array('Size', false, 102400),
-			array('Extension', false, array('jpg', 'gif'))),
-            'decorators' => $this->fileDecorators,
-		));
-        */
 
         $this->addElement('text', 'DescrizioneBreve', array(
             'label' => 'Descrizione Breve',
