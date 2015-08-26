@@ -23,7 +23,8 @@ class Application_Form_Admin_Product_AssociaComp extends App_Form_Abstract
         $this->addElement('multiCheckbox', 'Componenti', array(
                 'label' => 'Componenti',
                 'required' => 'true',
-                'decorators' => $this->elementDecorators
+                'decorators' => $this->elementDecorators,
+                'registerInArrayValidator' => false
             )
         );
 

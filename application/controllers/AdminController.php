@@ -494,6 +494,66 @@ class AdminController extends Zend_Controller_Action
 
     }
 
+    public function associaprodottoAction()
+    {
+        //Si attiva solo se la richiesta che ha attivato questa azione è di tipo post
+        //Se non lo è...
+        if (!$this->getRequest()->isPost()) {
+            //...ritorna alla home page dell'admin (actionIndex)
+            $this->_helper->redirector('logout', 'admin');        //Specificando solo il controller (index) prende come azione di default indexAction
+        }
+
+        //Il server ha ricreato l'applicazione avendo inviato il form,
+        // devo incrociare i dati che mi sono arrivati, perciò devo reistanziare il form
+        $form = $this->_associateProductForm;
+
+        //Fa un incrocio fra $post e i campi ricevuti dalla form, restituisce true se sono compatibili, false altrimenti
+        if (!$form->isValid($_POST)) {
+            $form->setDescription('ATTENZIONE: alcuni dati inseriti sono errati!');
+            $this->_logger->log('!isValid <<<',Zend_Log::DEBUG);
+
+            //recupero i prodotti
+            $select = $form->getElement('idProdotto');
+
+            $rows = $this->_adminModel->selectProduct($paged=null,$order=null);
+            $prodotti = [];
+
+            foreach($rows->toArray() as $row)
+            {
+                $prodotti[$row['id']] = $row['Nome'];
+            }
+
+            $select->setMultiOptions($prodotti);
+
+            //recupero i componenti
+            $multicheckbox = $form->getElement('Componenti');
+
+            $rows = $this->_adminModel->selectComponent($paged=null,$order=null);
+            $componenti = [];
+
+            foreach($rows->toArray() as $row)
+            {
+                $componenti[$row['id']] = $row['Nome'];
+            }
+
+            $multicheckbox->setMultiOptions($componenti);
+
+            //Se non è stato validato rivisualizzo il risultato dell'azione registrautente
+            //Rivisualizzo quindi la form popolata (Aggiungendo però i messaggi di errore!)
+            return $this->render('associateproduct'); //Esco poi dal controller con return
+        }
+
+        $this->_logger->log('isValid',Zend_Log::DEBUG);
+
+        //Con getValues estraggo tutti i valori validati
+        //Diventa un array di coppie nome-valori pronto per essere scritto sul DB se ho associato correttamente i nomi
+        $values = $form->getValues();
+        $this->_logger->log($values,Zend_Log::DEBUG);
+
+        //$this->_adminModel->insertProduct($values);   //Definita in Model/Amministratore.php
+
+    }
+
     public function aggiungicomponenteAction()
     {
         //Si attiva solo se la richiesta che ha attivato questa azione è di tipo post
@@ -965,7 +1025,15 @@ class AdminController extends Zend_Controller_Action
 
     private function getAssociateProductForm()
     {
+        $urlHelper = $this->_helper->getHelper('url');
+
         $this->_associateProductForm = new Application_Form_Admin_Product_AssociaComp();
+        $this->_associateProductForm->setAction($urlHelper->url(array(
+            'controller' => 'admin',
+            'action' => 'associaprodotto'
+        ),
+            'default'
+        ));
         return $this->_associateProductForm;
     }
 
