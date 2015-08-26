@@ -45,7 +45,15 @@ class Application_Form_Admin_User_Add extends App_Form_Abstract
             'label' => 'Username',
             'filters' => array('StringTrim'),
             'required' => true,
-            'validators' => array(array('StringLength',true, array(1,25))),
+            'validators' => array(array('StringLength',true, array(1,25)),
+            array('regex', true, array(
+                'pattern'   => '/^([A-Za-z0-9_\-\.\@\?]){3,16}$/')),
+                array('Db_NoRecordExists', true, array(
+                    'table' => 'Utenti',
+                    'field' => 'Username',
+                    'messages' => array(
+                        'recordFound' => "Utente già esistente."
+                    )))),
             'decorators' => $this->elementDecorators,
         ));
 

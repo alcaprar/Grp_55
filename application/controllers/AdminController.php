@@ -13,6 +13,7 @@ class AdminController extends Zend_Controller_Action
     protected $_editComponentForm;
     protected $_addUserForm;
     protected $_editUserForm;
+    protected $_associateProductForm;
 
     protected $_authService;
 
@@ -32,6 +33,7 @@ class AdminController extends Zend_Controller_Action
         $this->view->editComponentForm = $this->getEditComponentForm();
         $this->view->addUserForm = $this->getAddUserForm();
         $this->view->editUserForm = $this->getEditUserForm();
+        $this->view->associateProductForm = $this->getAssociateProductForm();
 
         $this->_authService = new Application_Service_Auth();
     }
@@ -120,6 +122,35 @@ class AdminController extends Zend_Controller_Action
         //assegno le variabili alla view
         $this->view->assign('Prodotti',$prodotti);
 
+    }
+
+    public function associateproductAction()
+    {
+        //recupero i prodotti
+        $select = $this->_associateProductForm->getElement('idProdotto');
+
+        $rows = $this->_adminModel->selectProduct($paged=null,$order=null);
+        $prodotti = [];
+
+        foreach($rows->toArray() as $row)
+        {
+            $prodotti[$row['id']] = $row['Nome'];
+        }
+
+        $select->setMultiOptions($prodotti);
+
+        //recupero i componenti
+        $multicheckbox = $this->_associateProductForm->getElement('Componenti');
+
+        $rows = $this->_adminModel->selectComponent($paged=null,$order=null);
+        $componenti = [];
+
+        foreach($rows->toArray() as $row)
+        {
+            $componenti[$row['id']] = $row['Nome'];
+        }
+
+        $multicheckbox->setMultiOptions($componenti);
     }
 
     //carica la view per l'inserimento di una faq
@@ -930,6 +961,12 @@ class AdminController extends Zend_Controller_Action
     {
         $this->_editUserForm = new Application_Form_Admin_User_Edit();
         return $this->_editUserForm;
+    }
+
+    private function getAssociateProductForm()
+    {
+        $this->_associateProductForm = new Application_Form_Admin_Product_AssociaComp();
+        return $this->_associateProductForm;
     }
 
     //Cancella l'identità e poi reindirizza all'azione index del controller public
