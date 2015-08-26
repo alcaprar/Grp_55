@@ -325,7 +325,6 @@ class AdminController extends Zend_Controller_Action
 
         //assegno le variabili alla view
         $this->view->assign('Componenti',$componenti);
-
     }
 
     //carica la view per l'inserimento di un utente

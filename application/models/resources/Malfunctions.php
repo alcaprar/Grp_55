@@ -18,5 +18,13 @@ class Application_Resource_Malfunctions extends Zend_Db_Table_Abstract
             ->where('idProdotto = ?', $idProdotto);
         return $this->fetchAll($select);
     }
+
+    public function associateMalfunction($idMalfunction, $idProdotto)
+    {
+        return $this->insert(array(
+            "idMalfunzionamento" => $idMalfunction,
+            "idProdotto" => $idProdotto
+        ));
+    }
 }
 

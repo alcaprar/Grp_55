@@ -10,15 +10,15 @@ class Application_Resource_Malfunction extends Zend_Db_Table_Abstract
     {
     }
 
-    // Estrae i dati di un prodotto
+    // Estrae i malfunzionamenti di un prodotto
     public function getMalfunctionById($id)
     {
         $select = $this->select()
-            ->where('id = ?', $id);
+        ->where('id = ?', $id);
         return $this->fetchAll($select);
     }
 
-    // Estrae tutti i componenti , eventualmente paginati ed ordinati
+    // Estrae tutti i malfunzionamenti, eventualmente paginati ed ordinati
     public function selectMalfunction($paged=null, $order=null)
     {
         $select = $this->select()
@@ -37,32 +37,29 @@ class Application_Resource_Malfunction extends Zend_Db_Table_Abstract
         return $this->fetchAll($select);
     }
 
-    //aggiunge un componente
+    //aggiunge un malfunzionamento
     public function insertMalfunction($malfunction)
     {
         $this->insert($malfunction);
     }
 
-    //rimuove un componente
+    //rimuove un malfunzionamento
     public function deleteMalfunction($id)
     {
         $this->fetchRow($this->select()->where('id = ?', $id))->delete();
     }
 
-    //aggiorna il componente
-    public function updateProduct($malfunction, $id)
+    //aggiorna un malfunzionamento
+    public function updateMalfunction($malfunction, $id)
     {
         //Fa la SELECT, essendo il risultato una sola riga, faccio fetchRow
         $old = $this->fetchRow($this->select()->where('id = ?', $id));   // (filtro) seleziona l'utente con l'id specificato
-
         //Aggiorno poi i campi desiderati
         foreach ($malfunction as $key => $value) {
             $old->$key = $value;
         }
-
         //Aggiorna (UPDATE) la riga nel database con i nuovi valori
         $old->save($old);
-
     }
 
 }
