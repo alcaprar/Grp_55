@@ -4,10 +4,12 @@ class Application_Service_Auth
 {
     protected $_adminModel;
     protected $_auth;
+    protected $_logger;
 
     public function __construct()
     {
         $this->_adminModel = new Application_Model_Admin();
+        $this->_logger = Zend_Registry::get('log');
     }
 
     public function authenticate($credentials)
