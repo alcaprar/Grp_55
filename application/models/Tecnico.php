@@ -27,6 +27,26 @@ class Application_Model_Tecnico extends App_Model_Abstract
         return $this->getResource('Product')->getProdById($idProdotto);
     }
 
+    public function getComponentsByProd($idProdotto)
+    {
+        return $this->getResource('Composition')->getComponentsByProd($idProdotto);
+    }
+
+    public function getMalfunctionsByProd($idProdotto)
+    {
+        return $this->getResource('Malfunctions')->getMalfunctionsByProd($idProdotto);
+    }
+
+    public function getComponentById($id)
+    {
+        return $this->getResource('Component')->getComponentById($id);
+    }
+
+    public function getMalfunctionById($id)
+    {
+        return $this->getResource('Malfunction')->getMalfunctionById($id);
+    }
+
     public function selectFaq($paged, $order)
     {
         return $this->getResource('Faq')->selectFaq($paged, $order);

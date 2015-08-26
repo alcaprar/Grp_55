@@ -1,17 +1,17 @@
 <?php
 
-class Application_Resource_Component extends Zend_Db_Table_Abstract
+class Application_Resource_Malfunction extends Zend_Db_Table_Abstract
 {
-    protected $_name    = 'Componenti';
+    protected $_name    = 'Malfunzionamenti';
     protected $_primaryKey = 'id';
-    protected $_rowClass = 'Application_Resource_Component_Item';
+    protected $_rowClass = 'Application_Resource_Malfunction_Item';
 
     public function init()
     {
     }
 
     // Estrae i dati di un prodotto
-    public function getComponentById($id)
+    public function getMalfunctionById($id)
     {
         $select = $this->select()
             ->where('id = ?', $id);
@@ -19,11 +19,11 @@ class Application_Resource_Component extends Zend_Db_Table_Abstract
     }
 
     // Estrae tutti i componenti , eventualmente paginati ed ordinati
-    public function selectComponent($paged=null, $order=null)
+    public function selectMalfunction($paged=null, $order=null)
     {
         $select = $this->select()
             ->setIntegrityCheck(false)
-            ->from('Componenti');
+            ->from('Malfunzionamenti');
         if (true === is_array($order)) {
             $select->order($order);
         }
@@ -38,25 +38,25 @@ class Application_Resource_Component extends Zend_Db_Table_Abstract
     }
 
     //aggiunge un componente
-    public function insertComponent($componente)
+    public function insertMalfunction($malfunction)
     {
-        $this->insert($componente);
+        $this->insert($malfunction);
     }
 
     //rimuove un componente
-    public function deleteComponent($id)
+    public function deleteMalfunction($id)
     {
         $this->fetchRow($this->select()->where('id = ?', $id))->delete();
     }
 
     //aggiorna il componente
-    public function updateProduct($componente, $id)
+    public function updateProduct($malfunction, $id)
     {
         //Fa la SELECT, essendo il risultato una sola riga, faccio fetchRow
         $old = $this->fetchRow($this->select()->where('id = ?', $id));   // (filtro) seleziona l'utente con l'id specificato
 
         //Aggiorno poi i campi desiderati
-        foreach ($componente as $key => $value) {
+        foreach ($malfunction as $key => $value) {
             $old->$key = $value;
         }
 

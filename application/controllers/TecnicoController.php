@@ -33,9 +33,22 @@ class TecnicoController extends Zend_Controller_Action
 
         //se è passato il parametro prodotto recupera il prodotto
         $prodotto = null;
+        $components = array();
+        $malfunctions = array();
         if(!is_null($idProdotto))
         {
             $prodotto = $this->_tecnicoModel->getProdById($idProdotto);
+            $temp = $this->_tecnicoModel->getComponentsByProd($idProdotto);
+            foreach($temp as $t)
+            {
+
+                $components = $this->_tecnicoModel->getComponentById($t->idComponente);
+            }
+            $temp = $this->_tecnicoModel->getMalfunctionsByProd($idProdotto);
+            foreach($temp as $t)
+            {
+                $malfunctions = $this->_tecnicoModel->getMalfunctionById($t->idMalfunzionamento);
+            }
         }
 
 
@@ -51,7 +64,9 @@ class TecnicoController extends Zend_Controller_Action
                 'CategorieM' => $CategorieM,
                 'Categoria' => $nomeCategoria,
                 'Prodotti' => $prodotti,
-                'Prodotto' => $prodotto
+                'Prodotto' => $prodotto,
+                'Componenti' => $components,
+                'Malfunzionamenti' => $malfunctions
             )
         );
     }

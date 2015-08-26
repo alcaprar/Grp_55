@@ -115,13 +115,34 @@
 							</div>
 							<div class="tab-pane fade" id="componenti" >
 								<div class="col-sm-12">
-								    <p>Componenti</p>
-
+								    <p>
+								        <ul>';
+								            foreach($this->Componenti as $comp)
+                                            {
+                                                echo '<li>
+                                                        <p>
+                                                            '.$comp->Nome.'
+                                                        </p>
+                                                      </li>';
+                                            }
+								        echo '</ul>
+                                    </p>
 								</div>
 							</div>
 							<div class="tab-pane fade" id="malfunzionamenti" >
 								<div class="col-sm-12">
-								    <p>Malfunzionamenti</p>
+								    <p>
+								        <ul>';
+                                            foreach($this->Malfunzionamenti as $malf)
+                                            {
+                                                echo '<li>
+                                                        <p>
+                                                          '.$malf->Malfunzionamento.'
+                                                        </p>
+                                                      </li>';
+                                            }
+                                        echo '</ul>
+                                    </p>
 
 								</div>
 							</div>
