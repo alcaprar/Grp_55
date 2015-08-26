@@ -1006,6 +1006,15 @@ h2.title {
   width: 100%;
 }
 
+.category-tab ul.componenti {
+  background: #ffffff;
+  border-bottom: none;
+  list-style: disc outside none;
+  margin: 0 0 0 0px;
+  padding: 0;
+  width: 100%;
+}
+
 .category-tab ul li a {
   border: 0 none;
   border-radius: 0;
@@ -1016,9 +1025,23 @@ h2.title {
   text-transform: uppercase;
 }
 
+.category-tab ul.componenti li a {
+  border: 0 none;
+  border-radius: 0;
+  color: #B3AFA8;
+  display: block;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  text-transform: none;
+}
+
 .category-tab ul  li  a:hover{
-	background:#FE980F;
-	color:#fff;
+	background:none;
+	color:#none;
+}
+
+.category-tab ul.componenti  li  a:hover{
+
 }
 
 .nav-tabs  li.active  a, .nav-tabs  li.active  a:hover, .nav-tabs  li.active  a:focus {

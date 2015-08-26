@@ -67,7 +67,44 @@
             <div class="col-sm-9 padding-right">
 
                 <?php
-                if(!is_null($this->Prodotto)){
+                if(!is_null($this->Componente)){
+                    $urlfoto = ($this->Componente->Foto=='' || is_null($this->Componente->Foto))?($this->baseURL().'/images/product-details/image-coming-soon.png'):($this->baseURL() .'/images/component/'. $this->Componente->Foto);
+                    echo'<div class="features_items"><!--features_items-->
+                    <h2 class="title text-center">Catalogo Tecnico</h2>
+                    <div class="col-sm-9 padding-right">
+					<div class="product-details"><!--product-details-->
+						<div class="col-sm-5">
+							<div class="view-product">
+								<img src="'.$urlfoto.'" alt="" />
+							</div>
+
+						</div>
+						<div class="col-sm-7">
+							<div class="product-information"><!--/product-information-->
+
+								<h2>'.$this->Componente->Nome.'</h2>
+							</div><!--/product-information-->
+						</div>
+					</div><!--/product-details-->
+
+					<div class="category-tab shop-details-tab"><!--category-tab-->
+						<div class="col-sm-12">
+							<ul class="nav nav-tabs">
+							    <li class="active"><a href="#descrizione" data-toggle="tab">Descrizione</a></li>
+							</ul>
+						</div>
+						<div class="tab-content">
+						    <div class="tab-pane fade active in" id="descrizione" >
+								<div class="col-sm-12">
+								    <p>'.$this->Componente->Descrizione.'</p>
+								</div>
+							</div>
+						</div>
+					</div><!--/category-tab-->
+				</div>
+			</div><!--features_items-->';
+                }
+                elseif(!is_null($this->Prodotto)){
                     $urlfoto = ($this->Prodotto->Foto=='' || is_null($this->Prodotto->Foto))?($this->baseURL().'/images/product-details/image-coming-soon.png'):($this->baseURL() .'/images/products/'. $this->Prodotto->Foto);
                     echo'<div class="features_items"><!--features_items-->
                     <h2 class="title text-center">Catalogo Tecnico</h2>
@@ -115,15 +152,17 @@
 							</div>
 							<div class="tab-pane fade" id="componenti" >
 								<div class="col-sm-12">
-								    <p>
-								        <ul>';
+								    <p > Lista componenti:
+								        <ul class="componenti">';
 								            foreach($this->Componenti as $comp)
                                             {
-                                                echo '<li>
-                                                        <p>
-                                                            '.$comp.'
-                                                        </p>
-                                                      </li>';
+                                                echo '<li><a href='.$this->url(array(
+                                                        'controller' => 'tecnico',
+                                                        'action'     => 'index',
+                                                        'componente' => $comp->id
+                                                    ),
+                                                        'default',true
+                                                    ).'>' . $comp->Nome . '</a></li>';
                                             }
 								        echo '</ul>
                                     </p>
