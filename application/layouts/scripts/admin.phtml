@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?= $this->headLink(); ?>
     <?= $this->headTitle(); ?>
+    <?= $this->headScript(); ?>
 
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
@@ -51,7 +52,7 @@
                 <div class="col-sm-4">
                     <div class="logo pull-left">
                         <a href=" <?= $this->url(array(
-                            'controller' => 'admin',
+                            'controller' => 'index',
                             'action'     => 'index',
                         ),
                             'default',true
@@ -61,24 +62,9 @@
                 </div>
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
-                        <ul class="nav navbar-nav">
-                            <li><a href=" <?= $this->url(array(
-                                    'controller' => 'admin',
-                                    'action'     => 'index',
-                                ),
-                                    'default',true
-                                );
-                                ?>" >Home</a></li>
-                            <li><a href="<?= $this->url(array(
-                                    'controller' => 'admin',
-                                    'action'     => 'logout'),
-                                    'default',true
-                                );
-                                ?>"><i class="fa fa-lock"></i>Logout</a></li>
-                        </ul>
-                    </div>
-                    <div class="search_box pull-right">
-                        <input type="text" placeholder="Search"/>
+                        <?php echo $this->navigation()->menu()
+                            ->setUlClass('nav navbar-nav')
+                            ->renderMenu($this->layout()->topMenu) ?>
                     </div>
                 </div>
             </div>
@@ -97,13 +83,21 @@
                             <span class="icon-bar"></span>
                         </button>
                     </div>
+                    <div class="mainmenu pull-left">
+                        <?php echo $this->navigation()->menu()
+                            ->setUlClass('nav navbar-nav collapse navbar-collapse')
+                            ->renderMenu($this->layout()->mainMenu) ?>
                     </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="search_box pull-right">
+                        <input type="text" placeholder="Search"/>
+                    </div>
+                </div>
             </div>
         </div>
     </div><!--/header-bottom-->
 </header><!--/header-->
-
-
 <section>
     <div class="container">
         <div class="row">
@@ -253,11 +247,9 @@
             </div>
 
 
-<?php echo $this->layout()->content; ?>
-
+            <?php echo $this->layout()->content; ?>
         </div>
 </section>
-
 
 <footer id="footer"><!--Footer-->
     <div class="footer-top">
@@ -340,6 +332,55 @@
         </div>
     </div>
 
+    <div class="footer-widget">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="single-widget">
+                        <h2>Servizi</h2>
+                        <ul class="nav nav-pills nav-stacked">
+                            <li><a href="#">Help-Desk</a></li>
+                            <li><a href="<?= $this->url(array(
+                                    'controller' => 'public',
+                                    'action'     => 'index',
+                                    'viewStatic' => 'contact'),
+                                    'default',true
+                                );
+                                ?>">Contattaci</a></li>
+                            <li><a href="<?= $this->url(array(
+                                    'controller' => 'public',
+                                    'action'     => 'index',
+                                    'viewStatic' => 'faq'),
+                                    'default',true
+                                );
+                                ?>">FAQ's</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="single-widget">
+                        <h2>Su di noi</h2>
+                        <ul class="nav nav-pills nav-stacked">
+                            <li><a href="<?= $this->url(array(
+                                    'controller' => 'public',
+                                    'action'     => 'index',
+                                    'viewStatic' => 'who'),
+                                    'default',true
+                                );
+                                ?>">Informazioni sull'azienda</a></li>
+                            <li><a href="<?= $this->url(array(
+                                    'controller' => 'public',
+                                    'action'     => 'index',
+                                    'viewStatic' => 'copyright'),
+                                    'default',true
+                                );
+                                ?>">Copyright</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="footer-bottom">
         <div class="container">

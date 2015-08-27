@@ -5,6 +5,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     protected $_view;
     protected $_logger;
+    private $_acl = null;
+    private $_auth = null;
+    private $_role = null;
 
     //lo stream del log viene inviato a firebug (su mozilla)
     protected function _initLogging()
@@ -48,7 +51,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             ->setSeparator(' - ');
     }
 
-
     protected function _initDefaultModuleAutoloader()
     {
         $loader = Zend_Loader_Autoloader::getInstance();
@@ -57,56 +59,129 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             ->addResourceType('modelResource','models/resources','Resource');
     }
 
-    protected function _initFrontControllerPlugin()
+    protected function _initAutoload()
+    {
+        $this->_acl = new Application_Model_Acl();
+        $this->_auth = Zend_Auth::getInstance();
+        //$this->_logger->log($this->_auth,Zend_Log::DEBUG);
+        $this->_role = !$this->_auth->hasIdentity() ? 'unregistered' : $this->_auth->getIdentity()->Ruolo;
+        //if(!$this->_auth->hasIdentity()) {$this->_auth->getStorage()->read()->role = 'unregistered';}
+
+        $fc = Zend_Controller_Front::getInstance();
+        $fc->registerPlugin(new App_Controller_Plugin_Acl($this->_acl));
+        $this->_logger->log($this->_auth,Zend_Log::DEBUG);
+    }
+
+    /*protected function _initFrontControllerPlugin()
     {
         //Prende l'istanza del singleton FrontController, cioè il componente al quale il plugin va agganciato
         $front = Zend_Controller_Front::getInstance();
         //Attiviamo un suo metodo predefinito a cui passiamo l'istanza della classe plugin da noi definita)
         $front->registerPlugin(new App_Controller_Plugin_Acl());
-    }
+    }*/
 
     protected function _initNavigation()
     {
         $this->bootstrap('layout');
         $layout = $this->getResource('layout');
+
         $view = $layout->getView();
 
         $navMainArray = array(
             array(
                 'controller' => 'public',
                 'action' => 'index',
-                'label' =>'Home'
+                'label' =>'Home',
+                'resource' => 'public',
+                'privilege' => 'index'
             ),
             array(
                 'controller'=>'public',
                 'action'=>'viewstatic',
                 'params'=>array('page'=>'who'),
-                'label'=>'Chi siamo'
+                'label'=>'Chi siamo',
+                'resource' => 'public',
+                'privilege' => 'index'
             ),
             array(
                 'controller'=>'public',
                 'action'=>'viewstatic',
                 'params'=>array('page'=>'where'),
-                'label'=>'Dove siamo'
+                'label'=>'Dove siamo',
+                'resource' => 'public',
+                'privilege' => 'index'
             ),
             array(
                 'controller'=>'public',
                 'action'=>'viewstatic',
                 'params'=>array('page'=>'faq'),
-                'label'=>'FAQ'
+                'label'=>'FAQ',
+                'resource' => 'public',
+                'privilege' => 'index'
             ),
             array(
                 'controller'=>'public',
                 'action'=>'viewstatic',
                 'params'=>array('page'=>'contact'),
-                'label'=>'Contatti'
+                'label'=>'Contatti',
+                'resource' => 'public',
+                'privilege' => 'index'
             )
         );
 
+        $navTopArray = array(
+            array(
+                'controller' => 'admin',
+                'action' => 'index',
+                'label' => 'Home admin',
+                'resource' => 'admin',
+                'privilege' => 'index'
+            ),
+            array(
+                'controller' => 'staff',
+                'action' => 'index',
+                'label' => 'Home staff',
+                'resource' => 'staff',
+                'privilege' => 'index'
+            ),
+            array(
+                'controller' => 'tecnico',
+                'action' => 'index',
+                'label' => 'Home tecnico',
+                'resource' => 'tecnico',
+                'privilege' => 'index'
+            ),
+            array(
+                'controller' => 'public',
+                'action' => 'login',
+                'label' => 'Login',
+                'resource' => 'public',
+                'privilege' => 'login'
+            ),
+            array(
+                'controller' => 'public',
+                'action' => 'logout',
+                'label' => 'Logout',
+                'resource' => 'public',
+                'privilege' => 'logout'
+            ),
+        );
+
         $configMain = new Zend_Config($navMainArray);
+        $configTop = new Zend_Config($navTopArray);
 
         $navigationMain = new Zend_Navigation($configMain);
+        $navigationTop = new Zend_Navigation($configTop);
+
+        $this->_logger->log($this->_role,Zend_Log::DEBUG);
+
+        $view->navigation($navigationMain)->setAcl($this->_acl)
+            ->setRole($this->_role);
+        $view->navigation($navigationTop)->setAcl($this->_acl)
+            ->setRole($this->_role);
+
         $layout->mainMenu = $navigationMain;
+        $layout->topMenu = $navigationTop;
     }
 
     protected function _initDbParms()

@@ -16,19 +16,8 @@
                             </div>
                             <div id="auto" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <ul>
-                                        <?php
-                                        foreach($this->CategorieA as $cat){
-                                            echo '<li><a href='.$this->url(array(
-                                                    'controller' => 'tecnico',
-                                                    'action'     => 'catalogo',
-                                                    'categoria' => $cat->Nome
-                                                ),
-                                                    'default',true
-                                                ).'>' . $cat->Nome . '</a></li>';
-                                        }
-                                        ?>
-                                    </ul>
+                                    <?php echo $this->navigation()->menu()
+                                        ->renderMenu($this->menuAuto)?>
                                 </div>
                             </div>
                         </div>
@@ -43,19 +32,8 @@
                             </div>
                             <div id="moto" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <ul>
-                                        <?php
-                                        foreach($this->CategorieM as $cat){
-                                            echo '<li><a href='.$this->url(array(
-                                                    'controller' => 'tecnico',
-                                                    'action'     => 'catalogo',
-                                                    'categoria' => $cat->Nome
-                                                ),
-                                                    'default',true
-                                                ).'>' . $cat->Nome . '</a></li>';
-                                        }
-                                        ?>
-                                    </ul>
+                                    <?php echo $this->navigation()->menu()
+                                        ->renderMenu($this->menuMoto)?>
                                 </div>
                             </div>
                         </div>

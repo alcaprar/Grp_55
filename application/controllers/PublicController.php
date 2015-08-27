@@ -14,21 +14,56 @@ class PublicController extends Zend_Controller_Action
         $this->_publicModel = new Application_Model_Public();
         $this->_authService = new Application_Service_Auth();
         $this->view->loginForm = $this->getLoginForm();
-    }
 
-    public function indexAction()
-    {
         //recupera le categorie dal db attraverso il model
         //serve per il menu
         $CategorieA = $this->_publicModel->getCatsByParId('A');
         $CategorieM = $this->_publicModel->getCatsByParId('M');
 
+        $navCatAutoArray = array();
+        foreach($CategorieA->toArray() as $categoria)
+        {
+            $navCatAutoArray[] =  array(
+                'controller'=>'public',
+                'action'=>'catalogo',
+                'params'=> array('categoria'=>$categoria['Nome']),
+                'label' => $categoria['Nome'],
+                'resource'=>'public',
+                'privilege'=>'catalogo'
+            );
+        }
+        $configAuto = new Zend_Config($navCatAutoArray);
+
+        $navigationAuto = new Zend_Navigation($configAuto);
+
+        $navCatMotoArray = array();
+        foreach($CategorieM->toArray() as $categoria)
+        {
+            $navCatMotoArray[] = array(
+                'controller'=>'public',
+                'action'=>'catalogo',
+                'params'=> array('categoria'=>$categoria['Nome']),
+                'label' => $categoria['Nome'],
+                'resource'=>'public',
+                'privilege'=>'catalogo'
+            );
+        }
+
+        $configMoto = new Zend_Config($navCatMotoArray);
+
+        $navigationMoto = new Zend_Navigation($configMoto);
+
         // Definisce le variabili per il viewer
         $this->view->assign(array(
-                'CategorieA' => $CategorieA,
-                'CategorieM' => $CategorieM,
+                'menuAuto' => $navigationAuto,
+                'menuMoto' => $navigationMoto
             )
         );
+    }
+
+    public function indexAction()
+    {
+
     }
 
     public function schedaprodottoAction()
@@ -163,6 +198,13 @@ class PublicController extends Zend_Controller_Action
             'default'
         );
         $this->view->assign(array('redirect' => $redirect));
+    }
+
+    //Cancella l'identità e poi reindirizza all'azione index del controller public
+    public function logoutAction()
+    {
+        $this->_authService->clear();
+        return $this->_helper->redirector('index', 'public');
     }
 }
 

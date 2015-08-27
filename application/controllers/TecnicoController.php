@@ -8,26 +8,61 @@ class TecnicoController extends Zend_Controller_Action
 
     public function init()
     {
-        $this->_helper->layout->setLayout('tecnico');
+        $this->_helper->layout->setLayout('layout');
         $this->_logger = Zend_Registry::get('log');
         $this->_tecnicoModel = new Application_Model_Tecnico();
         $this->_authService = new Application_Service_Auth();
-    }
 
-    public function indexAction()
-    {
         //recupera le categorie dal db attraverso il model
         //serve per il menu
         $CategorieA = $this->_tecnicoModel->getCatsByParId('A');
         $CategorieM = $this->_tecnicoModel->getCatsByParId('M');
 
+        $navCatAutoArray = array();
+        foreach($CategorieA->toArray() as $categoria)
+        {
+            $navCatAutoArray[] =  array(
+                'controller'=>'tecnico',
+                'action'=>'catalogo',
+                'params'=> array('categoria'=>$categoria['Nome']),
+                'label' => $categoria['Nome'],
+                'resource'=>'tecnico',
+                'privilege'=>'catalogo'
+            );
+        }
+        $configAuto = new Zend_Config($navCatAutoArray);
+
+        $navigationAuto = new Zend_Navigation($configAuto);
+
+        $navCatMotoArray = array();
+        foreach($CategorieM->toArray() as $categoria)
+        {
+            $navCatMotoArray[] = array(
+                'controller'=>'tecnico',
+                'action'=>'catalogo',
+                'params'=> array('categoria'=>$categoria['Nome']),
+                'label' => $categoria['Nome'],
+                'resource'=>'tecnico',
+                'privilege'=>'catalogo'
+            );
+        }
+
+        $configMoto = new Zend_Config($navCatMotoArray);
+
+        $navigationMoto = new Zend_Navigation($configMoto);
 
         // Definisce le variabili per il viewer
         $this->view->assign(array(
-                'CategorieA' => $CategorieA,
-                'CategorieM' => $CategorieM
+                'menuAuto' => $navigationAuto,
+                'menuMoto' => $navigationMoto
             )
         );
+
+    }
+
+    public function indexAction()
+    {
+
     }
 
     public function schedaprodottoAction()
