@@ -60,14 +60,92 @@
                             </div>
                         </div>
                     </div><!--/category-products-->
-
                 </div>
             </div>
 
             <div class="col-sm-9 padding-right">
-
                 <?php
-                    echo '<h2 class="title text-center">Benvenuto nel centro assistenza BMW</h2><h2 class="text-center"><img class="border-radius" src="'. $this->baseURL().'/images/home/bmw-service-partner.jpg"></h2><br>';
+                $urlfoto = ($this->Prodotto->Foto=='' || is_null($this->Prodotto->Foto))?($this->baseURL().'/images/product-details/image-coming-soon.png'):($this->baseURL() .'/images/products/'. $this->Prodotto->Foto);
+                echo'<div class="features_items"><!--features_items-->
+                     <h2 class="title text-center">Catalogo Pubblico</h2>
+                        <div class="col-sm-9 padding-right">
+					        <div class="product-details"><!--product-details-->
+						        <div class="col-sm-5">
+							        <div class="view-product">
+								    <img src="'.$urlfoto.'" alt="" />
+							    </div>
+						    </div>
+						<div class="col-sm-7">
+							<div class="product-information"><!--/product-information-->
+							<h2>'.$this->Prodotto->Nome.'</h2>
+							<p>Web ID:'.$this->Prodotto->id.'</p>
+							<p><b>Cilindrata:</b> '.$this->Prodotto->Cilindrata.' cm&sup3;</p>
+							<p><b>Potenza:</b> '.$this->Prodotto->Potenza.' CV</p>
+							<p><b>Velocità massima:</b> '.$this->Prodotto->VelocitaMax.' km/h</p>
+							<p><b>Massa a vuoto:</b> '.$this->Prodotto->MassaVuoto.' Kg</p>
+							</div><!--/product-information-->
+						</div>
+					</div><!--/product-details-->
+					<div class="category-tab shop-details-tab"><!--category-tab-->
+						<div class="col-sm-12">
+							<ul class="nav nav-tabs">
+							    <li class="active"><a href="#descrizione" data-toggle="tab">Descrizione</a></li>
+								<li><a href="#ntbu" data-toggle="tab">Note tecniche buon uso</a></li>
+								<li><a href="#componenti" data-toggle="tab">Componenti</a></li>
+								<li><a href="#malfunzionamenti" data-toggle="tab">Malfunzionamenti</a></li>
+							</ul>
+						</div>
+						<div class="tab-content">
+						    <div class="tab-pane fade active in" id="descrizione" >
+								<div class="col-sm-12">
+								    <p>'.$this->Prodotto->DescrizioneLunga.'</p>
+								</div>
+							</div>
+							<div class="tab-pane fade" id="ntbu" >
+								<div class="col-sm-12">
+								    <p>'.$this->Prodotto->NTBU.'</p>
+
+								</div>
+							</div>
+							<div class="tab-pane fade" id="componenti" >
+								<div class="col-sm-12">
+								    <p > Lista componenti:
+								        <ul class="componenti">';
+                foreach($this->Componenti as $comp)
+                {
+                    echo '<li><a href='.$this->url(array(
+                            'controller' => 'tecnico',
+                            'action'     => 'schedacomponente',
+                            'componente' => $comp->id
+                        ),
+                            'default',true
+                        ).'>' . $comp->Nome . '</a></li>';
+                }
+                echo '</ul>
+                                    </p>
+								</div>
+							</div>
+							<div class="tab-pane fade" id="malfunzionamenti" >
+								<div class="col-sm-12">
+								    <p>
+								        <ul>';
+                foreach($this->Malfunzionamenti as $malf)
+                {
+                    echo '<li>
+                                                        <p>
+                                                          '.$malf.'
+                                                        </p>
+                                                      </li>';
+                }
+                echo '</ul>
+                                    </p>
+
+								</div>
+							</div>
+						</div>
+					</div><!--/category-tab-->
+				</div>
+			</div><!--features_items-->';
                 ?>
             </div>
         </div>

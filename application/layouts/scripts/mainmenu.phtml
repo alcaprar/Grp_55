@@ -1,6 +1,6 @@
 <ul class="nav navbar-nav collapse navbar-collapse">
     <li><a href=" <?= $this->url(array(
-            'controller' => 'index',
+            'controller' => 'public',
             'action'     => 'index',
         ),
             'default',true
@@ -9,32 +9,32 @@
     <li><a href="
                 <?= $this->url(array(
             'controller' => 'public',
-            'action'     => 'index',
-            'viewStatic' => 'who'),
+            'action'     => 'viewstatic',
+            'page' => 'who'),
             'default',true
         );
         ?>">Chi Siamo</a></li>
     <li><a href="
                 <?= $this->url(array(
             'controller' => 'public',
-            'action'     => 'index',
-            'viewStatic' => 'where'),
+            'action'     => 'viewstatic',
+            'page' => 'where'),
             'default',true
         );
         ?>">Dove Siamo</a></li>
     <li><a href="
                 <?= $this->url(array(
             'controller' => 'public',
-            'action'     => 'index',
-            'viewStatic' => 'contact'),
+            'action'     => 'viewstatic',
+            'page' => 'contact'),
             'default',true
         );
         ?>">Contatti</a></li>
     <li><a href="
                 <?= $this->url(array(
             'controller' => 'public',
-            'action'     => 'index',
-            'viewStatic' => 'faq'),
+            'action'     => 'viewstatic',
+            'page' => 'faq'),
             'default',true
         );
         ?>">FAQ</a></li>

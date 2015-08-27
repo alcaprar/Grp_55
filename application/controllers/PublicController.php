@@ -18,54 +18,100 @@ class PublicController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        //Estrae le sottocategorie e le inserisce nella sidebar
-
-        //recupero i parametri
-        $nomeCategoria = $this->_getParam('categoria', null);
-        $idProdotto = $this->_getParam('prodotto',null);
-        $viewStatic = $this->_getParam('viewStatic',null);
-        $paged = $this->_getParam('page', 1);
-
-        //se è passato il parametro categoria recupera i prodotti
-        $prodotti=null;
-        if(!is_null($nomeCategoria))
-        {
-            $prodotti = $this->_publicModel->getProdsByCat2($nomeCategoria, $paged, $order=null);
-        }
-
-        //se è passato il parametro prodotto recupera il prodotto
-        $prodotto = null;
-        if(!is_null($idProdotto))
-        {
-            $prodotto = $this->_publicModel->getProdById($idProdotto);
-        }
-
-
         //recupera le categorie dal db attraverso il model
         //serve per il menu
         $CategorieA = $this->_publicModel->getCatsByParId('A');
         $CategorieM = $this->_publicModel->getCatsByParId('M');
 
-        //recupero le faq
-        $faq = $this->_publicModel->selectFaq($paged=null, $order=null);
+        // Definisce le variabili per il viewer
+        $this->view->assign(array(
+                'CategorieA' => $CategorieA,
+                'CategorieM' => $CategorieM,
+            )
+        );
+    }
+
+    public function schedaprodottoAction()
+    {
+        //recupero i parametri
+        $idProdotto = $this->_getParam('prodotto',null);
+        $paged = $this->_getParam('page', 1);
+
+        //se è nullo faccio il redirector sulla index action
+        $prodotto=null;
+        if(is_null($idProdotto))
+        {
+            return $this->_helper->redirector('index', 'public');
+        }
+
+        //se non è nullo recupero il prodotto
+        $prodotto = $this->_publicModel->getProdById($idProdotto);
+
+        //recupero le categorie per il menu
+        $CategorieA = $this->_publicModel->getCatsByParId('A');
+        $CategorieM = $this->_publicModel->getCatsByParId('M');
+
+        // Definisce le variabili per il viewer
+        $this->view->assign(array(
+                'CategorieA' => $CategorieA,
+                'CategorieM' => $CategorieM,
+                'Prodotto' => $prodotto
+            )
+        );
+    }
+
+    public function catalogoAction()
+    {
+        //recupero la categoria e la pagina
+        $nomeCategoria = $this->_getParam('categoria', null);
+        $paged = $this->_getParam('page', 1);
+
+        //se è nullo faccio il redirector sulla index action
+        $prodotti=null;
+        if(is_null($nomeCategoria))
+        {
+            return $this->_helper->redirector('index', 'public');
+        }
+
+        //se non è nullo recupero i prodotti
+        $prodotti = $this->_publicModel->getProdsByCat2($nomeCategoria, $paged, $order=null);
+
+        //recupero le categorie per il menu
+        $CategorieA = $this->_publicModel->getCatsByParId('A');
+        $CategorieM = $this->_publicModel->getCatsByParId('M');
 
         // Definisce le variabili per il viewer
         $this->view->assign(array(
                 'CategorieA' => $CategorieA,
                 'CategorieM' => $CategorieM,
                 'Categoria' => $nomeCategoria,
-                'Prodotti' => $prodotti,
-                'Prodotto' => $prodotto,
-                'Faq' => $faq
+                'Prodotti' => $prodotti
             )
         );
+    }
 
+    public function viewstaticAction()
+    {
+        //recupero la pagina statica
+        $page = $this->_getParam('page', null);
+
+        //se è nulla faccio il redirector sulla index action
         //pagine statiche
-        if(!is_null($viewStatic))
+        if(is_null($page))
         {
-            $this->render($viewStatic);
+            return $this->_helper->redirector('index', 'public');
         }
 
+        //se è la pagina delle faq recupero le faq
+        if($page=='faq')
+        {
+            $faq = $this->_publicModel->selectFaq($paged=null,$order=null);
+            // Definisce le variabili per il viewer
+            $this->view->assign('Faq', $faq);
+
+        }
+        //se non è nulla faccio il render della pagina
+        $this->render($page);
     }
 
     //carica la view per la form di login
@@ -91,11 +137,6 @@ class PublicController extends Zend_Controller_Action
             return $this->render('login');
         }
         return $this->_helper->redirector('index', $this->_authService->getIdentity()->Ruolo);
-    }
-
-    public function viewstaticAction () {
-        $page = $this->_getParam('staticPage');
-        $this->render($page);
     }
 
     //ottiene la form di login, richiamato dall'action login

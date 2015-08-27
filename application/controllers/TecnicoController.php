@@ -16,26 +16,31 @@ class TecnicoController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        //Estrae le sottocategorie e le inserisce nella sidebar
+        //recupera le categorie dal db attraverso il model
+        //serve per il menu
+        $CategorieA = $this->_tecnicoModel->getCatsByParId('A');
+        $CategorieM = $this->_tecnicoModel->getCatsByParId('M');
 
+
+        // Definisce le variabili per il viewer
+        $this->view->assign(array(
+                'CategorieA' => $CategorieA,
+                'CategorieM' => $CategorieM
+            )
+        );
+    }
+
+    public function schedaprodottoAction()
+    {
         //recupero i parametri
-        $nomeCategoria = $this->_getParam('categoria', null);
         $idProdotto = $this->_getParam('prodotto',null);
         $paged = $this->_getParam('page', 1);
-        $idComponente = $this->_getParam('componente',null);
 
-        //se è passato il parametro categoria recupera i prodotti
-        $prodotti=null;
-        if(!is_null($nomeCategoria))
+        //se è nullo faccio il redirector sulla index action
+        $prodotto=null;
+        if(is_null($idProdotto))
         {
-            $prodotti = $this->_tecnicoModel->getProdsByCat2($nomeCategoria, $paged, $order=null);
-        }
-
-        //se è passato il parametro componente recupera il componente
-        $componente = null;
-        if(!is_null($idComponente))
-        {
-            $componente = $this->_tecnicoModel->getComponentById($idComponente);
+            return $this->_helper->redirector('index', 'tecnico');
         }
 
         //se è passato il parametro prodotto recupera il prodotto
@@ -60,27 +65,78 @@ class TecnicoController extends Zend_Controller_Action
             }
         }
 
-
-        //recupera le categorie dal db attraverso il model
-        //serve per il menu
+        //recupero le categorie per il menu
         $CategorieA = $this->_tecnicoModel->getCatsByParId('A');
         $CategorieM = $this->_tecnicoModel->getCatsByParId('M');
 
+        // Definisce le variabili per il viewer
+        $this->view->assign(array(
+                'CategorieA' => $CategorieA,
+                'CategorieM' => $CategorieM,
+                'Prodotto' => $prodotto,
+                'Componenti' => $components,
+                'Malfunzionamenti' => $malfunctions
+            )
+        );
+    }
+
+    public function schedacomponenteAction()
+    {
+        //recupero i parametri
+        $idComponente = $this->_getParam('componente',null);
+        $paged = $this->_getParam('page', 1);
+
+        //se è nullo faccio il redirector sulla index action
+        $componente=null;
+        if(is_null($idComponente))
+        {
+            return $this->_helper->redirector('index', 'tecnico');
+        }
+
+        //se non è nullo recupero il prodotto
+        $componente = $this->_tecnicoModel->getComponentById($idComponente);
+
+        //recupero le categorie per il menu
+        $CategorieA = $this->_tecnicoModel->getCatsByParId('A');
+        $CategorieM = $this->_tecnicoModel->getCatsByParId('M');
+
+        // Definisce le variabili per il viewer
+        $this->view->assign(array(
+                'CategorieA' => $CategorieA,
+                'CategorieM' => $CategorieM,
+                'Componente' => $componente
+            )
+        );
+    }
+
+    public function catalogoAction()
+    {
+        //recupero la categoria e la pagina
+        $nomeCategoria = $this->_getParam('categoria', null);
+        $paged = $this->_getParam('page', 1);
+
+        //se è nullo faccio il redirector sulla index action
+        $prodotti=null;
+        if(is_null($nomeCategoria))
+        {
+            return $this->_helper->redirector('index', 'tecnico');
+        }
+
+        //se non è nullo recupero i prodotti
+        $prodotti = $this->_tecnicoModel->getProdsByCat2($nomeCategoria, $paged, $order=null);
+
+        //recupero le categorie per il menu
+        $CategorieA = $this->_tecnicoModel->getCatsByParId('A');
+        $CategorieM = $this->_tecnicoModel->getCatsByParId('M');
 
         // Definisce le variabili per il viewer
         $this->view->assign(array(
                 'CategorieA' => $CategorieA,
                 'CategorieM' => $CategorieM,
                 'Categoria' => $nomeCategoria,
-                'Prodotti' => $prodotti,
-                'Prodotto' => $prodotto,
-                'Componenti' => $components,
-                'Componente' => $componente,
-                'Malfunzionamenti' => $malfunctions
+                'Prodotti' => $prodotti
             )
         );
-
-        $this->_logger->log($components,Zend_Log::DEBUG);
     }
 
     //Cancella l'identità e poi reindirizza all'azione index del controller public

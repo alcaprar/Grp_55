@@ -60,16 +60,51 @@
                             </div>
                         </div>
                     </div><!--/category-products-->
-
                 </div>
             </div>
 
             <div class="col-sm-9 padding-right">
-
                 <?php
-                    echo '<h2 class="title text-center">Benvenuto nel centro assistenza BMW</h2><h2 class="text-center"><img class="border-radius" src="'. $this->baseURL().'/images/home/bmw-service-partner.jpg"></h2><br>';
+                $urlfoto = ($this->Componente->Foto=='' || is_null($this->Componente->Foto))?($this->baseURL().'/images/product-details/image-coming-soon.png'):($this->baseURL() .'/images/component/'. $this->Componente->Foto);
+                echo'<div class="features_items"><!--features_items-->
+    <h2 class="title text-center">Catalogo Tecnico</h2>
+    <div class="col-sm-9 padding-right">
+        <div class="product-details"><!--product-details-->
+            <div class="col-sm-5">
+                <div class="view-product">
+                    <img src="'.$urlfoto.'" alt="" />
+                </div>
+
+            </div>
+            <div class="col-sm-7">
+                <div class="product-information"><!--/product-information-->
+
+                    <h2>'.$this->Componente->Nome.'</h2>
+                </div><!--/product-information-->
+            </div>
+        </div><!--/product-details-->
+
+        <div class="category-tab shop-details-tab"><!--category-tab-->
+            <div class="col-sm-12">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#descrizione" data-toggle="tab">Descrizione</a></li>
+                </ul>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane fade active in" id="descrizione" >
+                    <div class="col-sm-12">
+                        <p>'.$this->Componente->Descrizione.'</p>
+                    </div>
+                </div>
+            </div>
+        </div><!--/category-tab-->
+    </div>
+</div><!--features_items-->';
                 ?>
             </div>
         </div>
     </div>
 </section>
+
+
+
