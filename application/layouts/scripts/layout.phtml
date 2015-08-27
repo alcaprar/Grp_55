@@ -89,7 +89,9 @@
                         </button>
                     </div>
                     <div class="mainmenu pull-left">
-                        <?= $this->render('mainmenu.phtml') ?>
+                        <?php echo $this->navigation()->menu()
+                            ->setUlClass('nav navbar-nav collapse navbar-collapse')
+                            ->renderMenu($this->layout()->mainMenu) ?>
                     </div>
                 </div>
                 <div class="col-sm-3">

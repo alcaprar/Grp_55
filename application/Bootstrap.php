@@ -65,6 +65,50 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $front->registerPlugin(new App_Controller_Plugin_Acl());
     }
 
+    protected function _initNavigation()
+    {
+        $this->bootstrap('layout');
+        $layout = $this->getResource('layout');
+        $view = $layout->getView();
+
+        $navMainArray = array(
+            array(
+                'controller' => 'public',
+                'action' => 'index',
+                'label' =>'Home'
+            ),
+            array(
+                'controller'=>'public',
+                'action'=>'viewstatic',
+                'params'=>array('page'=>'who'),
+                'label'=>'Chi siamo'
+            ),
+            array(
+                'controller'=>'public',
+                'action'=>'viewstatic',
+                'params'=>array('page'=>'where'),
+                'label'=>'Dove siamo'
+            ),
+            array(
+                'controller'=>'public',
+                'action'=>'viewstatic',
+                'params'=>array('page'=>'faq'),
+                'label'=>'FAQ'
+            ),
+            array(
+                'controller'=>'public',
+                'action'=>'viewstatic',
+                'params'=>array('page'=>'contact'),
+                'label'=>'Contatti'
+            )
+        );
+
+        $configMain = new Zend_Config($navMainArray);
+
+        $navigationMain = new Zend_Navigation($configMain);
+        $layout->mainMenu = $navigationMain;
+    }
+
     protected function _initDbParms()
     {
         //include il file con i parametri per la connessione
