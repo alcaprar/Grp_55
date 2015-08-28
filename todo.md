@@ -22,3 +22,6 @@ shobiru
 - [ ] migliorare associazione prodotto componente
   - [ ] aggiungere update componenti
 - [ ] aggiungere la ripartizione delle categoria tra tecnici dello staff
+
+
+- [ ] popolare db 
