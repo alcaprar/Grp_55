@@ -5,7 +5,9 @@ class PublicController extends Zend_Controller_Action
     protected $_catalogModel;
     protected $_logger;
     protected $_loginForm;
+    protected $_cercaForm;
     protected $_authService;
+    protected $_redirector;
 
     public function init()
     {
@@ -14,6 +16,7 @@ class PublicController extends Zend_Controller_Action
         $this->_publicModel = new Application_Model_Public();
         $this->_authService = new Application_Service_Auth();
         $this->view->loginForm = $this->getLoginForm();
+        $this->view->cercaForm = $this->getCercaForm();
 
         //recupera le categorie dal db attraverso il model
         //serve per il menu
@@ -82,14 +85,8 @@ class PublicController extends Zend_Controller_Action
         //se non è nullo recupero il prodotto
         $prodotto = $this->_publicModel->getProdById($idProdotto);
 
-        //recupero le categorie per il menu
-        $CategorieA = $this->_publicModel->getCatsByParId('A');
-        $CategorieM = $this->_publicModel->getCatsByParId('M');
-
         // Definisce le variabili per il viewer
         $this->view->assign(array(
-                'CategorieA' => $CategorieA,
-                'CategorieM' => $CategorieM,
                 'Prodotto' => $prodotto
             )
         );
@@ -111,18 +108,53 @@ class PublicController extends Zend_Controller_Action
         //se non è nullo recupero i prodotti
         $prodotti = $this->_publicModel->getProdsByCat2($nomeCategoria, $paged, $order=null);
 
-        //recupero le categorie per il menu
-        $CategorieA = $this->_publicModel->getCatsByParId('A');
-        $CategorieM = $this->_publicModel->getCatsByParId('M');
-
         // Definisce le variabili per il viewer
         $this->view->assign(array(
-                'CategorieA' => $CategorieA,
-                'CategorieM' => $CategorieM,
                 'Categoria' => $nomeCategoria,
                 'Prodotti' => $prodotti
             )
         );
+    }
+
+    public function cercaAction()
+    {
+
+        //recupero i parametri
+        $query = $this->_getParam('query', null);
+        $page = $this->_getParam('page', 1);
+
+            //se non è nullo recupero i prodotti
+            $prodotti = $this->_publicModel->getProdByName($query, $page, $order=null);
+
+            $this->_logger->log($prodotti,Zend_Log::DEBUG);
+
+            // Definisce le variabili per il viewer
+            $this->view->assign(array(
+                    'query' => $query,
+                    'Prodotti' => $prodotti
+                )
+            );
+
+
+    }
+
+    public function redirectorurlcercaAction()
+    {
+        $request = $this->getRequest();
+
+        //arrivata una richiesta di cerca
+        if ($request->isPost()) {
+            $query = $request->getPost()['query'];
+            $this->_logger->log($query, Zend_Log::DEBUG);
+
+            $this->_redirector = $this->_helper->getHelper('Redirector');
+
+            $this->_redirector->gotoSimple('cerca',
+                'public',
+                null,
+                array('query' => $query));
+        }
+
     }
 
     public function viewstaticAction()
@@ -148,6 +180,7 @@ class PublicController extends Zend_Controller_Action
         //se non è nulla faccio il render della pagina
         $this->render($page);
     }
+
 
     //carica la view per la form di login
     public function loginAction()
@@ -188,6 +221,22 @@ class PublicController extends Zend_Controller_Action
         ));
         return $this->_loginForm;
     }
+
+    private function getCercaForm()
+    {
+        $urlHelper = $this->_helper->getHelper('url');
+
+        $this->_cercaForm = new Application_Form_Public_Cerca_Cerca();
+        $this->_cercaForm->setAction($urlHelper->url(array(
+            'controller' => 'public',
+            'action' => 'redirectorurlcerca'
+        ),
+            'default'
+        ));
+        return $this->_cercaForm;
+    }
+
+
 
     public function accessonegatoAction()
     {

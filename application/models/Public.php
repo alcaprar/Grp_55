@@ -27,6 +27,11 @@ class Application_Model_Public extends App_Model_Abstract
         return $this->getResource('Product')->getProdById($idProdotto);
     }
 
+    public function getProdByName($nomeProdotto, $paged, $order)
+    {
+        return $this->getResource('Product')->getProdByName($nomeProdotto, $paged, $order);
+    }
+
     public function selectFaq($paged, $order)
     {
         return $this->getResource('Faq')->selectFaq($paged, $order);

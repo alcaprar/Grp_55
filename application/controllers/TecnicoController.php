@@ -99,15 +99,8 @@ class TecnicoController extends Zend_Controller_Action
                 $malfunctions[] = $malfunction->Malfunzionamento;
             }
         }
-
-        //recupero le categorie per il menu
-        $CategorieA = $this->_tecnicoModel->getCatsByParId('A');
-        $CategorieM = $this->_tecnicoModel->getCatsByParId('M');
-
         // Definisce le variabili per il viewer
         $this->view->assign(array(
-                'CategorieA' => $CategorieA,
-                'CategorieM' => $CategorieM,
                 'Prodotto' => $prodotto,
                 'Componenti' => $components,
                 'Malfunzionamenti' => $malfunctions
@@ -131,14 +124,9 @@ class TecnicoController extends Zend_Controller_Action
         //se non è nullo recupero il prodotto
         $componente = $this->_tecnicoModel->getComponentById($idComponente);
 
-        //recupero le categorie per il menu
-        $CategorieA = $this->_tecnicoModel->getCatsByParId('A');
-        $CategorieM = $this->_tecnicoModel->getCatsByParId('M');
 
         // Definisce le variabili per il viewer
         $this->view->assign(array(
-                'CategorieA' => $CategorieA,
-                'CategorieM' => $CategorieM,
                 'Componente' => $componente
             )
         );
@@ -160,14 +148,8 @@ class TecnicoController extends Zend_Controller_Action
         //se non è nullo recupero i prodotti
         $prodotti = $this->_tecnicoModel->getProdsByCat2($nomeCategoria, $paged, $order=null);
 
-        //recupero le categorie per il menu
-        $CategorieA = $this->_tecnicoModel->getCatsByParId('A');
-        $CategorieM = $this->_tecnicoModel->getCatsByParId('M');
-
         // Definisce le variabili per il viewer
         $this->view->assign(array(
-                'CategorieA' => $CategorieA,
-                'CategorieM' => $CategorieM,
                 'Categoria' => $nomeCategoria,
                 'Prodotti' => $prodotti
             )

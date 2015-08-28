@@ -16,6 +16,25 @@ class Application_Resource_Product extends Zend_Db_Table_Abstract
         return $this->find($id)->current();
     }
 
+    public function getProdByName($nome, $paged, $order)
+    {
+        $select = $this->select()
+            ->setIntegrityCheck(false)
+            ->from('Prodotti')
+            ->where('Nome = ?', $nome);
+        if (true === is_array($order)) {
+            $select->order($order);
+        }
+        if (null !== $paged) {
+            $adapter = new Zend_Paginator_Adapter_DbTableSelect($select);
+            $paginator = new Zend_Paginator($adapter);
+            $paginator->setItemCountPerPage(1)
+                ->setCurrentPageNumber((int) $paged);
+            return $paginator;
+        }
+        return $this->fetchAll($select);
+    }
+
     // Estrae tutti i prodotti di una categoria, eventualmente paginati ed ordinati
     public function getProdsByCat($cat, $paged=null, $order=null)
     {

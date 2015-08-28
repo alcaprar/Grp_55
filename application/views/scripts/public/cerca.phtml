@@ -1,0 +1,80 @@
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="left-sidebar">
+                    <h2>Categorie</h2>
+                    <div class="panel-group category-products" id="accordian"><!--category-productsr-->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordian" href="#auto">
+                                        <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+                                        Auto
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="auto" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <?php echo $this->navigation()->menu()
+                                        ->renderMenu($this->menuAuto)?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordian" href="#moto">
+                                        <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+                                        Moto
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="moto" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <?php echo $this->navigation()->menu()
+                                        ->renderMenu($this->menuMoto)?>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--/category-products-->
+                </div>
+            </div>
+            <div class="col-sm-9 padding-right">
+                <?php
+                echo '<div class="features_items"><!--features_items-->
+                          <h2 class="title text-center">Risultati ricerca</h2>';
+                //stampo i singoli prodotti
+                foreach($this->Prodotti as $prod){
+                    $urlfoto = ($prod->Foto=='' || is_null($prod->Foto))?($this->baseURL().'/images/product-details/image-coming-soon.png'):($this->baseURL().'/images/products/'. $prod->Foto);
+                    echo'<div class="col-sm-4">
+							    <div class="product-image-wrapper">
+								    <div class="single-products">
+										<div class="productinfo text-center">
+											<img src="'.$urlfoto.'" alt="" />
+											<h2>'.$prod->Nome.'</h2>
+											<p>'.$prod->DescrizioneBreve .'</p>
+											<p></p>
+											<a href='.$this->url(array(
+                            'controller' => 'public',
+                            'action'     => 'schedaprodotto',
+                            'prodotto' => $prod->id
+                        ),
+                            'default',true
+                        ).' class="btn btn-default add-to-cart"><i class="fa fa-info">Vai alla scheda</i></a>
+										</div>
+								    </div>
+							    </div>
+						    </div>';
+                }
+                echo'</div><!--features_items-->';
+                $logger = Zend_Registry::get('log');
+                $logger->log($this->Prodotti,Zend_Log::DEBUG);
+                if($this->Prodotti instanceof Zend_Paginator) {
+                    echo '<div class="text-center">'.$this->paginationControl($this->Prodotti,'Elastic','public/_paginatorCerca.phtml').'</div>';
+                }
+                ?>
+            </div>
+        </div>
+    </div>
+</section>
