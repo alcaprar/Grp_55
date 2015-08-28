@@ -21,7 +21,8 @@ shobiru
 - [ ] inserire gestisci categoria nel panello admin
   - [ ] mettere le categorie auto e moto a livello db come topCat
 - [ ] aggiungere search box per la modifica/cancellazione per prodotti, componenti ecc..
-- [ ] form pagina contatti
+- [ ] form pagina contatti e invio email
+- [ ] implementare search box prodotti con zend_form
 - [ ] migliorare associazione prodotto componente
   - [ ] aggiungere update componenti
 - [ ] aggiungere la ripartizione delle categoria tra tecnici dello staff
