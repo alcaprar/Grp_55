@@ -5,7 +5,6 @@ class PublicController extends Zend_Controller_Action
     protected $_catalogModel;
     protected $_logger;
     protected $_loginForm;
-    protected $_cercaForm;
     protected $_authService;
     protected $_redirector;
 
@@ -16,7 +15,6 @@ class PublicController extends Zend_Controller_Action
         $this->_publicModel = new Application_Model_Public();
         $this->_authService = new Application_Service_Auth();
         $this->view->loginForm = $this->getLoginForm();
-        $this->view->cercaForm = $this->getCercaForm();
 
         //recupera le categorie dal db attraverso il model
         //serve per il menu
@@ -220,20 +218,6 @@ class PublicController extends Zend_Controller_Action
             'default'
         ));
         return $this->_loginForm;
-    }
-
-    private function getCercaForm()
-    {
-        $urlHelper = $this->_helper->getHelper('url');
-
-        $this->_cercaForm = new Application_Form_Public_Cerca_Cerca();
-        $this->_cercaForm->setAction($urlHelper->url(array(
-            'controller' => 'public',
-            'action' => 'redirectorurlcerca'
-        ),
-            'default'
-        ));
-        return $this->_cercaForm;
     }
 
 
