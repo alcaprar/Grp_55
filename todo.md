@@ -1,14 +1,17 @@
 alessandrocaprarelli
 - [ ] pagina chi siamo
+- [ ] pagina dove siamo
 - [ ] migliorare pagina FAQ
 - [ ] implementare footer menu con zend_navigation
 - [ ] sistemare sezione sopra il footer con i video e la mappa
 - [ ] pagina statica con la lista dei centri assistenza
   - [ ] lista dei centri a sinistra e come contenuto la mappa
   - [ ] per ogni centro far stampare la lista dei tecnici con i relativi contatti
+  - [ ] quando si inserisce un nuovo tecnico inserire la possibilità di scegliere a che centro fa parte
 - [ ] togliere la possibilità di inserimento di un nuovo admin
   - [ ] togliere amministratore dal menu a tendina nel pannello inserimento utente
   - [ ] trovare una soluzione lato db per bloccare l'inserimento di un nuovo admin
+- [ ] slider nella home page al posto della singola immagine
 
 shobiru
 - [ ] ricerca con wild-card(*)
@@ -22,6 +25,3 @@ shobiru
 - [ ] migliorare associazione prodotto componente
   - [ ] aggiungere update componenti
 - [ ] aggiungere la ripartizione delle categoria tra tecnici dello staff
-
-
-- [ ] popolare db 
