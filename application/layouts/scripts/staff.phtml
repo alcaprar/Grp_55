@@ -240,44 +240,17 @@
                 <div class="col-sm-2">
                     <div class="single-widget">
                         <h2>Servizi</h2>
-                        <ul class="nav nav-pills nav-stacked">
-                            <li><a href="#">Help-Desk</a></li>
-                            <li><a href="<?= $this->url(array(
-                                    'controller' => 'public',
-                                    'action'     => 'index',
-                                    'viewStatic' => 'contact'),
-                                    'default',true
-                                );
-                                ?>">Contattaci</a></li>
-                            <li><a href="<?= $this->url(array(
-                                    'controller' => 'public',
-                                    'action'     => 'index',
-                                    'viewStatic' => 'faq'),
-                                    'default',true
-                                );
-                                ?>">FAQ's</a></li>
-                        </ul>
+                        <?php echo $this->navigation()->menu()
+                            ->setUlClass('nav nav-pills nav-stacked')
+                            ->renderMenu($this->layout()->serviziMenu) ?>
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="single-widget">
                         <h2>Su di noi</h2>
-                        <ul class="nav nav-pills nav-stacked">
-                            <li><a href="<?= $this->url(array(
-                                    'controller' => 'public',
-                                    'action'     => 'index',
-                                    'viewStatic' => 'who'),
-                                    'default',true
-                                );
-                                ?>">Informazioni sull'azienda</a></li>
-                            <li><a href="<?= $this->url(array(
-                                    'controller' => 'public',
-                                    'action'     => 'index',
-                                    'viewStatic' => 'copyright'),
-                                    'default',true
-                                );
-                                ?>">Copyright</a></li>
-                        </ul>
+                        <?php echo $this->navigation()->menu()
+                            ->setUlClass('nav nav-pills nav-stacked')
+                            ->renderMenu($this->layout()->suDiNoiMenu) ?>
                     </div>
                 </div>
             </div>

@@ -80,7 +80,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $front->registerPlugin(new App_Controller_Plugin_Acl());
     }*/
 
-    protected function _initNavigation()
+    protected function _initNavigationHeader()
     {
         $this->bootstrap('layout');
         $layout = $this->getResource('layout');
@@ -173,7 +173,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $navigationMain = new Zend_Navigation($configMain);
         $navigationTop = new Zend_Navigation($configTop);
 
-        $this->_logger->log($this->_role,Zend_Log::DEBUG);
 
         $view->navigation($navigationMain)->setAcl($this->_acl)
             ->setRole($this->_role);
@@ -182,6 +181,69 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         $layout->mainMenu = $navigationMain;
         $layout->topMenu = $navigationTop;
+    }
+
+    protected function _initNavigationFooter()
+    {
+        $this->bootstrap('layout');
+        $layout = $this->getResource('layout');
+
+        $navServiziArray = array(
+            array(
+                'controller' => 'public',
+                'action'=>'viewstatic',
+                'params'=>array('page'=>'contact'),
+                'label' =>'Help-desk',
+                'resource' => 'public',
+                'privilege' => 'index'
+            ),
+            array(
+                'controller'=>'public',
+                'action'=>'viewstatic',
+                'params'=>array('page'=>'contact'),
+                'label'=>'Contatti',
+                'resource' => 'public',
+                'privilege' => 'index'
+            ),
+            array(
+                'controller'=>'public',
+                'action'=>'viewstatic',
+                'params'=>array('page'=>'faq'),
+                'label'=>'FAQ\'s',
+                'resource' => 'public',
+                'privilege' => 'index'
+            ),
+        );
+
+        $navSuDiNoiArray = array(
+            array(
+                'controller'=>'public',
+                'action'=>'viewstatic',
+                'params'=>array('page'=>'copyright'),
+                'label'=>'Copyright',
+                'resource' => 'public',
+                'privilege' => 'index'
+            ),
+            array(
+                'controller'=>'public',
+                'action'=>'viewstatic',
+                'params'=>array('page'=>'who'),
+                'label'=>'Informazioni sull\'azienda',
+                'resource' => 'public',
+                'privilege' => 'index'
+            ),
+        );
+
+        $configServizi = new Zend_Config($navServiziArray);
+        $configSuDiNoi  = new Zend_Config($navSuDiNoiArray);
+
+        $navigationServizi = new Zend_Navigation($configServizi);
+        $navigationSuDiNoi = new Zend_Navigation($configSuDiNoi);
+
+
+        $layout->serviziMenu = $navigationServizi;
+        $layout->suDiNoiMenu = $navigationSuDiNoi;
+
     }
 
     protected function _initDbParms()
