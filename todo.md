@@ -12,7 +12,7 @@ alessandrocaprarelli
 - [ ] togliere la possibilità di inserimento di un nuovo admin
   - [ ] togliere amministratore dal menu a tendina nel pannello inserimento utente
   - [ ] trovare una soluzione lato db per bloccare l'inserimento di un nuovo admin
-- [ ] slider nella home page al posto della singola immagine
+- [X] slider nella home page al posto della singola immagine
 
 shobiru
 - [ ] ricerca con wild-card(*)
