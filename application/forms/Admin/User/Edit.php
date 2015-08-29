@@ -70,6 +70,13 @@ class Application_Form_Admin_User_Edit extends App_Form_Abstract
             ),
         ));
 
+        $this->addElement('select', 'centri',array(
+            'label' => 'Centro di appartenenza',
+            'required' =>true,
+            'decorators' => $this->elementDecorators,
+            'registerInArrayValidator' => false
+        ));
+
 
         $this->addElement('submit', 'add', array(
             'label' => 'Modifica utente',

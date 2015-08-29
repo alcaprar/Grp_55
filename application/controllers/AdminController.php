@@ -345,7 +345,17 @@ class AdminController extends Zend_Controller_Action
     //carica la view per l'inserimento di un utente
     public function adduserAction()
     {
+        $select = $this->_addUserForm->getElement('centri');
 
+        $rows = $this->_adminModel->selectCentro($paged=null,$order=null);
+        $centri = [];
+
+        foreach($rows->toArray() as $row)
+        {
+            $centri[$row['id']] = $row['Nome'];
+        }
+
+        $select->setMultiOptions($centri);
     }
 
     //popola la form per la modifica
@@ -726,11 +736,26 @@ class AdminController extends Zend_Controller_Action
             $form->setDescription('ATTENZIONE: alcuni dati inseriti sono errati!');
             //Se non è stato validato rivisualizzo il risultato dell'azione registrautente
             //Rivisualizzo quindi la form popolata (Aggiungendo però i messaggi di errore!)
+
+            $select = $this->_addUserForm->getElement('centri');
+
+            $rows = $this->_adminModel->selectCentro($paged=null,$order=null);
+            $centri = [];
+
+            foreach($rows->toArray() as $row)
+            {
+                $centri[$row['id']] = $row['Nome'];
+            }
+
+            $select->setMultiOptions($centri);
             return $this->render('adduser'); //Esco poi dal controller con return
         }
         //Con getValues estraggo tutti i valori validati
         //Diventa un array di coppie nome-valori pronto per essere scritto sul DB se ho associato correttamente i nomi
         $values = $form->getValues();
+
+        $centro = $values['centri'];
+        unset($values['centri']);
 
         $this->_adminModel->insertUser($values);   //Definita in Model/Amministratore.php
     }

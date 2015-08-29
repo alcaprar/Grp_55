@@ -8,6 +8,7 @@ alessandrocaprarelli
   - [ ] lista dei centri a sinistra e come contenuto la mappa
   - [ ] per ogni centro far stampare la lista dei tecnici con i relativi contatti
   - [ ] quando si inserisce un nuovo tecnico inserire la possibilità di scegliere a che centro fa parte
+  (ho già inserito la select sui centri. bisogna aggiungere che deve essere nascosta e mostrarla quando si seleziona tecnico)
   - [ ] inserire un elemento select con tutti i centri nella form con attributo hidden e mostrarlo tramite jquery quando si seleziona tecnico
 - [ ] togliere la possibilità di inserimento di un nuovo admin
   - [X] togliere amministratore dal menu a tendina nel pannello inserimento utente
