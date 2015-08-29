@@ -67,7 +67,6 @@ class Application_Form_Admin_User_Edit extends App_Form_Abstract
             'multiOptions' => array(
                 'tec' => 'Tecnico',
                 'staff' => 'Staff amministrazione',
-                'admin' => 'Amministratore sito',
             ),
         ));
 

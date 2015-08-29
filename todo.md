@@ -10,7 +10,7 @@ alessandrocaprarelli
   - [ ] quando si inserisce un nuovo tecnico inserire la possibilità di scegliere a che centro fa parte
   - [ ] inserire un elemento select con tutti i centri nella form con attributo hidden e mostrarlo tramite jquery quando si seleziona tecnico
 - [ ] togliere la possibilità di inserimento di un nuovo admin
-  - [ ] togliere amministratore dal menu a tendina nel pannello inserimento utente
+  - [X] togliere amministratore dal menu a tendina nel pannello inserimento utente
   - [ ] trovare una soluzione lato db per bloccare l'inserimento di un nuovo admin
 - [X] slider nella home page al posto della singola immagine
 
