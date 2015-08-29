@@ -3,7 +3,7 @@ alessandrocaprarelli
 - [ ] pagina dove siamo
 - [ ] migliorare pagina FAQ
 - [X] implementare footer menu con zend_navigation
-- [ ] sistemare sezione sopra il footer con i video e la mappa
+- [X] sistemare sezione sopra il footer con i video e la mappa
 - [ ] pagina statica con la lista dei centri assistenza
   - [ ] lista dei centri a sinistra e come contenuto la mappa
   - [ ] per ogni centro far stampare la lista dei tecnici con i relativi contatti
