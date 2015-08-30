@@ -7,6 +7,11 @@ class Application_Model_Public extends App_Model_Abstract
         //$this->_logger = Zend_Registry::get('log');
     }
 
+    public function getTopCats()
+    {
+        return $this->getResource('TopCategory')->getTopCategorie();
+    }
+
     public function getCatById($id)
     {
         return $this->getResource('Category')->getCatById($id);

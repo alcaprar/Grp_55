@@ -6,6 +6,7 @@
     <?= $this->headLink(); ?>
     <?= $this->headTitle(); ?>
     <?= $this->headScript(); ?>
+    <script type="text/javascript"></script>
 
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
@@ -97,7 +98,7 @@
                         ),
                             'default',true
                         );
-                        ?>" method="post">
+                        ?>" method="get" id="live-search">
                             <input name="query" id="query" type="text" placeholder="Cerca prodotto"/>
                         </form>
                     </div>

@@ -11,14 +11,15 @@ alessandrocaprarelli
   - [ ] trovare una soluzione lato db per bloccare l'inserimento di un nuovo admin
 
 shobiru
-- [ ] ricerca con wild-card(*)
-- [ ] ricerca prodotti indicando la descrizione
-- [ ] ricerca con ajax (live search)
+- [ok] ricerca con wild-card(*)
+- [ok] ricerca prodotti indicando la descrizione
+- [ ] ricerca con ajax (live search) (parziale)
 - [ ] ricerca malfunzionamenti
-- [ ] inserire gestisci categoria nel panello admin
-  - [ ] mettere le categorie auto e moto a livello db come topCat
+- [ok] inserire gestisci categoria nel panello admin
+  - [ok] mettere le categorie auto e moto a livello db come topCat
+  - [ok] aggiungere gestisci categorie Top in admin
 - [ ] aggiungere search box per la modifica/cancellazione per prodotti, componenti ecc..
 - [ ] form pagina contatti
 - [ ] migliorare associazione prodotto componente
   - [ ] aggiungere update componenti
-- [ ] aggiungere la ripartizione delle categoria tra tecnici dello staff
+- [ ] aggiungere la ripartizione delle categorie tra tecnici dello staff

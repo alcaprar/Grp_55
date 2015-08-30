@@ -2,7 +2,7 @@
 
 class PublicController extends Zend_Controller_Action
 {
-    protected $_catalogModel;
+    protected $_publicModel;
     protected $_logger;
     protected $_loginForm;
     protected $_authService;
@@ -16,21 +16,54 @@ class PublicController extends Zend_Controller_Action
         $this->_authService = new Application_Service_Auth();
         $this->view->loginForm = $this->getLoginForm();
 
+        //recupera le categorie Top
+        $TopCats = $this->_publicModel->getTopCats();
+
         //recupera le categorie dal db attraverso il model
         //serve per il menu
-        $CategorieA = $this->_publicModel->getCatsByParId('A');
-        $CategorieM = $this->_publicModel->getCatsByParId('M');
+        /*$CategorieA = $this->_publicModel->getCatsByParId('A');
+        $CategorieM = $this->_publicModel->getCatsByParId('M');*/
 
-        $navCatAutoArray = array();
-        foreach($CategorieA->toArray() as $categoria)
-        {
-            $navCatAutoArray[] =  array(
-                'controller'=>'public',
-                'action'=>'catalogo',
-                'params'=> array('categoria'=>$categoria['Nome']),
+        $navMenus = array();
+
+        foreach($TopCats as $topcat) {
+            $categorie = $this->_publicModel->getCatsByParId($topcat->Nome);
+            $this->_logger->log($categorie, Zend_Log::DEBUG);
+            $navCatArray = array();
+            foreach($categorie as $cat)
+            {
+                $this->_logger->log($cat, Zend_Log::DEBUG);
+                $navCatArray[] = array(
+                    'controller' => 'public',
+                    'action' => 'catalogo',
+                    'params' => array('categoria' => $cat->Nome),
+                    'label' => $cat->Nome,
+                    'resource' => 'public',
+                    'privilege' => 'catalogo'
+                );
+            }
+
+            $configTopCat = new Zend_Config($navCatArray);
+
+            $navMenus[$topcat['Nome']] = new Zend_Navigation($configTopCat);
+            $this->_logger->log($navMenus[$topcat['Nome']], Zend_Log::DEBUG);
+        }
+
+        // Definisce le variabili per il viewer
+        $this->view->assign(array(
+            'Menu' => $navMenus,
+            'TopCats' => $TopCats)
+        );
+
+        /*$navCatAutoArray = array();
+        foreach ($CategorieA->toArray() as $categoria) {
+            $navCatAutoArray[] = array(
+                'controller' => 'public',
+                'action' => 'catalogo',
+                'params' => array('categoria' => $categoria['Nome']),
                 'label' => $categoria['Nome'],
-                'resource'=>'public',
-                'privilege'=>'catalogo'
+                'resource' => 'public',
+                'privilege' => 'catalogo'
             );
         }
         $configAuto = new Zend_Config($navCatAutoArray);
@@ -38,28 +71,20 @@ class PublicController extends Zend_Controller_Action
         $navigationAuto = new Zend_Navigation($configAuto);
 
         $navCatMotoArray = array();
-        foreach($CategorieM->toArray() as $categoria)
-        {
+        foreach ($CategorieM->toArray() as $categoria) {
             $navCatMotoArray[] = array(
-                'controller'=>'public',
-                'action'=>'catalogo',
-                'params'=> array('categoria'=>$categoria['Nome']),
+                'controller' => 'public',
+                'action' => 'catalogo',
+                'params' => array('categoria' => $categoria['Nome']),
                 'label' => $categoria['Nome'],
-                'resource'=>'public',
-                'privilege'=>'catalogo'
+                'resource' => 'public',
+                'privilege' => 'catalogo'
             );
         }
 
         $configMoto = new Zend_Config($navCatMotoArray);
 
-        $navigationMoto = new Zend_Navigation($configMoto);
-
-        // Definisce le variabili per il viewer
-        $this->view->assign(array(
-                'menuAuto' => $navigationAuto,
-                'menuMoto' => $navigationMoto
-            )
-        );
+        $navigationMoto = new Zend_Navigation($configMoto);*/
     }
 
     public function indexAction()
@@ -141,8 +166,11 @@ class PublicController extends Zend_Controller_Action
         $request = $this->getRequest();
 
         //arrivata una richiesta di cerca
-        if ($request->isPost()) {
-            $query = $request->getPost()['query'];
+        if ($request->isGet()) {
+            $query = $request->getQuery()['query'];
+            if(str_word_count($query) == 1){
+
+            }
             $this->_logger->log($query, Zend_Log::DEBUG);
 
             $this->_redirector = $this->_helper->getHelper('Redirector');
@@ -154,6 +182,20 @@ class PublicController extends Zend_Controller_Action
         }
 
     }
+
+    //da completare per la ricerca live
+    /*
+    public function livesearchAction()
+    {
+        $param=$_GET['query'];
+        $products = $this->_publicModel->getProdByName($param, $page=null, $order=null);
+        $this->_logger->log($products, Zend_Log::DEBUG);
+        foreach ($products as $prod) {
+            $data[]=$prod;
+        };
+        $this->_helper->json($data);
+    }
+    */
 
     public function viewstaticAction()
     {

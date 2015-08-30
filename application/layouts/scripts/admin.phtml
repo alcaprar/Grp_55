@@ -57,7 +57,7 @@
                         ),
                             'default',true
                         );
-                        ?>"><img src="<?php echo $this->baseURL();?>/images/home/logo.png" alt="" /></a>
+                        ?>"><img class="border-radius" height="54" width="140" src="<?php echo $this->baseURL();?>/images/home/logo.png" alt="" /></a>
                     </div>
                 </div>
                 <div class="col-sm-8">
@@ -155,6 +155,52 @@
                                                 'default',true
                                             );
                                             ?>">Modifica/cancella componente</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordian" href="#categorie">
+                                        <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+                                        Gestisci Categorie
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="categorie" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul>
+                                        <li><a href=" <?= $this->url(array(
+                                                'controller' => 'admin',
+                                                'action' => 'addtopcategory'),
+                                                'default',true
+                                            );
+                                            ?>">Aggiungi Macro-Categoria</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href=" <?= $this->url(array(
+                                                'controller' => 'admin',
+                                                'action' => 'modificacancellatopcategoria'),
+                                                'default',true
+                                            );
+                                            ?>">Modifica/Cancella Macro-Categoria</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href=" <?= $this->url(array(
+                                                'controller' => 'admin',
+                                                'action' => 'addcategory'),
+                                                'default',true
+                                            );
+                                            ?>">Aggiungi Categoria</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href=" <?= $this->url(array(
+                                                'controller' => 'admin',
+                                                'action' => 'modificacancellacategoria'),
+                                                'default',true
+                                            );
+                                            ?>">Modifica/cancella Categoria</a></li>
                                     </ul>
                                 </div>
                             </div>

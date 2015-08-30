@@ -13,21 +13,49 @@ class TecnicoController extends Zend_Controller_Action
         $this->_tecnicoModel = new Application_Model_Tecnico();
         $this->_authService = new Application_Service_Auth();
 
-        //recupera le categorie dal db attraverso il model
-        //serve per il menu
-        $CategorieA = $this->_tecnicoModel->getCatsByParId('A');
-        $CategorieM = $this->_tecnicoModel->getCatsByParId('M');
+        //recupera le categorie Top
+        $TopCats = $this->_tecnicoModel->getTopCats();
 
-        $navCatAutoArray = array();
-        foreach($CategorieA->toArray() as $categoria)
-        {
-            $navCatAutoArray[] =  array(
-                'controller'=>'tecnico',
-                'action'=>'catalogo',
-                'params'=> array('categoria'=>$categoria['Nome']),
+        $navMenus = array();
+
+        foreach($TopCats as $topcat) {
+            $categorie = $this->_tecnicoModel->getCatsByParId($topcat->Nome);
+            $this->_logger->log($categorie, Zend_Log::DEBUG);
+            $navCatArray = array();
+            foreach($categorie as $cat)
+            {
+                $this->_logger->log($cat, Zend_Log::DEBUG);
+                $navCatArray[] = array(
+                    'controller' => 'public',
+                    'action' => 'catalogo',
+                    'params' => array('categoria' => $cat->Nome),
+                    'label' => $cat->Nome,
+                    'resource' => 'public',
+                    'privilege' => 'catalogo'
+                );
+            }
+
+            $configTopCat = new Zend_Config($navCatArray);
+
+            $navMenus[$topcat['Nome']] = new Zend_Navigation($configTopCat);
+            $this->_logger->log($navMenus[$topcat['Nome']], Zend_Log::DEBUG);
+        }
+
+        // Definisce le variabili per il viewer
+        $this->view->assign(array(
+                'Menu' => $navMenus,
+                'TopCats' => $TopCats)
+        );
+
+        /*$navCatAutoArray = array();
+        foreach ($CategorieA->toArray() as $categoria) {
+            $navCatAutoArray[] = array(
+                'controller' => 'public',
+                'action' => 'catalogo',
+                'params' => array('categoria' => $categoria['Nome']),
                 'label' => $categoria['Nome'],
-                'resource'=>'tecnico',
-                'privilege'=>'catalogo'
+                'resource' => 'public',
+                'privilege' => 'catalogo'
             );
         }
         $configAuto = new Zend_Config($navCatAutoArray);
@@ -35,29 +63,20 @@ class TecnicoController extends Zend_Controller_Action
         $navigationAuto = new Zend_Navigation($configAuto);
 
         $navCatMotoArray = array();
-        foreach($CategorieM->toArray() as $categoria)
-        {
+        foreach ($CategorieM->toArray() as $categoria) {
             $navCatMotoArray[] = array(
-                'controller'=>'tecnico',
-                'action'=>'catalogo',
-                'params'=> array('categoria'=>$categoria['Nome']),
+                'controller' => 'public',
+                'action' => 'catalogo',
+                'params' => array('categoria' => $categoria['Nome']),
                 'label' => $categoria['Nome'],
-                'resource'=>'tecnico',
-                'privilege'=>'catalogo'
+                'resource' => 'public',
+                'privilege' => 'catalogo'
             );
         }
 
         $configMoto = new Zend_Config($navCatMotoArray);
 
-        $navigationMoto = new Zend_Navigation($configMoto);
-
-        // Definisce le variabili per il viewer
-        $this->view->assign(array(
-                'menuAuto' => $navigationAuto,
-                'menuMoto' => $navigationMoto
-            )
-        );
-
+        $navigationMoto = new Zend_Navigation($configMoto);*/
     }
 
     public function indexAction()

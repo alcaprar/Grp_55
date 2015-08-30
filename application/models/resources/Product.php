@@ -18,17 +18,24 @@ class Application_Resource_Product extends Zend_Db_Table_Abstract
 
     public function getProdByName($nome, $paged, $order)
     {
-        $select = $this->select()
+        $nome = str_replace('*', '%', $nome);
+        $selectByName = $this->select()
             ->setIntegrityCheck(false)
             ->from('Prodotti')
-            ->where('Nome = ?', $nome);
+            ->where('Nome LIKE ?', $nome);
+        $selectByDescription = $this->select() //query piuttosto lenta nell'esecuzione
+            ->setIntegrityCheck(false)
+            ->from('Prodotti')
+            ->where('DescrizioneBreve LIKE ?', '%'.$nome.'%');
+        $select = $this->select()
+            ->union(array($selectByName, $selectByDescription));
         if (true === is_array($order)) {
             $select->order($order);
         }
         if (null !== $paged) {
             $adapter = new Zend_Paginator_Adapter_DbTableSelect($select);
             $paginator = new Zend_Paginator($adapter);
-            $paginator->setItemCountPerPage(1)
+            $paginator->setItemCountPerPage(3)
                 ->setCurrentPageNumber((int) $paged);
             return $paginator;
         }
