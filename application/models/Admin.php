@@ -7,6 +7,56 @@ class Application_Model_Admin extends App_Model_Abstract
     {
     }
 
+    public function getTopCats()
+    {
+        return $this->getResource('TopCategory')->getTopCategorie();
+    }
+
+    public function getTopCatById($id)
+    {
+        return $this->getResource('TopCategory')->getTopCatById($id);
+    }
+
+    public function getCats()
+    {
+        return $this->getResource('Category')->getCategorie();
+    }
+
+    public function getCatById($id)
+    {
+        return $this->getResource('Category')->getCatById($id);
+    }
+
+    public function insertTopCategory($categoria)
+    {
+        return $this->getResource('TopCategory')->insertTopCategory($categoria);
+    }
+
+    public function deleteTopCategory($id)
+    {
+        return $this->getResource('TopCategory')->deleteTopCategory($id);
+    }
+
+    public function updateTopCategory($categoria, $id)
+    {
+        return $this->getResource('TopCategory')->updateTopCategory($categoria, $id);
+    }
+
+    public function insertCategory($categoria)
+    {
+        return $this->getResource('Category')->insertCategory($categoria);
+    }
+
+    public function deleteCategory($id)
+    {
+        return $this->getResource('Category')->deleteCategory($id);
+    }
+
+    public function updateCategory($categoria, $id)
+    {
+        return $this->getResource('Category')->updateCategory($categoria, $id);
+    }
+
     //Istanzia Utenti e attiva insertUser di Utenti.php
     public function insertProduct($prodotto)
     {
@@ -136,10 +186,5 @@ class Application_Model_Admin extends App_Model_Abstract
     public function insertUser($user)
     {
         return $this->getResource('Utenti')->insertUser($user);
-    }
-
-    public function getCategorie()
-    {
-        return $this->getResource('Category')->getCategorie();
     }
 }

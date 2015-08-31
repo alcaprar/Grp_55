@@ -3,6 +3,11 @@
 class AdminController extends Zend_Controller_Action
 {
     protected $_logger;
+
+    protected $_addCategoryForm;
+    protected $_editCategoryForm;
+    protected $_addTopCategoryForm;
+    protected $_editTopCategoryForm;
     protected $_addProductForm;
     protected $_editProductForm;
     protected $_addFaqForm;
@@ -33,6 +38,10 @@ class AdminController extends Zend_Controller_Action
         $this->view->editComponentForm = $this->getEditComponentForm();
         $this->view->addUserForm = $this->getAddUserForm();
         $this->view->editUserForm = $this->getEditUserForm();
+        $this->view->addCategoryForm = $this->getAddCategoryForm();
+        $this->view->editCategoryForm = $this->getEditCategoryForm();
+        $this->view->addTopCategoryForm = $this->getAddTopCategoryForm();
+        $this->view->editTopCategoryForm = $this->getEditTopCategoryForm();
 
         $this->_authService = new Application_Service_Auth();
     }
@@ -393,7 +402,7 @@ class AdminController extends Zend_Controller_Action
         $this->_editUserForm->populate($vector);
     }
 
-    //scarica dal db la lista delle faq
+        //scarica dal db la lista delle faq
     public function modificacancellautenteAction()
     {
         //recupero l'eventuale pagina
@@ -403,6 +412,126 @@ class AdminController extends Zend_Controller_Action
 
         //assegno le variabili alla view
         $this->view->assign('Utenti',$utenti);
+    }
+
+    public function addtopcategoryAction()
+    {
+
+    }
+
+    public function updatetopcategoryAction()
+    {
+        //recupero l'id della faq da modificare
+        $id = intval($this->_request->getParam('id'));
+
+        //se l'id non è valido ritorno alla lista dei prodotti da modificare
+        if($id == null){
+            $this->_helper->redirector('modificacancellatopcategoria', 'admin');
+        }
+
+        $urlHelper = $this->_helper->getHelper('url');
+        $this->_editUserForm->setAction($urlHelper->url(array(
+            'controller' => 'admin',
+            'action' => 'modificatopcategoria',
+            'id' => $id
+        ),
+            'default'
+        ));
+
+        $vector = array();
+        //recupero l'utente
+        $row = $this->_adminModel->getTopCatById($id);
+        foreach($row as $key=>$value) {
+            $vector[$key]=$value;
+        }
+
+
+        $this->view->assign('vector',$vector);
+
+
+        //rimuovo i campi che non ci sono nella form
+        unset($vector['id']);
+
+        $this->_editTopCategoryForm->populate($vector);
+    }
+
+    public function modificacancellatopcategoriaAction()
+    {
+        $categorie = $this->_adminModel->getTopCats();
+
+        //assegno le variabili alla view
+        $this->view->assign('TopCategorie',$categorie);
+    }
+
+    public function addcategoryAction()
+    {
+        $select = $this->_addCategoryForm->getElement('Tipo');
+
+        $rows = $this->_adminModel->getTopCats();
+        $topcategorie = [];
+
+        foreach($rows->toArray() as $row)
+        {
+            $topcategorie[$row['id']] = $row['Nome'];
+        }
+
+        $select->setMultiOptions($topcategorie);
+    }
+
+    public function updatecategoryAction()
+    {
+        //recupero l'id della faq da modificare
+        $id = intval($this->_request->getParam('id'));
+
+        //se l'id non è valido ritorno alla lista dei prodotti da modificare
+        if($id == null){
+            $this->_helper->redirector('modificacancellacategoria', 'admin');
+        }
+
+        $urlHelper = $this->_helper->getHelper('url');
+        $this->_editUserForm->setAction($urlHelper->url(array(
+            'controller' => 'admin',
+            'action' => 'modificacategoria',
+            'id' => $id
+        ),
+            'default'
+        ));
+
+        $vector = array();
+        //recupero l'utente
+        $row = $this->_adminModel->getCatById($id);
+        foreach($row as $key=>$value) {
+            $vector[$key]=$value;
+        }
+
+
+        $this->view->assign('vector',$vector);
+
+
+        //rimuovo i campi che non ci sono nella form
+        unset($vector['id']);
+
+        $this->_editCategoryForm->populate($vector);
+
+        $select = $this->_editCategoryForm->getElement('Tipo');
+
+        $rows = $this->_adminModel->getTopCats();
+        $topcategorie = [];
+
+        foreach($rows->toArray() as $row)
+        {
+            $topcategorie[$row['id']] = $row['Nome'];
+        }
+
+        $select->setMultiOptions($topcategorie);
+    }
+
+    public function modificacancellacategoriaAction()
+    {
+        $categorie = $this->_adminModel->getCats();
+
+        //assegno le variabili alla view
+        $this->view->assign('Categorie',$categorie);
     }
 
     public function aggiungiprodottoAction()
@@ -533,6 +662,176 @@ class AdminController extends Zend_Controller_Action
 
     }
 
+    public function aggiungitopcategoriaAction()
+    {
+        //Si attiva solo se la richiesta che ha attivato questa azione è di tipo post
+        //Se non lo è...
+        if (!$this->getRequest()->isPost()) {
+            //...ritorna alla home page dell'admin (actionIndex)
+            $this->_helper->redirector('logout', 'admin');        //Specificando solo il controller (index) prende come azione di default indexAction
+        }
+
+        //Il server ha ricreato l'applicazione avendo inviato il form,
+        // devo incrociare i dati che mi sono arrivati, perciò devo reistanziare il form
+        $form = $this->_addTopCategoryForm;
+
+        //Fa un incrocio fra $post e i campi ricevuti dalla form, restituisce true se sono compatibili, false altrimenti
+        if (!$form->isValid($_POST)) {
+            $form->setDescription('ATTENZIONE: alcuni dati inseriti sono errati!');
+            return $this->render('addtopcategory'); //Esco poi dal controller con return
+        }
+
+        //Con getValues estraggo tutti i valori validati
+        //Diventa un array di coppie nome-valori pronto per essere scritto sul DB se ho associato correttamente i nomi
+        $values = $form->getValues();
+
+        $idIns = $this->_adminModel->insertTopCategory($values);   //Definita in Model/Amministratore.php
+    }
+
+    public function modificatopcategoriaAction()
+    {
+        //Si attiva solo se la richiesta che ha attivato questa azione è di tipo post
+        //Se non lo è...
+        if (!$this->getRequest()->isPost()) {
+            //...ritorna alla home page dell'admin (actionIndex)
+            $this->_helper->redirector('logout', 'admin');        //Specificando solo il controller (index) prende come azione di default indexAction
+        }
+
+        //recupero l'id
+        $id = intval($this->_request->getParam('id'));
+
+        //Il server ha ricreato l'applicazione avendo inviato il form,
+        // devo incrociare i dati che mi sono arrivati, perciò devo reistanziare il form
+        $form = $this->_editTopCategoryForm;
+
+
+        //Fa un incrocio fra $post e i campi ricevuti dalla form, restituisce true se sono compatibili, false altrimenti
+        if (!$form->isValid($_POST)) {
+            $form->setDescription('ATTENZIONE: alcuni dati inseriti sono errati!');
+            //Se non è stato validato rivisualizzo il risultato dell'azione registrautente
+            //Rivisualizzo quindi la form popolata (Aggiungendo però i messaggi di errore!)
+
+            $urlHelper = $this->_helper->getHelper('url');
+            $this->_editComponentForm->setAction($urlHelper->url(array(
+                'controller' => 'admin',
+                'action' => 'modificatopcategoria',
+                'id' => $id
+            ),
+                'default'
+            ));
+
+            $form->populate($_POST);
+            return $this->render('updatetopcategory'); //Esco poi dal controller con return
+        }
+
+        //Con getValues estraggo tutti i valori validati
+        //Diventa un array di coppie nome-valori pronto per essere scritto sul DB se ho associato correttamente i nomi
+        $values = $form->getValues();
+
+        $this->_adminModel->updateTopCategory($values,$id);   //Definita in Model/Amministratore.php
+    }
+
+    public function eliminatopcategoriaAction()
+    {
+        //recupero l'id del prodotto da rimuovere
+        $id = intval($this->_request->getParam('id'));
+
+        if ($id !== 0) {
+            $this->_adminModel->deleteTopCategory($id);
+        }
+    }
+
+    public function aggiungicategoriaAction()
+    {
+        //Si attiva solo se la richiesta che ha attivato questa azione è di tipo post
+        //Se non lo è...
+        if (!$this->getRequest()->isPost()) {
+            //...ritorna alla home page dell'admin (actionIndex)
+            $this->_helper->redirector('logout', 'admin');        //Specificando solo il controller (index) prende come azione di default indexAction
+        }
+
+        //Il server ha ricreato l'applicazione avendo inviato il form,
+        // devo incrociare i dati che mi sono arrivati, perciò devo reistanziare il form
+        $form = $this->_addCategoryForm;
+
+        //Fa un incrocio fra $post e i campi ricevuti dalla form, restituisce true se sono compatibili, false altrimenti
+        if (!$form->isValid($_POST)) {
+            $form->setDescription('ATTENZIONE: alcuni dati inseriti sono errati!');
+
+            $select = $this->_addCategoryForm->getElement('Tipo');
+
+            $rows = $this->_adminModel->getTopCats();
+            $topcategorie = [];
+
+            foreach($rows->toArray() as $row)
+            {
+                $topcategorie[$row['id']] = $row['Nome'];
+            }
+
+            $select->setMultiOptions($topcategorie);
+
+            return $this->render('addcategory'); //Esco poi dal controller con return
+        }
+
+        //Con getValues estraggo tutti i valori validati
+        //Diventa un array di coppie nome-valori pronto per essere scritto sul DB se ho associato correttamente i nomi
+        $values = $form->getValues();
+
+        $idIns = $this->_adminModel->insertCategory($values);   //Definita in Model/Amministratore.php
+    }
+
+    public function modificacategoriaAction()
+    {
+        //Si attiva solo se la richiesta che ha attivato questa azione è di tipo post
+        //Se non lo è...
+        if (!$this->getRequest()->isPost()) {
+            //...ritorna alla home page dell'admin (actionIndex)
+            $this->_helper->redirector('logout', 'admin');        //Specificando solo il controller (index) prende come azione di default indexAction
+        }
+
+        //recupero l'id
+        $id = intval($this->_request->getParam('id'));
+
+        //Il server ha ricreato l'applicazione avendo inviato il form,
+        // devo incrociare i dati che mi sono arrivati, perciò devo reistanziare il form
+        $form = $this->_editCategoryForm;
+
+
+        //Fa un incrocio fra $post e i campi ricevuti dalla form, restituisce true se sono compatibili, false altrimenti
+        if (!$form->isValid($_POST)) {
+            $form->setDescription('ATTENZIONE: alcuni dati inseriti sono errati!');
+            //Se non è stato validato rivisualizzo il risultato dell'azione registrautente
+            //Rivisualizzo quindi la form popolata (Aggiungendo però i messaggi di errore!)
+
+            $urlHelper = $this->_helper->getHelper('url');
+            $this->_editComponentForm->setAction($urlHelper->url(array(
+                'controller' => 'admin',
+                'action' => 'modificacategoria',
+                'id' => $id
+            ),
+                'default'
+            ));
+
+            $form->populate($_POST);
+            return $this->render('updatecategory'); //Esco poi dal controller con return
+        }
+
+        //Con getValues estraggo tutti i valori validati
+        //Diventa un array di coppie nome-valori pronto per essere scritto sul DB se ho associato correttamente i nomi
+        $values = $form->getValues();
+
+        $this->_adminModel->updateCategory($values,$id);   //Definita in Model/Amministratore.php
+    }
+
+    public function eliminacategoriaAction()
+    {
+        //recupero l'id del prodotto da rimuovere
+        $id = intval($this->_request->getParam('id'));
+
+        if ($id !== 0) {
+            $this->_adminModel->deleteCategory($id);
+        }
+    }
 
     public function aggiungicomponenteAction()
     {
@@ -1017,6 +1316,45 @@ class AdminController extends Zend_Controller_Action
         return $this->_editUserForm;
     }
 
+    private function getAddCategoryForm()
+    {
+        $urlHelper = $this->_helper->getHelper('url');
+
+        $this->_addCategoryForm = new Application_Form_Admin_Category_Add();
+        $this->_addCategoryForm->setAction($urlHelper->url(array(
+            'controller' => 'admin',
+            'action' => 'aggiungicategoria'
+        ),
+            'default'
+        ));
+        return $this->_addCategoryForm;
+    }
+
+    private function getEditCategoryForm()
+    {
+        $this->_editCategoryForm = new Application_Form_Admin_Category_Edit();
+        return $this->_editCategoryForm;
+    }
+
+    private function getAddTopCategoryForm()
+    {
+        $urlHelper = $this->_helper->getHelper('url');
+
+        $this->_addTopCategoryForm = new Application_Form_Admin_TopCategory_Add();
+        $this->_addTopCategoryForm->setAction($urlHelper->url(array(
+            'controller' => 'admin',
+            'action' => 'aggiungitopcategoria'
+        ),
+            'default'
+        ));
+        return $this->_addTopCategoryForm;
+    }
+
+    private function getEditTopCategoryForm()
+    {
+        $this->_editTopCategoryForm = new Application_Form_Admin_TopCategory_Edit();
+        return $this->_editTopCategoryForm;
+    }
 
     //Cancella l'identità e poi reindirizza all'azione index del controller public
     public function logoutAction()
