@@ -32,7 +32,7 @@ $(function(){
 <section>
     <h3>Associa Malfunzionamento</h3>
     <p>Utilizza questa pagina per gestire l'associazione tra prodotti e malfunzionamenti.</p>
-    <select class="col-sm-3" name="selectProdotti">
+    <select class="col-sm-3" id="selectProdotti">
             <?php
             foreach($this->Prodotti as $prod)
                 {
@@ -40,11 +40,11 @@ $(function(){
                 }
             ?>
     </select>
-    <div class="col-sm-6" name="checkboxes">
+    <div class="col-sm-6" id="checkboxes">
         <?php
         foreach($this->Malfunzionamenti as $malf)
         {
-            echo '<input type="checkbox" name="'.$malf->id.'">'.$malf->Malfunzionamento.'</input>';
+            echo '<input type="checkbox" id="'.$malf->id.'">'.$malf->Malfunzionamento.'</input>';
         }
         ?>
     </div>
