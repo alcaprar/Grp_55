@@ -17,6 +17,11 @@ class Application_Model_Staff extends App_Model_Abstract
         return $this->getResource('Malfunction')->getMalfunctionByIdFind($id);
     }
 
+    public function getMalfunctionsByIdProd($idprod)
+    {
+        return $this->getResource('Malfunctions')->getMalfunctionsByProd($idprod);
+    }
+
     public function insertMalfunction($newMalf)
     {
         return $this->getResource('Malfunction')->insertMalfunction($newMalf);
@@ -36,6 +41,16 @@ class Application_Model_Staff extends App_Model_Abstract
     public function deleteMalfunction($idMalf)
     {
         return $this->getResource('Malfunction')->deleteMalfunction($idMalf);
+    }
+
+    public function getProducts()
+    {
+        return $this->getResource('Product')->selectProduct();
+    }
+
+    public function getProdByName($prodname)
+    {
+        return $this->getResource('Product')->getProdByName($prodname);
     }
 
 }

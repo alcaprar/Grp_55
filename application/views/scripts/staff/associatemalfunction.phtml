@@ -1,0 +1,20 @@
+<section>
+    <h3>Associa Malfunzionamento</h3>
+    <p>Utilizza questa pagina per gestire l'associazione tra prodotti e malfunzionamenti.</p>
+    <select class="col-sm-3" name="selectProdotti">
+            <?php
+            foreach($this->Prodotti as $prod)
+                {
+                    echo '<option value="'.$prod->Nome.'">'.$prod->Nome.'</option>';
+                }
+            ?>
+    </select>
+    <div name="checkboxes">
+        <?php
+        foreach($this->Malfunzionamenti as $malf)
+        {
+            echo '<input type="checkbox" name="'.$malf->id.'">'.$malf->Malfunzionamento.'</input>';
+        }
+        ?>
+    </div>
+</section>

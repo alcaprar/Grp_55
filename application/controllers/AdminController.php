@@ -132,7 +132,6 @@ class AdminController extends Zend_Controller_Action
         $this->_editProductForm->populate($vector);
     }
 
-
     //scarica dal db la lista dei prodotti
     public function modificacancellaprodottoAction()
     {

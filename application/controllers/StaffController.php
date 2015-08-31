@@ -28,7 +28,34 @@ class StaffController extends Zend_Controller_Action
     //carica la view per l'inserimento di un malfunzionamento
     public function addmalfunctionAction()
     {
+    }
 
+    //carica la view di scelta del prodotto con aggiornamento lato client dei malfunzionamenti.
+    public function associatemalfunctionAction()
+    {
+        $prodotti = $this->_staffModel->getProducts();
+        $malfunzionamenti = $this->_staffModel->selectMalfunction($paged=null, $order=null);
+
+        $this->_logger->log($prodotti, Zend_Log::DEBUG);
+
+        $this->view->assign(array(
+            'Malfunzionamenti'=> $malfunzionamenti,
+            'Prodotti' => $prodotti));
+    }
+
+    public function populatemalfAction()
+    {
+        $param=$_GET['prod'];
+        $product = $this->_staffModel->getProdByName($param, $page=null, $order=null)->current();
+        $this->_logger->log($product, Zend_Log::DEBUG);
+        $idprod = $product->id;
+        $malfs = $this->_staffModel->getMalfunctionsByIdProd($idprod);
+        $idmalfs = array();
+        foreach($malfs as $malf)
+        {
+            $idmalfs[] = $malf->idMalfunzionamento;
+        }
+        $this->_helper->json($idmalfs, $sendNow = true, $keepLayouts = false, $encodeData = false);
     }
 
     //popola la form per la modifica
@@ -156,7 +183,6 @@ class StaffController extends Zend_Controller_Action
 
     }
 
-
     public function cancellamalfunzionamentoAction()
     {
         //recupero l'id del prodotto da rimuovere
@@ -165,6 +191,11 @@ class StaffController extends Zend_Controller_Action
         if ($id !== 0) {
             $this->_staffModel->deleteMalfunction($id);
         }
+
+    }
+
+    public function associamalfunzionamentoAction()
+    {
 
     }
 
