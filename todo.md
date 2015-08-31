@@ -2,6 +2,7 @@ alessandrocaprarelli
 - [ ] pagina chi siamo
 - [ ] pagina dove siamo
 - [ ] migliorare pagina FAQ
+http://www.jqueryscript.net/accordion/Creating-An-Accordion-Style-FAQ-System-with-jQuery-CSS3.html
 - [X] implementare footer menu con zend_navigation
 - [X] sistemare sezione sopra il footer con i video e la mappa
 - [ ] pagina statica con la lista dei centri assistenza
