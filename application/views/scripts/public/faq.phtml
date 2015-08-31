@@ -8,25 +8,29 @@
                     echo '<dl id="faqs">';
                     foreach ($this->Faq as $faq)
                     {
-                        echo'<dt id="domanda" > <i id="iconadomanda" class="fa fa-plus-circle"></i>'.$faq->Domanda.'</dt>
-                             <dd id="risposta">'.$faq->Risposta.'</dd>
-                        ';
+                        echo'<div class="faq-c">
+                                <div class="faq-q"><span class="faq-t">+</span>'.$faq->Domanda.'</div>
+                                <div class="faq-a">
+                                <p>'.$faq->Risposta.'</p>
+                                </div>
+                             </div>';
+
+                        echo'<script>
+                               $(".faq-q").click( function () {
+  var container = $(this).parents(".faq-c");
+  var answer = container.find(".faq-a");
+  var trigger = container.find(".faq-t");
+
+  answer.slideToggle(200);
+
+  if (trigger.hasClass("faq-o")) {
+    trigger.removeClass("faq-o");
+  }
+  else {
+    trigger.addClass("faq-o");
+  }
+});</script>';
                     }
-                    echo'</dl>
-                       <script>
-                       $("#risposta").hide();
-                       $( "#domanda" ).click(function() {
-                         $( "#risposta" ).toggle( "slow", function() {
-                             if($( "#iconadomanda" ).hasClass( "fa fa-plus-circle" )){
-                                 $("#iconadomanda").removeClass("fa fa-plus-circle");
-                                 $("#iconadomanda").addClass( "fa fa-minus-circle" );
-                             } else {
-                                 $("#iconadomanda").removeClass( "fa fa-minus-circle" );
-                                 $("#iconadomanda").addClass("fa fa-plus-circle");
-                             }
-                         });
-                       });
-                       </script>';
                     ?>
                 </div><!--features_items-->
             </div>

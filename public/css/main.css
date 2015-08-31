@@ -2552,4 +2552,40 @@ tr.border_bottom td {
   border-radius: 10px;
 }
 
+.faq-header {
+  font-size: 2em;
+  border-bottom: 1px dotted #ccc;
+  padding: 1em 0;
+}
+
+.faq-c {
+  border-bottom: 1px dotted #ccc;
+  padding: 1em 0;
+}
+
+.faq-t {
+  line-height: 1em;
+  color: #aaa;
+  font-family: sans-serif;
+  float: left;
+  font-weight: 700;
+  padding-right: 0.3em;
+  -webkit-transition: all 200ms;
+  -moz-transition: all 200ms;
+  transition: all 200ms;
+}
+
+.faq-o {
+  transform: rotate(-45deg);
+  transform-origin: 50% 50%;
+  -ms-transform: rotate(-45deg);
+  -ms-transform-origin: 50% 50%;
+  -webkit-transform: rotate(-45deg);
+  -webkit-transform-origin: 50% 50%;
+  -webkit-transition: all 200ms;
+  -moz-transition: all 200ms;
+  transition: all 200ms;
+}
+
+
 
