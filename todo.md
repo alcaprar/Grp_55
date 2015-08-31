@@ -1,12 +1,12 @@
 alessandrocaprarelli
 - [ ] pagina chi siamo
 - [ ] pagina dove siamo
-- [X] migliorare pagina FAQ
+- [ ] migliorare pagina FAQ
 http://www.jqueryscript.net/accordion/Creating-An-Accordion-Style-FAQ-System-with-jQuery-CSS3.html
 - [X] implementare footer menu con zend_navigation
 - [X] sistemare sezione sopra il footer con i video e la mappa
-- [X] pagina statica con la lista dei centri assistenza
-  - [X] lista dei centri a sinistra e come contenuto la mappa
+- [ ] pagina statica con la lista dei centri assistenza
+  - [ ] lista dei centri a sinistra e come contenuto la mappa
   - [ ] per ogni centro far stampare la lista dei tecnici con i relativi contatti
   - [ ] quando si inserisce un nuovo tecnico inserire la possibilità di scegliere a che centro fa parte
   (ho già inserito la select sui centri. bisogna aggiungere che deve essere nascosta e mostrarla quando si seleziona tecnico)
@@ -17,13 +17,13 @@ http://www.jqueryscript.net/accordion/Creating-An-Accordion-Style-FAQ-System-wit
 - [X] slider nella home page al posto della singola immagine
 
 shobiru
-- [X] ricerca con wild-card(*)
-- [X] ricerca prodotti indicando la descrizione
+- [ok] ricerca con wild-card(*)
+- [ok] ricerca prodotti indicando la descrizione
 - [ ] ricerca con ajax (live search) (parziale)
 - [ ] ricerca malfunzionamenti
-- [X] inserire gestisci categoria nel panello admin
-  - [X] mettere le categorie auto e moto a livello db come topCat
-  - [X] aggiungere gestisci categorie Top in admin
+- [ok] inserire gestisci categoria nel panello admin
+  - [ok] mettere le categorie auto e moto a livello db come topCat
+  - [ok] aggiungere gestisci categorie Top in admin
 - [ ] aggiungere search box per la modifica/cancellazione per prodotti, componenti ecc..
 - [X] form pagina contatti e invio email
 - [ ] implementare search box prodotti con zend_form
