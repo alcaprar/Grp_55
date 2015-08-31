@@ -1,4 +1,65 @@
 <?php
+echo'<div class="col-sm-9 padding-right">
+                <div class="features_items"><!--features_items-->
+                    <h2 class="title text-center">Modifica prodotti</h2>
+                    <div  id="cart_items" >
+                        <div  class="table-responsive cart_info">
+                            <table  class="table table-condensed">
+                                <thead>
+                                <tr class="cart_menu">
+                                    <td class="description">Nome</td>
+                                    <td class="description">Indirizzo</td>
+                                    <td class="description">Telefono</td>
+                                    <td class="description">Email</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                </thead>
+                                <tbody>';
+foreach($this->Centro as $centro){
+    echo'<tr>
+                                    <td  class="cart_description">
+                                        <h4>'.$centro->Nome.'</h4>
+                                        <p>ID: '.$centro->id.'</p>
+                                    </td>
+                                    <td  class="cart_description">
+                                        <p>'.$centro->Indirizzo.'</p>
+                                    </td>
+                                    <td  class="cart_description">
+                                        <p>'.$centro->Telefono.'</p>
+                                    </td>
+                                    <td  class="cart_description">
+                                        <p>'.$centro->Email.'</p>
+                                    </td>
+                                    <td  class="cart_delete">
+                                        <p><a class="cart_quantity_delete" href="'.$this->url(array(
+            'controller' => 'admin',
+            'action'     => 'updatecentro',
+            'id' => $centro->id
+        ),
+            'default',true
+        ).'"><i class="fa fa-pencil">Modifica</i></a></p>
+                                        <p><a class="cart_quantity_delete" href="'.$this->url(array(
+            'controller' => 'admin',
+            'action'     => 'cancellacentro',
+            'id' => $centro->id
+        ),
+            'default',true
+        ).'"><i class="fa fa-times">Cancella</i></a></p>
+                                    </td>
+                                </tr>';
+}
+echo'</tbody>
+                            </table>
+                        </div>
+                    </div>';
+if($this->Centro instanceof Zend_Paginator) {
+    echo '<div class="text-center">'.$this->paginationControl($this->Centro,'Elastic','admin/_paginatorCentro.phtml').'</div>';
+};
+echo '</div><!--features_items-->
+            </div>';?>
+
+<?php
 echo '<div class="features_items"><!--features_items-->
     <h2 class="title text-center">MODIFICA Centri assistenza</h2>';
 foreach($this->Centro as $centro){

@@ -17,7 +17,7 @@ http://www.jqueryscript.net/accordion/Creating-An-Accordion-Style-FAQ-System-wit
 - [ ] sistemare pagine admin
   - [X] modifica utenti
   - [X] modifica faq
-  - [ ] modifica centri
+  - [X] modifica centri
 - [ok] ricerca con wild-card(*)
 - [ok] ricerca prodotti indicando la descrizione
 - [ ] ricerca con ajax (live search) (parziale)
