@@ -6,7 +6,7 @@ class Application_Form_Public_Mail_Send extends App_Form_Abstract
         $this->setMethod('post');
         //Nome della form
         $this->setName('inviamail');
-        //Azione da eseguire è definita nel controller che utilizza questa form
+        //Azione da eseguire ï¿½ definita nel controller che utilizza questa form
         $this->setAction('');
 
         //email del mittente
