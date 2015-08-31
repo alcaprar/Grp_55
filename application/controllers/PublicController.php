@@ -263,16 +263,20 @@ class PublicController extends Zend_Controller_Action
             return $this->render('contact');
         }
         try{
-        $mail = new Zend_Mail();
-        $mail->setBodyText($form->getElement('body'))
-            ->setFrom($form->getElement('sender'), $form->getElement('namesender'))
-            ->addTo('caprarelli.alessandro@gmail.com', 'BMW Assistance')
-            ->setSubject($form->getElement('subject'))
-            ->send();
+            $values = $form->getValues();
+            $this->_logger->log($values,Zend_Log::DEBUG);
+            $mail = new Zend_Mail();
+            $mail->setBodyText($form->getElement('body'))
+                ->setFrom($values['sender'], $values['namesender'])
+                ->addTo('grp55tw@gmail.com', 'BMW Assistance')
+                ->setSubject($values['subject'])
+                ->setBodyText($values['body'])
+                ->send();
         } catch (Zend_Mail_Transport_Exception $e){
             $this->_logger->log('C\'é stato un problema con l\'invio', Zend_Log::DEBUG);
+            $form->setDescription('C\'é stato un problema con l\'invio, riprovare.');
+            return $this->render('contact');
         }
-        return $this->_helper->redirector('successomail');
     }
 
     public function successomailAction()

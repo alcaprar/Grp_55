@@ -248,6 +248,24 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     }
 
+    protected function _initMail()
+    {
+        try {
+            $config = array(
+                'auth' => 'login',
+                'username' => 'grp55tw@gmail.com',
+                'password' => 'univpm2015',
+                'ssl' => 'tls',
+                'port' => 587
+            );
+
+            $mailTransport = new Zend_Mail_Transport_Smtp('smtp.gmail.com', $config);
+            Zend_Mail::setDefaultTransport($mailTransport);
+        } catch (Zend_Exception $e){
+            //Do something with exception
+        }
+    }
+
     protected function _initDbParms()
     {
         //include il file con i parametri per la connessione
