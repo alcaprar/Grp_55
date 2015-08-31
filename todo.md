@@ -15,6 +15,10 @@ http://www.jqueryscript.net/accordion/Creating-An-Accordion-Style-FAQ-System-wit
   - [X] togliere amministratore dal menu a tendina nel pannello inserimento utente
   - [ ] trovare una soluzione lato db per bloccare l'inserimento di un nuovo admin
 - [X] slider nella home page al posto della singola immagine
+- [ ] sistemare pagine admin
+  - [X] modifica utenti
+  - [ ] modifica faq
+  - [ ] modifica centri
 
 shobiru
 - [ok] ricerca con wild-card(*)

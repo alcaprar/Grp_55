@@ -1,34 +1,60 @@
 <?php
-echo '<div class="features_items"><!--features_items-->
-    <h2 class="title text-center">MODIFICA Utenti</h2>';
+echo'<div class="col-sm-9 padding-right">
+                <div class="features_items"><!--features_items-->
+                    <h2 class="title text-center">Modifica prodotti</h2>
+                    <div  id="cart_items" >
+                        <div  class="table-responsive cart_info">
+                            <table  class="table table-condensed">
+                                <thead>
+                                <tr class="cart_menu">
+                                    <td class="description">Username</td>
+                                    <td class="description">Nome</td>
+                                    <td class="description">Cognome</td>
+                                    <td class="description">Ruolo</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                </thead>
+                                <tbody>';
 foreach($this->Utenti as $utente){
-    echo'<div class="media commnets">
-						<div class="media-body">
-							<h4 class="media-heading">Nome: </h4>
-							<p>'.$utente->Nome .'</p>
-							<h4 class="media-heading">Username: </h4>
-							<p>'.$utente->Username .'</p>
-							<div class="blog-socials">
-								<ul>
-									<li><a href="'.$this->url(array(
+    echo'<tr>
+                                    <td  class="cart_description">
+                                        <p>'.$utente->Username.'</p>
+                                    </td>
+                                    <td  class="cart_description">
+                                        <h4>'.$utente->Nome.'</h4>
+                                        <p>ID: '.$utente->idUtenti.'</p>
+                                    </td>
+                                    <td  class="cart_description">
+                                        <p>'.$utente->Cognome.'</p>
+                                    </td>
+                                    <td  class="cart_description">
+                                        <p>'.$utente->Ruolo.'</p>
+                                    </td>
+                                    <td  class="cart_delete">
+                                        <p><a class="cart_quantity_delete" href="'.$this->url(array(
             'controller' => 'admin',
             'action'     => 'updateuser',
             'id' => $utente->idUtenti
         ),
             'default',true
-        ).'"><i class="fa fa-pencil"></i>Modifica</a></li>
-									<li><a href="'.$this->url(array(
+        ).'"><i class="fa fa-pencil">Modifica</i></a></p>
+                                        <p><a class="cart_quantity_delete" href="'.$this->url(array(
             'controller' => 'admin',
-            'action'     => 'cancellauser',
+            'action'     => 'cancellautente',
             'id' => $utente->idUtenti
         ),
             'default',true
-        ).'"><i class="fa fa-trash-o"></i>Cancella</a></li>
-								</ul>
-							</div>
-						</div>
-						</div>';
+        ).'"><i class="fa fa-times">Cancella</i></a></p>
+                                    </td>
+                                </tr>';
 }
+echo'</tbody>
+                            </table>
+                        </div>
+                    </div>';
 if($this->Utenti instanceof Zend_Paginator) {
     echo '<div class="text-center">'.$this->paginationControl($this->Utenti,'Elastic','admin/_paginatorUtenti.phtml').'</div>';
 };
+echo '</div><!--features_items-->
+            </div>';
