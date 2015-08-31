@@ -228,7 +228,21 @@
 <script src="<?php echo $this->baseURL();?>/js/price-range.js"></script>
 <script src="<?php echo $this->baseURL();?>/js/jquery.prettyPhoto.js"></script>
 <script src="<?php echo $this->baseURL();?>/js/main.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $(".faq-q").click( function () {
+        var container = $(this).parents(".faq-c");
+        var answer = container.find(".faq-a");
+        var trigger = container.find(".faq-t");
+
+        answer.slideToggle(200);
+
+        if (trigger.hasClass("faq-o")) {
+            trigger.removeClass("faq-o");
+        }
+        else {
+            trigger.addClass("faq-o");
+        }
+    });</script>
 </body>
 </html>
 
