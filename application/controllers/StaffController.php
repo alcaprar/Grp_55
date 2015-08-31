@@ -45,6 +45,9 @@ class StaffController extends Zend_Controller_Action
 
     public function populatemalfAction()
     {
+        $this->_helper->getHelper('layout')->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+
         $param=$_GET['prod'];
         $product = $this->_staffModel->getProdByName($param, $page=null, $order=null)->current();
         $this->_logger->log($product, Zend_Log::DEBUG);

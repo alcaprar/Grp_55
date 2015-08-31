@@ -1,3 +1,34 @@
+<?php $this->headScript()
+    ->appendFile('https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
+    ->captureStart() ?>
+
+// codice jQuery inserito da view-script nella sezione head della pagina
+$(function(){
+    $('#selectProdotti').change(function(event){
+        $.ajax({
+            type: 'GET',
+            url: '<?php echo $this->url(array(
+                            'controller' => 'staff',
+                            'action' => 'populatemalf'
+                        ),
+                            'default'
+                        )?>',
+            data: "prod=" + $('#selectProdotti').val(),
+            dataType: 'json',
+            success: setMalfunzionamenti
+        });
+    });
+
+    function setMalfunzionamenti(data){
+        $.each(data, function(key, val){
+            $("#" + val()).prop('checked', true);
+        });
+    }
+});
+
+<?php $this->headScript()->captureEnd() ?>
+
+
 <section>
     <h3>Associa Malfunzionamento</h3>
     <p>Utilizza questa pagina per gestire l'associazione tra prodotti e malfunzionamenti.</p>
@@ -9,7 +40,7 @@
                 }
             ?>
     </select>
-    <div name="checkboxes">
+    <div class="col-sm-6" name="checkboxes">
         <?php
         foreach($this->Malfunzionamenti as $malf)
         {

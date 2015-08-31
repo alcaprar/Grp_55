@@ -316,30 +316,6 @@
 <script src="<?php echo $this->baseURL();?>/js/price-range.js"></script>
 <script src="<?php echo $this->baseURL();?>/js/jquery.prettyPhoto.js"></script>
 <script src="<?php echo $this->baseURL();?>/js/main.js"></script>
-<script type="javascript">
-    $(function(){
-        $('#selectProdotti').change(function(event){
-            $.ajax({
-                type: 'GET',
-                url: ''.<?php echo $this->_helper->getHelper('url')->url(array(
-                                'controller' => 'staff',
-                                'action' => 'populatemalf'
-                            ),
-                                'default'
-                            )?>.'',
-                data: "prod=" + $('#selectProdotti').val(),
-                dataType: 'json',
-                success: setMalfunzionamenti
-            });
-        });
-
-        function setMalfunzionamenti(data){
-            $.each(data, function(key, val){
-                $('#' + val()).prop('checked', true);
-            });
-        }
-    });
-</script>
 </body>
 </html>
 
