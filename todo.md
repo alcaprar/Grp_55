@@ -26,7 +26,6 @@ shobiru
   - [ok] aggiungere gestisci categorie Top in admin
 - [ ] aggiungere search box per la modifica/cancellazione per prodotti, componenti ecc..
 - [ok] form pagina contatti e invio email
-- [ ] implementare search box prodotti con zend_form
 - [ ] migliorare associazione prodotto componente
   - [ ] aggiungere update componenti
 - [ ] aggiungere la ripartizione delle categorie tra tecnici dello staff
