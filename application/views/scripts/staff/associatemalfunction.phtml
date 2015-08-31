@@ -5,6 +5,11 @@
 // codice jQuery inserito da view-script nella sezione head della pagina
 $(function(){
     $('#selectProdotti').change(function(event){
+        //inizio loading
+var over = '<div id="overlay">' +
+    '<img id="loading" src="<?php echo $this->baseURL();?>/images/ajax-loader.gif">' +
+    '</div>';
+$(over).appendTo('body');
         $.ajax({
             type: 'POST',
             url: '<?php echo $this->url(array(
@@ -15,11 +20,11 @@ $(function(){
                         )?>',
             data: { id: $('#selectProdotti').val() },
             dataType: 'json',
+complete: function(){
+$('#overlay').remove();
+},
             success: function(data){
-
-alert('ok');
 setMalfunzionamenti(data);
-
 },
 error:function(){
 alert("fail :(");

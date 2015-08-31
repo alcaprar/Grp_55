@@ -2604,6 +2604,25 @@ tr.border_bottom td {
   height: 400px;
 }
 
+#overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: #000;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+#loading {
+  top: 50%;
+  left: 50%;
+
+  position: fixed;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
 
 
 
