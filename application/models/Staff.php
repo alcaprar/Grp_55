@@ -53,4 +53,9 @@ class Application_Model_Staff extends App_Model_Abstract
         return $this->getResource('Product')->getProdByName($prodname);
     }
 
+    public function getProdById($id)
+    {
+        return $this->getResource('Product')->getProdById($id);
+    }
+
 }

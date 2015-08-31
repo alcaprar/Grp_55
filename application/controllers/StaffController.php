@@ -45,20 +45,24 @@ class StaffController extends Zend_Controller_Action
 
     public function populatemalfAction()
     {
-        $this->_helper->getHelper('layout')->disableLayout();
-        $this->_helper->viewRenderer->setNoRender();
 
-        $param=$_GET['prod'];
-        $product = $this->_staffModel->getProdByName($param, $page=null, $order=null)->current();
-        $this->_logger->log($product, Zend_Log::DEBUG);
-        $idprod = $product->id;
-        $malfs = $this->_staffModel->getMalfunctionsByIdProd($idprod);
-        $idmalfs = array();
-        foreach($malfs as $malf)
-        {
-            $idmalfs[] = $malf->idMalfunzionamento;
+        if($this->getRequest()->isXmlHttpRequest()) {
+
+            $this->_helper->getHelper('layout')->disableLayout();
+            $this->_helper->viewRenderer->setNoRender();
+
+            $param = $this->getRequest()->getParam('id');
+            $this->_logger->log($param, Zend_Log::DEBUG);
+            $malfs = $this->_staffModel->getMalfunctionsByIdProd($param);
+            $idmalfs = array();
+            foreach ($malfs as $malf) {
+                $idmalfs[] = $malf->idMalfunzionamento;
+            }
+            $this->_logger->log($malfs, Zend_Log::DEBUG);
+            $this->_helper->json($idmalfs, $sendNow = true, $keepLayouts = false, $encodeData = true);
+        }else{
+            $this->_helper->redirector('staff');
         }
-        $this->_helper->json($idmalfs, $sendNow = true, $keepLayouts = false, $encodeData = false);
     }
 
     //popola la form per la modifica

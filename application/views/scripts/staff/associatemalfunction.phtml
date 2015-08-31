@@ -6,23 +6,32 @@
 $(function(){
     $('#selectProdotti').change(function(event){
         $.ajax({
-            type: 'GET',
+            type: 'POST',
             url: '<?php echo $this->url(array(
                             'controller' => 'staff',
                             'action' => 'populatemalf'
                         ),
                             'default'
                         )?>',
-            data: "prod=" + $('#selectProdotti').val(),
+            data: { id: $('#selectProdotti').val() },
             dataType: 'json',
-            success: setMalfunzionamenti
+            success: function(data){
+
+alert('ok');
+setMalfunzionamenti(data);
+
+},
+error:function(){
+alert("fail :(");
+}
         });
     });
 
     function setMalfunzionamenti(data){
-        $.each(data, function(key, val){
-            $("#" + val()).prop('checked', true);
-        });
+$(':checkbox').prop('checked',false);
+        for(var i in data){
+$(':checkbox#'+data[i]).prop('checked', true)
+    }
     }
 });
 
@@ -36,7 +45,7 @@ $(function(){
             <?php
             foreach($this->Prodotti as $prod)
                 {
-                    echo '<option value="'.$prod->Nome.'">'.$prod->Nome.'</option>';
+                    echo '<option value="'.$prod->id.'">'.$prod->Nome.'</option>';
                 }
             ?>
     </select>
@@ -44,7 +53,7 @@ $(function(){
         <?php
         foreach($this->Malfunzionamenti as $malf)
         {
-            echo '<input type="checkbox" id="'.$malf->id.'">'.$malf->Malfunzionamento.'</input>';
+            echo '<input type="checkbox"  id="'.$malf->id.'">'.$malf->Malfunzionamento.'</input>';
         }
         ?>
     </div>
