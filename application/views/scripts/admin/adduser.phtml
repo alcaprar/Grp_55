@@ -2,9 +2,13 @@
 <p>Utilizza questa form per inserire un nuovo utente</p>
 <?php echo $this->addUserForm ?>
 <script>
-$(document).ready(function(){
-$("p").click(function(){
-$(this).hide();
-});
-});
+    $('select#Ruolo').on('change', function() {
+        if(this.value =='tec'){
+            $('select#centri').show("slow");
+            $('td#centri-label').show("slow");
+        } else{
+            $('select#centri').hide("slow");
+            $('td#centri-label').hide("slow");
+        }
+    })
 </script>

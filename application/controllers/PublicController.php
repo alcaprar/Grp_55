@@ -222,9 +222,22 @@ class PublicController extends Zend_Controller_Action
 
         } elseif($page =='where')
         {
+
             $centri = $this->_publicModel->selectCentro($paged=null,$order=null);
 
-            $this->view->assign('Centri',$centri);
+            $tecnici = array();
+
+            foreach($centri as $centro)
+            {
+                $tecnici[$centro['id']] =$this->_publicModel->selectAppartenenza($centro['id']);
+            }
+
+            //$this->_logger->log($tecnici,Zend_Log::DEBUG);
+            $this->view->assign(array(
+                'Centri'=>$centri,
+                'Tecnici'=>$tecnici
+                )
+            );
         }
         //se non è nulla faccio il render della pagina
         $this->render($page);

@@ -57,7 +57,6 @@ class Application_Model_Admin extends App_Model_Abstract
         return $this->getResource('Category')->updateCategory($categoria, $id);
     }
 
-    //Istanzia Utenti e attiva insertUser di Utenti.php
     public function insertProduct($prodotto)
     {
         return $this->getResource('Product')->insertProduct($prodotto);
@@ -186,5 +185,30 @@ class Application_Model_Admin extends App_Model_Abstract
     public function insertUser($user)
     {
         return $this->getResource('Utenti')->insertUser($user);
+    }
+
+    public function updateUser($user, $id)
+    {
+        return $this->getResource('Utenti')->updateUser($user,$id);
+    }
+
+    public function deleteUser($id)
+    {
+        return $this->getResource('Utenti')->deleteUser($id);
+    }
+
+    public function insertAppartenenza($idCentro, $idTecnico)
+    {
+        return $this->getResource('Appartenenza')->insertAppartenenza($idCentro,$idTecnico);
+    }
+
+    public function deleteAppartenenza($idTecnico)
+    {
+        return $this->getResource('Appartenenza')->deleteAppartenenza($idTecnico);
+    }
+
+    public function updateAppartenenza($idCentro, $idTecnico)
+    {
+        return $this->getResource('Appartenenza')->updateAppartenenza($idCentro,$idTecnico);
     }
 }

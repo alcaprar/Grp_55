@@ -1,3 +1,14 @@
 <h3>Modifica Utente</h3>
 <p>Utilizza questa form per modificare l'utente</p>
 <?php echo $this->editUserForm ?>
+<script>
+    $('select#Ruolo').on('change', function() {
+        if(this.value =='tec'){
+            $('select#centri').show("slow");
+            $('td#centri-label').show("slow");
+        } else{
+            $('select#centri').hide("slow");
+            $('td#centri-label').hide("slow");
+        }
+    })
+</script>

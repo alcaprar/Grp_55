@@ -46,4 +46,19 @@ class Application_Model_Public extends App_Model_Abstract
     {
         return $this->getResource('Centri')->selectCentro($paged, $order);
     }
+
+    public function selectAppartenenza($idCentro)
+    {
+        return $this->getResource('Appartenenza')->selectAppartenenza($idCentro);
+    }
+
+    public function deleteAppartenenza($idTecnico)
+    {
+        return $this->getResource('Appartenenza')->deleteAppartenenza($idTecnico);
+    }
+
+    public function updateAppartenenza($idCentro, $idTecnico)
+    {
+        return $this->getResource('Appartenenza')->updateAppartenenza($idCentro,$idTecnico);
+    }
 }

@@ -1,16 +1,16 @@
 alessandrocaprarelli
 - [ ] pagina chi siamo
-- [ ] pagina dove siamo
-- [ ] migliorare pagina FAQ
+- [X] pagina dove siamo
+- [X] migliorare pagina FAQ
 http://www.jqueryscript.net/accordion/Creating-An-Accordion-Style-FAQ-System-with-jQuery-CSS3.html
 - [X] implementare footer menu con zend_navigation
 - [X] sistemare sezione sopra il footer con i video e la mappa
-- [ ] pagina statica con la lista dei centri assistenza
-  - [ ] lista dei centri a sinistra e come contenuto la mappa
-  - [ ] per ogni centro far stampare la lista dei tecnici con i relativi contatti
-  - [ ] quando si inserisce un nuovo tecnico inserire la possibilità di scegliere a che centro fa parte
+- [X] pagina statica con la lista dei centri assistenza
+  - [X] lista dei centri a sinistra e come contenuto la mappa
+  - [X] per ogni centro far stampare la lista dei tecnici con i relativi contatti
+  - [X] quando si inserisce un nuovo tecnico inserire la possibilità di scegliere a che centro fa parte
   (ho già inserito la select sui centri. bisogna aggiungere che deve essere nascosta e mostrarla quando si seleziona tecnico)
-  - [ ] inserire un elemento select con tutti i centri nella form con attributo hidden e mostrarlo tramite jquery quando si seleziona tecnico
+  - [X] inserire un elemento select con tutti i centri nella form con attributo hidden e mostrarlo tramite jquery quando si seleziona tecnico
 - [ ] togliere la possibilità di inserimento di un nuovo admin
   - [X] togliere amministratore dal menu a tendina nel pannello inserimento utente
   - [ ] trovare una soluzione lato db per bloccare l'inserimento di un nuovo admin

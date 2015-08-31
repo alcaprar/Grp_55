@@ -369,6 +369,19 @@ class AdminController extends Zend_Controller_Action
     //popola la form per la modifica
     public function updateuserAction()
     {
+        $select = $this->_editUserForm->getElement('centri');
+
+        $rows = $this->_adminModel->selectCentro($paged=null,$order=null);
+        $centri = [];
+
+        foreach($rows->toArray() as $row)
+        {
+            $centri[$row['id']] = $row['Nome'];
+        }
+
+        $select->setMultiOptions($centri);
+
+
         //recupero l'id della faq da modificare
         $id = intval($this->_request->getParam('id'));
 
@@ -1052,10 +1065,17 @@ class AdminController extends Zend_Controller_Action
         //Diventa un array di coppie nome-valori pronto per essere scritto sul DB se ho associato correttamente i nomi
         $values = $form->getValues();
 
+        $this->_logger->log($values,Zend_Log::DEBUG);
+
         $centro = $values['centri'];
         unset($values['centri']);
 
-        $this->_adminModel->insertUser($values);   //Definita in Model/Amministratore.php
+        $idIns = $this->_adminModel->insertUser($values);
+        if($values['Ruolo']=='tec')
+        {
+            $this->_adminModel->insertAppartenenza($centro, $idIns);
+        }
+
     }
 
     public function modificautenteAction()
@@ -1085,7 +1105,7 @@ class AdminController extends Zend_Controller_Action
             $urlHelper = $this->_helper->getHelper('url');
             $this->_editUserForm->setAction($urlHelper->url(array(
                 'controller' => 'admin',
-                'action' => 'modificauser',
+                'action' => 'modificautente',
                 'id' => $id
             ),
                 'default'
@@ -1099,8 +1119,15 @@ class AdminController extends Zend_Controller_Action
         //Diventa un array di coppie nome-valori pronto per essere scritto sul DB se ho associato correttamente i nomi
         $values = $form->getValues();
 
-        $this->_adminModel->updateUser($values,$id);   //Definita in Model/Amministratore.php
-        //$this->_helper->redirector('modificacancellaprodotto','admin');
+        $centro = $values['centri'];
+        unset($values['centri']);
+
+        if($values['Ruolo']=='tec')
+        {
+            $this->_adminModel->updateAppartenenza($centro, $id);
+        }
+
+        $this->_adminModel->updateUser($values,$id);
 
     }
 
