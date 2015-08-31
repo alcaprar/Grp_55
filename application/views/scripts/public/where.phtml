@@ -1,7 +1,7 @@
 <section>
     <div class="container">
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <div class="left-sidebar">
                     <h2>LISTA CENTRI ASSISTENZA</h2>
                     Click su un centro per mostrare i dettagli
@@ -17,7 +17,7 @@
                     </div><!--/category-products-->
                 </div>
             </div>
-            <div class="col-sm-9 padding-right">
+            <div class="col-sm-8 padding-right">
                 <h2 class="title text-center">DOVE SIAMO</h2>
                 <style>
                     #map {
@@ -47,12 +47,10 @@ $i++;
                         }
                     }
 
-
-
                     function mostraCentro(id){
-                        //mostro il div del centr
-                        $('.contact').hide();
-                        $('#'+id).show();
+                        //mostro il div del centro
+                        $('.contact').hide("slow");
+                        $('#'+id).show("slow");
 
                         //recupero le info sul centro
                         var centro = infoCentro(id);
@@ -90,14 +88,15 @@ $i++;
                         infowindow.open(map, marker);
 
                         //mostro il primo centro
-                        mostraCentro(<?php echo $this->Centri[0]['id'];?>);
+                        //mostro il div del centr
+                        $('#'+<?php echo $this->Centri[0]['id'];?>).show();
                     }
                     google.maps.event.addDomListener(window, 'load', initialize);
                 </script>
                 <div id="map" class="col-sm-6"></div>
                 <?php foreach($this->Centri as $centro)
 {
-   echo'<div class="col-sm-4 contact" id="'.$centro->id.'">
+   echo'<div class="col-sm-4 contact" id="'.$centro->id.'" style="display:none">
                     <div class="contact-info">
                         <h2 class="title text-center">Contact Info</h2>
                         <address>
@@ -117,7 +116,7 @@ $i++;
                             ';
     foreach($this->Tecnici[$centro['id']] as $tec)
     {
-        echo '<p><i class="fa fa-user"></i>'. $tec['Nome'].'</p>';
+        echo '<p><i class="fa fa-user"></i>'. $tec['Nome'].' <i class="fa fa-envelope"></i><a href="mailto:'.$tec->Email.'">'.$tec->Email.'</a></p>';
     }
                         echo'</div>
                     </div>
