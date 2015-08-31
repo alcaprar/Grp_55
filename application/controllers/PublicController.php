@@ -220,6 +220,11 @@ class PublicController extends Zend_Controller_Action
             // Definisce le variabili per il viewer
             $this->view->assign('Faq', $faq);
 
+        } elseif($page =='where')
+        {
+            $centri = $this->_publicModel->selectCentro($paged=null,$order=null);
+
+            $this->view->assign('Centri',$centri);
         }
         //se non è nulla faccio il render della pagina
         $this->render($page);

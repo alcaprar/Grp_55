@@ -2599,5 +2599,11 @@ tr.border_bottom td {
   padding-left: 1.5em;
 }
 
+#map {
+  width: 500px;
+  height: 400px;
+}
+
+
 
 

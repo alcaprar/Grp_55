@@ -41,4 +41,9 @@ class Application_Model_Public extends App_Model_Abstract
     {
         return $this->getResource('Faq')->selectFaq($paged, $order);
     }
+
+    public function selectCentro($paged, $order)
+    {
+        return $this->getResource('Centri')->selectCentro($paged, $order);
+    }
 }
