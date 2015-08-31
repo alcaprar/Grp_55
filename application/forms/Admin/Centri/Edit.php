@@ -23,12 +23,53 @@ class Application_Form_Admin_Centri_Edit extends App_Form_Abstract
             'decorators' => $this->elementDecorators,
         ));
 
-        $this->addElement('textarea', 'Indirizzo', array(
-            'label' => 'Indirizzo: ',
-            'cols' => '50', 'rows' => '1',
+        $this->addElement('text', 'Indirizzo', array(
+            'label' => 'Indirizzo',
             'filters' => array('StringTrim'),
             'required' => true,
             'validators' => array(array('StringLength',true, array(1,250))),
+            'decorators' => $this->elementDecorators,
+        ));
+
+        $this->addElement('text', 'Telefono', array(
+            'label' => 'Telefono',
+            'filters' => array('StringTrim'),
+            'required' => true,
+            'validators' => array(array('StringLength',true, array(1,20))),
+            'decorators' => $this->elementDecorators,
+        ));
+
+        $this->addElement('text', 'Mobile', array(
+            'label' => 'Cellulare',
+            'filters' => array('StringTrim'),
+            'required' => false,
+            'validators' => array(array('StringLength',true, array(1,20))),
+            'decorators' => $this->elementDecorators,
+        ));
+
+        $this->addElement('text', 'Fax', array(
+            'label' => 'Fax',
+            'filters' => array('StringTrim'),
+            'required' => false,
+            'validators' => array(array('StringLength',true, array(1,20))),
+            'decorators' => $this->elementDecorators,
+        ));
+
+        $this->addElement('text', 'Skype', array(
+            'label' => 'Skype',
+            'filters' => array('StringTrim'),
+            'required' => false,
+            'validators' => array(array('StringLength',true, array(1,30))),
+            'decorators' => $this->elementDecorators,
+        ));
+
+        $this->addElement('text', 'Email', array(
+            'label' => 'Email',
+            'filters' => array('StringTrim'),
+            'required' => true,
+            'validators' => array(
+                array('EmailAddress',  true  ),
+                array('StringLength',true, array(1,100))),
             'decorators' => $this->elementDecorators,
         ));
 

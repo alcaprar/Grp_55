@@ -1148,6 +1148,22 @@ class AdminController extends Zend_Controller_Action
         $values = $form->getValues();
         $this->_logger->log($values,Zend_Log::DEBUG);
 
+        //recupero lat e long che servono per la mappa
+        $urlencodedAddress = urlencode($values['Indirizzo']);
+
+        $details_url = "http://maps.googleapis.com/maps/api/geocode/json?address=" . $urlencodedAddress . "&sensor=false";
+
+        $this->_logger->log($details_url,Zend_Log::DEBUG);
+
+        $ch = curl_init($details_url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $geoloc = json_decode(curl_exec($ch), true);
+
+        $values['Latitudine'] = $geoloc['results'][0]['geometry']['location']['lat'];
+        $values['Longitudine'] = $geoloc['results'][0]['geometry']['location']['lng'];
+
+        $this->_logger->log($values,Zend_Log::DEBUG);
+
         $this->_adminModel->insertCentro($values);   //Definita in Model/Amministratore.php
     }
 
