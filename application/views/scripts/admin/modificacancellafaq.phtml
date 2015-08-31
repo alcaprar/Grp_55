@@ -1,34 +1,53 @@
 <?php
-echo '<div class="features_items"><!--features_items-->
-    <h2 class="title text-center">MODIFICA FAQ</h2>';
+echo'<div class="col-sm-9 padding-right">
+                <div class="features_items"><!--features_items-->
+                    <h2 class="title text-center">Modifica prodotti</h2>
+                    <div  id="cart_items" >
+                        <div  class="table-responsive cart_info">
+                            <table  class="table table-condensed">
+                                <thead>
+                                <tr class="cart_menu">
+                                    <td class="description">Domanda</td>
+                                    <td class="description">Risposta</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                </thead>
+                                <tbody>';
 foreach($this->Faq as $faq){
-    echo'<div class="media commnets">
-						<div class="media-body">
-							<h4 class="media-heading">Domanda: </h4>
-							<p>'.$faq->Domanda .'</p>
-							<h4 class="media-heading">Risposta: </h4>
-							<p>'.$faq->Risposta .'</p>
-							<div class="blog-socials">
-								<ul>
-									<li><a href="'.$this->url(array(
+    $domanda =  strlen($faq->Domanda) > 50 ? substr($faq->Domanda,0,50)."..." : $faq->Domanda;
+    $risposta =  strlen($faq->Risposta) > 50 ? substr($faq->Risposta,0,50)."..." : $faq->Risposta;
+    echo'<tr>
+                                    <td  class="cart_description">
+                                        <p>'.$domanda.'</p>
+                                    </td>
+                                    <td  class="cart_description">
+                                        <p> '.$risposta.'</p>
+                                    </td>
+                                    <td  class="cart_delete">
+                                        <p><a class="cart_quantity_delete" href="'.$this->url(array(
             'controller' => 'admin',
             'action'     => 'updatefaq',
             'id' => $faq->id
         ),
             'default',true
-        ).'"><i class="fa fa-pencil"></i>Modifica</a></li>
-									<li><a href="'.$this->url(array(
+        ).'"><i class="fa fa-pencil">Modifica</i></a></p>
+                                        <p><a class="cart_quantity_delete" href="'.$this->url(array(
             'controller' => 'admin',
             'action'     => 'cancellafaq',
             'id' => $faq->id
         ),
             'default',true
-        ).'"><i class="fa fa-trash-o"></i>Cancella</a></li>
-								</ul>
-							</div>
-						</div>
-						</div>';
+        ).'"><i class="fa fa-times">Cancella</i></a></p>
+                                    </td>
+                                </tr>';
 }
-if($this->Prodotti instanceof Zend_Paginator) {
-    echo '<div class="text-center">'.$this->paginationControl($this->Prodotti,'Elastic','admin/_paginatorFaq.phtml').'</div>';
+echo'</tbody>
+                            </table>
+                        </div>
+                    </div>';
+if($this->Faq instanceof Zend_Paginator) {
+    echo '<div class="text-center">'.$this->paginationControl($this->Faq,'Elastic','admin/_paginatorFaq.phtml').'</div>';
 };
+echo '</div><!--features_items-->
+            </div>';

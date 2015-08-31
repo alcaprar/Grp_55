@@ -1,4 +1,3 @@
-alessandrocaprarelli
 - [ ] pagina chi siamo
 - [X] pagina dove siamo
 - [X] migliorare pagina FAQ
@@ -17,10 +16,8 @@ http://www.jqueryscript.net/accordion/Creating-An-Accordion-Style-FAQ-System-wit
 - [X] slider nella home page al posto della singola immagine
 - [ ] sistemare pagine admin
   - [X] modifica utenti
-  - [ ] modifica faq
+  - [X] modifica faq
   - [ ] modifica centri
-
-shobiru
 - [ok] ricerca con wild-card(*)
 - [ok] ricerca prodotti indicando la descrizione
 - [ ] ricerca con ajax (live search) (parziale)
@@ -34,3 +31,4 @@ shobiru
 - [ ] migliorare associazione prodotto componente
   - [ ] aggiungere update componenti
 - [ ] aggiungere la ripartizione delle categorie tra tecnici dello staff
+- [ ]validazione form tramite javascript
