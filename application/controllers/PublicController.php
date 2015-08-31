@@ -5,6 +5,7 @@ class PublicController extends Zend_Controller_Action
     protected $_publicModel;
     protected $_logger;
     protected $_loginForm;
+    protected $_emailForm;
     protected $_authService;
     protected $_redirector;
 
@@ -15,6 +16,7 @@ class PublicController extends Zend_Controller_Action
         $this->_publicModel = new Application_Model_Public();
         $this->_authService = new Application_Service_Auth();
         $this->view->loginForm = $this->getLoginForm();
+        $this->view->emailForm = $this->getEmailForm();
 
         //recupera le categorie Top
         $TopCats = $this->_publicModel->getTopCats();
@@ -247,6 +249,34 @@ class PublicController extends Zend_Controller_Action
         return $this->_helper->redirector('index', $this->_authService->getIdentity()->Ruolo);
     }
 
+    public function inviamailAction()
+    {
+        $request = $this->getRequest();
+        if (!$request->isPost()) {
+            return $this->_helper->redirector('viewstatic', 'public', 'default', array('page' => 'contact'));
+        }
+        $form = $this->_emailForm;
+        if (!$form->isValid($request->getPost())) {
+            $form->setDescription('Attenzione: alcuni dati inseriti sono errati.');
+            return $this->render('contact');
+        }
+        try{
+        $mail = new Zend_Mail();
+        $mail->setBodyText($form->getElement('body'))
+            ->setFrom($form->getElement('sender'), $form->getElement('namesender'))
+            ->addTo('caprarelli.alessandro@gmail.com', 'BMW Assistance')
+            ->setSubject($form->getElement('subject'))
+            ->send();
+        } catch (Zend_Mail_Transport_Exception $e){
+            $this->_logger->log('C\'é stato un problema con l\'invio', Zend_Log::DEBUG);
+        }
+        return $this->_helper->redirector('successomail');
+    }
+
+    public function successomailAction()
+    {
+    }
+
     //ottiene la form di login, richiamato dall'action login
     private function getLoginForm()
     {
@@ -262,7 +292,19 @@ class PublicController extends Zend_Controller_Action
         return $this->_loginForm;
     }
 
+    private function getEmailForm()
+    {
+        $urlHelper = $this->_helper->getHelper('url');
 
+        $this->_emailForm = new Application_Form_Public_Mail_Send();
+        $this->_emailForm->setAction($urlHelper->url(array(
+            'controller' => 'public',
+            'action' => 'inviamail'
+        ),
+            'default'
+        ));
+        return $this->_emailForm;
+    }
 
     public function accessonegatoAction()
     {
