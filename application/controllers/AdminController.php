@@ -563,12 +563,13 @@ class AdminController extends Zend_Controller_Action
 
     //<----!!FINE GESTIONE CENTRI ASSISTENZA!!---->
 
-    //carica la view per l'inserimento di un componente
+
+    //<----!!INIZIO GESTIONE COMPONENTI!!--->
+
     public function addcomponentAction()
     {
     }
 
-    //popola la form per la modifica
     public function updatecomponentAction()
     {
         //recupero l'id del componente da modificare
@@ -594,7 +595,6 @@ class AdminController extends Zend_Controller_Action
             $vector[$key]=$value;
         }
 
-        $this->_logger->log($vector['Foto'],Zend_Log::DEBUG);
         //se la foto non è stata inserita aggiungo l'elemento alla form
         if($vector['Foto']=='' || is_null($vector['Foto'])){
             $this->_editComponentForm->addElement('file', 'Foto', array(
@@ -607,11 +607,7 @@ class AdminController extends Zend_Controller_Action
             ));
         }
 
-        $this->view->assign('vector',$vector);
-
-        $this->_logger->log($vector,Zend_Log::DEBUG);
-
-        //rimuovo i campi che non ci sono nella form
+        //rimuovo i campi che non ci sono nella form e popola la form
         unset($vector['id']);
         unset($vector['Foto']);
 
@@ -619,7 +615,6 @@ class AdminController extends Zend_Controller_Action
     }
 
 
-    //scarica dal db la lista dei componenti
     public function modificacancellacomponenteAction()
     {
         //recupero l'eventuale pagina
@@ -630,6 +625,84 @@ class AdminController extends Zend_Controller_Action
         //assegno le variabili alla view
         $this->view->assign('Componenti',$componenti);
     }
+
+    public function aggiungicomponenteAction()
+    {
+        //questa azione deve essere richiamata solo da richieste post
+        //se non è una post faccio il redirect alla index
+        if (!$this->getRequest()->isPost()) {
+            $this->_helper->redirector('index', 'admin');
+        }
+
+        $form = $this->_addComponentForm;
+
+        //valido la form
+        if (!$form->isValid($_POST)) {
+            $form->setDescription('ATTENZIONE: alcuni dati inseriti sono errati!');
+
+            //richiamo la pagina dell'aggiunta del componente
+            //con return esco dal controller
+            return $this->render('addcomponent');
+        }
+
+        //recupero i valori e li inserisco nel db
+        $values = $form->getValues();
+
+        $this->_adminModel->insertComponent($values);
+    }
+
+    public function cancellacomponenteAction()
+    {
+        //recupero l'id del componente da rimuovere
+        $id = intval($this->_request->getParam('id'));
+
+        if ($id !== 0) {
+            $this->_adminModel->deleteComponent($id);
+        }
+
+    }
+
+    public function modificacomponenteAction()
+    {
+        //questa azione deve essere richiamata solo da richieste post
+        //se non è una post faccio il redirect alla index
+        if (!$this->getRequest()->isPost()) {
+            $this->_helper->redirector('index', 'admin');
+        }
+
+        //recupero l'id
+        $id = intval($this->_request->getParam('id'));
+
+        $form = $this->_editComponentForm;
+
+
+        //valido la form
+        if (!$form->isValid($_POST)) {
+            $form->setDescription('ATTENZIONE: alcuni dati inseriti sono errati!');
+
+            //riassocio l'azione alla form
+            $urlHelper = $this->_helper->getHelper('url');
+            $this->_editComponentForm->setAction($urlHelper->url(array(
+                'controller' => 'admin',
+                'action' => 'modificacomponente',
+                'id' => $id
+            ),
+                'default'
+            ));
+
+            //richiamo la pagina della modifica del componente
+            //con return esco dal controller
+            return $this->render('updatecomponent');
+        }
+
+        //recupero i valori e li inserisco nel db
+        $values = $form->getValues();
+
+        $this->_adminModel->updateComponent($values,$id);   //Definita in Model/Amministratore.php
+
+    }
+
+    //<----!!FINE GESTIONE COMPONENTI!!---->
 
     //carica la view per l'inserimento di un utente
     public function adduserAction()
@@ -1000,90 +1073,7 @@ class AdminController extends Zend_Controller_Action
         }
     }
 
-    public function aggiungicomponenteAction()
-    {
-        //Si attiva solo se la richiesta che ha attivato questa azione è di tipo post
-        //Se non lo è...
-        if (!$this->getRequest()->isPost()) {
-            //...ritorna alla home page dell'admin (actionIndex)
-            $this->_helper->redirector('logout', 'admin');        //Specificando solo il controller (index) prende come azione di default indexAction
-        }
 
-        //Il server ha ricreato l'applicazione avendo inviato il form,
-        // devo incrociare i dati che mi sono arrivati, perciò devo reistanziare il form
-        $form = $this->_addComponentForm;
-
-
-        //Fa un incrocio fra $post e i campi ricevuti dalla form, restituisce true se sono compatibili, false altrimenti
-        if (!$form->isValid($_POST)) {
-            $form->setDescription('ATTENZIONE: alcuni dati inseriti sono errati!');
-            //Se non è stato validato rivisualizzo il risultato dell'azione registrautente
-            //Rivisualizzo quindi la form popolata (Aggiungendo però i messaggi di errore!)
-            return $this->render('addcomponent'); //Esco poi dal controller con return
-        }
-
-        //Con getValues estraggo tutti i valori validati
-        //Diventa un array di coppie nome-valori pronto per essere scritto sul DB se ho associato correttamente i nomi
-        $values = $form->getValues();
-
-        $this->_adminModel->insertComponent($values);   //Definita in Model/Amministratore.php
-
-    }
-
-    public function cancellacomponenteAction()
-    {
-        //recupero l'id del componente da rimuovere
-        $id = intval($this->_request->getParam('id'));
-
-        if ($id !== 0) {
-            $this->_adminModel->deleteComponent($id);
-        }
-
-    }
-
-    public function modificacomponenteAction()
-    {
-        //Si attiva solo se la richiesta che ha attivato questa azione è di tipo post
-        //Se non lo è...
-        if (!$this->getRequest()->isPost()) {
-            //...ritorna alla home page dell'admin (actionIndex)
-            $this->_helper->redirector('logout', 'admin');        //Specificando solo il controller (index) prende come azione di default indexAction
-        }
-
-        //recupero l'id
-        $id = intval($this->_request->getParam('id'));
-
-        //Il server ha ricreato l'applicazione avendo inviato il form,
-        // devo incrociare i dati che mi sono arrivati, perciò devo reistanziare il form
-        $form = $this->_editComponentForm;
-
-
-        //Fa un incrocio fra $post e i campi ricevuti dalla form, restituisce true se sono compatibili, false altrimenti
-        if (!$form->isValid($_POST)) {
-            $form->setDescription('ATTENZIONE: alcuni dati inseriti sono errati!');
-            //Se non è stato validato rivisualizzo il risultato dell'azione registrautente
-            //Rivisualizzo quindi la form popolata (Aggiungendo però i messaggi di errore!)
-
-            $urlHelper = $this->_helper->getHelper('url');
-            $this->_editComponentForm->setAction($urlHelper->url(array(
-                'controller' => 'admin',
-                'action' => 'modificacomponente',
-                'id' => $id
-            ),
-                'default'
-            ));
-
-            $form->populate($_POST);
-            return $this->render('updatecomponent'); //Esco poi dal controller con return
-        }
-
-        //Con getValues estraggo tutti i valori validati
-        //Diventa un array di coppie nome-valori pronto per essere scritto sul DB se ho associato correttamente i nomi
-        $values = $form->getValues();
-
-        $this->_adminModel->updateComponent($values,$id);   //Definita in Model/Amministratore.php
-
-    }
 
 
 

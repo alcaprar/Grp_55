@@ -35,8 +35,8 @@ http://www.jqueryscript.net/accordion/Creating-An-Accordion-Style-FAQ-System-wit
 - [ ]sistemare admin controller
   - [ ] gestione utenti
   - [X] gesione prodotti
-  - [ ] gestione componenti
+  - [X] gestione componenti
   - [X] gestione faq
-  - [ ] gestione centri
+  - [X] gestione centri
   - [ ] gestione categorie
   - [ ] gestione top categorie
