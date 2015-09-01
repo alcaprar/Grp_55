@@ -30,5 +30,10 @@ class Application_Resource_Composition extends Zend_Db_Table_Abstract
             ->order('idComponente');
         return $this->fetchAll($select);
     }
+
+    public function deleteComposition($id)
+    {
+        $this->delete('idProdotto = '.$id);
+    }
 }
 

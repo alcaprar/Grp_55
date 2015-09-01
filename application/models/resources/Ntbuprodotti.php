@@ -30,4 +30,9 @@ class Application_Resource_Ntbuprodotti extends Zend_Db_Table_Abstract
             ->order('idNTBU');
         return $this->fetchAll($select);
     }
+
+    public function deleteNtbuprodotti($id)
+    {
+        $this->delete('idProdotto = '.$id);
+    }
 }

@@ -28,11 +28,11 @@ http://www.jqueryscript.net/accordion/Creating-An-Accordion-Style-FAQ-System-wit
 - [ ] aggiungere search box per la modifica/cancellazione per prodotti, componenti ecc..
 - [X] form pagina contatti e invio email
 - [ ] implementare search box prodotti con zend_form
-- [ ] migliorare associazione prodotto componente
-  - [ ] aggiungere update componenti
+- [X] migliorare associazione prodotto componente
+  - [X] aggiungere update componenti
 - [ ] aggiungere la ripartizione delle categorie tra tecnici dello staff
-- [ ]validazione form tramite javascript
-- [ ]sistemare admin controller
+- [ ] validazione form tramite javascript
+- [ ] sistemare admin controller
   - [ ] gestione utenti
   - [X] gesione prodotti
   - [X] gestione componenti
