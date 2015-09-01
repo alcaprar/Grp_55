@@ -26,11 +26,11 @@ class TecnicoController extends Zend_Controller_Action
             {
                 $this->_logger->log($cat, Zend_Log::DEBUG);
                 $navCatArray[] = array(
-                    'controller' => 'public',
+                    'controller' => 'tecnico',
                     'action' => 'catalogo',
                     'params' => array('categoria' => $cat->Nome),
                     'label' => $cat->Nome,
-                    'resource' => 'public',
+                    'resource' => 'tecnico',
                     'privilege' => 'catalogo'
                 );
             }
