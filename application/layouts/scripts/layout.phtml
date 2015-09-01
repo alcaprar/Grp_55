@@ -6,7 +6,10 @@
     <?= $this->headLink(); ?>
     <?= $this->headTitle(); ?>
     <?= $this->headScript(); ?>
-    <script type="text/javascript"></script>
+    <script type="text/javascript">
+        //$('#live-search input[name=query]').liveSearch({url: '<?php echo $this->url(array('controller' => 'public', 'action' => 'livesearch',), 'default');  ?>'});
+        //LiveSearch.init(document.getElementById("live-search").querySelector("input[name=query]"), {url: '<?php echo $this->url(array('controller' => 'public', 'action' => 'livesearch',), 'default');  ?>'});
+    </script>
 
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
@@ -98,9 +101,10 @@
                         ),
                             'default',true
                         );
-                        ?>" method="get" id="live-search">
+                        ?>" method="post">
                             <input name="query" id="query" type="text" placeholder="Cerca prodotto"/>
                         </form>
+                        <ul id="content"></ul>
                     </div>
                 </div>
             </div>
@@ -243,6 +247,22 @@
             trigger.addClass("faq-o");
         }
     });</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var baseUrl = "<?php echo $this->baseUrl();?>/public/schedaprodotto/prodotto/";
+        $('#query').on('input', function() {
+            var searchKeyword = $(this).val();
+            if (searchKeyword.length >= 1) {
+                $.post('<?php echo $this->url(array('controller' => 'public', 'action' => 'livesearch',), 'default');  ?>', { query: searchKeyword }, function(data) {
+                    $('ul#content').empty()
+                    $.each(data, function() {
+                        $('ul#content').append('<li><a href="' + baseUrl + this.id + '">' + this.Nome + '</a></li>');
+                    });
+                }, "json");
+            }
+        });
+    });
+</script>
 </body>
 </html>
 

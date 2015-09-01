@@ -170,13 +170,8 @@ class PublicController extends Zend_Controller_Action
         $request = $this->getRequest();
 
         //arrivata una richiesta di cerca
-        if ($request->isGet()) {
-            $query = $request->getQuery()['query'];
-            if(str_word_count($query) == 1){
-
-            }
-            $this->_logger->log($query, Zend_Log::DEBUG);
-
+        if ($request->isPost()) {
+            $query = $request->getPost()['query'];
             $this->_redirector = $this->_helper->getHelper('Redirector');
 
             $this->_redirector->gotoSimple('cerca',
@@ -188,18 +183,29 @@ class PublicController extends Zend_Controller_Action
     }
 
     //da completare per la ricerca live
-    /*
+
     public function livesearchAction()
     {
-        $param=$_GET['query'];
-        $products = $this->_publicModel->getProdByName($param, $page=null, $order=null);
-        $this->_logger->log($products, Zend_Log::DEBUG);
-        foreach ($products as $prod) {
-            $data[]=$prod;
-        };
-        $this->_helper->json($data);
+        $request = $this->getRequest();
+
+        if ($request->isXmlHttpRequest()) {
+
+            $this->_helper->getHelper('layout')->disableLayout();
+            $this->_helper->viewRenderer->setNoRender();
+
+            $param = $request->getParam('query');
+            $products = $this->_publicModel->getProdByName($param, $page = null, $order = null);
+            $this->_logger->log($products, Zend_Log::DEBUG);
+            $data = array();
+            foreach ($products as $key=>$value) {
+                $data[$key] = $value;
+            };
+            $this->_helper->json($products, $sendNow = true, $keepLayouts = false, $encodeData = true);
+        } else {
+            return;
+        }
     }
-    */
+
 
     public function viewstaticAction()
     {
