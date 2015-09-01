@@ -310,8 +310,7 @@ class AdminController extends Zend_Controller_Action
         {
             $this->_adminModel->associateNtbu($idProduct,$ntbu);
         }
-
-}
+    }
 
     public function cancellaprodottoAction()
     {

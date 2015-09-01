@@ -203,6 +203,17 @@ class StaffController extends Zend_Controller_Action
 
     public function associamalfunzionamentoAction()
     {
+        //questa azione deve essere richiamata solo da richieste post.
+        //se non è una post faccio il redirect alla index
+        if (!$this->getRequest()->isPost()) {
+            $this->_helper->redirector('index', 'staff');
+        }
+
+        //recupero i valori da inserire nel db
+        $prodotto = $this->getRequest()->getPost('selectProdotti');
+        $malf = $this->getRequest()->getPost('malf');
+
+        $this->_staffModel->associateMalfunction($prodotto,$malf);
 
     }
 
