@@ -45,13 +45,45 @@ class Application_Form_Admin_Product_Edit extends App_Form_Abstract
             'decorators' => $this->elementDecorators,
         ));
 
+        $this->addElement('multiCheckbox', 'Componenti', array(
+                'label' => 'Componenti',
+                'required' => 'true',
+                'decorators' => $this->elementDecorators,
+                'registerInArrayValidator' => false
+            )
+        );
 
-        $this->addElement('textarea', 'NTBU', array(
-            'label' => 'Note tecniche di buon uso',
-            'cols' => '60', 'rows' => '5',
-            'filters' => array('StringTrim'),
-            'required' => true,
-            'validators' => array(array('StringLength', true, array(1, 2500))),
+        $urlHelper = new Zend_View_Helper_Url();
+        $url = $urlHelper->url(array(
+            'controller' => 'admin',
+            'action' => 'addcomponent',
+        ),
+            'default'
+        );
+
+        $this->addElement('Note','AddComponenti',array(
+            'value' => '<a href="'.$url.'">Inserisci un nuovo componente</a>',
+            'decorators' => $this->elementDecorators,
+        ));
+
+        $this->addElement('multiCheckbox', 'Ntbu', array(
+                'label' => 'Note tecniche di buon uso',
+                'required' => 'true',
+                'decorators' => $this->elementDecorators,
+                'registerInArrayValidator' => false
+            )
+        );
+
+        $urlHelper = new Zend_View_Helper_Url();
+        $url = $urlHelper->url(array(
+            'controller' => 'admin',
+            'action' => 'addntbu',
+        ),
+            'default'
+        );
+
+        $this->addElement('Note','AddNtbu',array(
+            'value' => '<a href="'.$url.'">Inserisci una nuova ntbu</a>',
             'decorators' => $this->elementDecorators,
         ));
 

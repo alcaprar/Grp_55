@@ -16,6 +16,8 @@ class AdminController extends Zend_Controller_Action
     protected $_editCentroForm;
     protected $_addComponentForm;
     protected $_editComponentForm;
+    protected $_addNtbuForm;
+    protected $_editNtbuForm;
     protected $_addUserForm;
     protected $_editUserForm;
     protected $_associateProductForm;
@@ -44,6 +46,8 @@ class AdminController extends Zend_Controller_Action
         $this->view->editCategoryForm = $this->getEditCategoryForm();
         $this->view->addTopCategoryForm = $this->getAddTopCategoryForm();
         $this->view->editTopCategoryForm = $this->getEditTopCategoryForm();
+        $this->view->addNtbuForm = $this->getAddNtbuForm();
+        $this->view->editNtbuForm = $this->getEditNtbuForm();
 
 
         //serve per l'acl
@@ -88,6 +92,16 @@ class AdminController extends Zend_Controller_Action
             $componenti[$row['id']] = $row['Nome'];
         }
         $multicheckbox->setMultiOptions($componenti);
+
+        //creo le checkbox di tutte le ntbu
+        $multicheckbox2 = $this->_addProductForm->getElement('Ntbu');
+        $rows = $this->_adminModel->selectNtbu($paged=null,$order=null);
+        $ntbu = array();
+        foreach($rows->toArray() as $row)
+        {
+            $ntbu[$row['id']] = $row['Nome'];
+        }
+        $multicheckbox2->setMultiOptions($ntbu);
     }
 
 
@@ -110,6 +124,8 @@ class AdminController extends Zend_Controller_Action
             'default'
         ));
 
+
+
         //recupero il prodotto
         $row = $this->_adminModel->getProdById($id);
         foreach($row as $key=>$value) {
@@ -128,8 +144,28 @@ class AdminController extends Zend_Controller_Action
             ));
         }
 
-        $this->view->assign('vector',$vector);
+        //creo le checkbox dei componenti
+        $multicheckbox = $this->_editProductForm->getElement('Componenti');
+        $rows = $this->_adminModel->selectComponent($paged=null,$order=null);
+        $componenti = [];
+        foreach($rows->toArray() as $row)
+        {
+            $componenti[$row['id']] = $row['Nome'];
+        }
+        $multicheckbox->setMultiOptions($componenti);
 
+        //creo le checkbox di tutte le ntbu
+        $multicheckbox2 = $this->_editProductForm->getElement('Ntbu');
+        $rows = $this->_adminModel->selectNtbu($paged=null,$order=null);
+        $ntbu = array();
+        foreach($rows->toArray() as $row)
+        {
+            $ntbu[$row['id']] = $row['Nome'];
+        }
+        $multicheckbox2->setMultiOptions($ntbu);
+
+        //richiamo la pagina dell'inserimento dei prodotti.
+        //con return esco dal controller
 
         //rimuovo i campi che non ci sono nella form
         unset($vector['id']);
@@ -218,6 +254,16 @@ class AdminController extends Zend_Controller_Action
             }
             $multicheckbox->setMultiOptions($componenti);
 
+            //creo le checkbox di tutte le ntbu
+            $multicheckbox2 = $this->_addProductForm->getElement('Ntbu');
+            $rows = $this->_adminModel->selectNtbu($paged=null,$order=null);
+            $ntbu = array();
+            foreach($rows->toArray() as $row)
+            {
+                $ntbu[$row['id']] = $row['Nome'];
+            }
+            $multicheckbox2->setMultiOptions($ntbu);
+
             //richiamo la pagina dell'inserimento dei prodotti.
             //con return esco dal controller
             return $this->render('addproduct');
@@ -226,7 +272,9 @@ class AdminController extends Zend_Controller_Action
         //recupero i valori da inserire nel db
         $values = $form->getValues();
         $componenti = $values['Componenti'];
+        $ntbus = $values['Ntbu'];
         unset($values['Componenti']);
+        unset($values['Ntbu']);
 
         //inserisco nel db il prodotto e recupero il suo id per poi inserire i componenti
         $idProduct = $this->_adminModel->insertProduct($values);
@@ -234,7 +282,12 @@ class AdminController extends Zend_Controller_Action
         {
             $this->_adminModel->associateComponent($idProduct,$componente);
         }
-    }
+        foreach ($ntbus as $ntbu)
+        {
+            $this->_adminModel->associateNtbu($idProduct,$ntbu);
+        }
+
+}
 
     public function cancellaprodottoAction()
     {
@@ -273,6 +326,29 @@ class AdminController extends Zend_Controller_Action
                 'default'
             ));
 
+            //creo le checkbox dei componenti
+            $multicheckbox = $this->_addProductForm->getElement('Componenti');
+            $rows = $this->_adminModel->selectComponent($paged=null,$order=null);
+            $componenti = [];
+            foreach($rows->toArray() as $row)
+            {
+                $componenti[$row['id']] = $row['Nome'];
+            }
+            $multicheckbox->setMultiOptions($componenti);
+
+            //creo le checkbox di tutte le ntbu
+            $multicheckbox2 = $this->_addProductForm->getElement('Ntbu');
+            $rows = $this->_adminModel->selectNtbu($paged=null,$order=null);
+            $ntbu = array();
+            foreach($rows->toArray() as $row)
+            {
+                $ntbu[$row['id']] = $row['Nome'];
+            }
+            $multicheckbox2->setMultiOptions($ntbu);
+
+            //richiamo la pagina dell'inserimento dei prodotti.
+            //con return esco dal controller
+
             //richiamo la pagina della modifica del prodotto
             //con return esco dal controller
             return $this->render('updateproduct');
@@ -290,6 +366,26 @@ class AdminController extends Zend_Controller_Action
 
 
     //<----!!INIZIO GESTIONE FAQ!!---->
+
+    private function getAddFaqForm()
+    {
+        $urlHelper = $this->_helper->getHelper('url');
+
+        $this->_addFaqForm = new Application_Form_Admin_Faq_Add();
+        $this->_addFaqForm->setAction($urlHelper->url(array(
+            'controller' => 'admin',
+            'action' => 'aggiungifaq'
+        ),
+            'default'
+        ));
+        return $this->_addFaqForm;
+    }
+
+    private function getEditFaqForm()
+    {
+        $this->_editFaqForm = new Application_Form_Admin_Faq_Edit();
+        return $this->_editFaqForm;
+    }
 
     public function addfaqAction()
     {
@@ -415,6 +511,26 @@ class AdminController extends Zend_Controller_Action
 
 
     //<----!!INIZIO GESTIONE CENTRI ASSISTENZA!!-->
+
+    private function getAddCentroForm()
+    {
+        $urlHelper = $this->_helper->getHelper('url');
+
+        $this->_addCentroForm = new Application_Form_Admin_Centri_Add();
+        $this->_addCentroForm->setAction($urlHelper->url(array(
+            'controller' => 'admin',
+            'action' => 'aggiungicentro'
+        ),
+            'default'
+        ));
+        return $this->_addCentroForm;
+    }
+
+    private function getEditCentroForm()
+    {
+        $this->_editCentroForm = new Application_Form_Admin_Centri_Edit();
+        return $this->_editCentroForm;
+    }
 
 
     public function addcentroAction()
@@ -566,6 +682,25 @@ class AdminController extends Zend_Controller_Action
 
     //<----!!INIZIO GESTIONE COMPONENTI!!--->
 
+    private function getAddComponentForm(){
+        $urlHelper = $this->_helper->getHelper('url');
+
+        $this->_addComponentForm = new Application_Form_Admin_Component_Add();
+        $this->_addComponentForm->setAction($urlHelper->url(array(
+            'controller' => 'admin',
+            'action' => 'aggiungicomponente'
+        ),
+            'default'
+        ));
+        return $this->_addComponentForm;
+    }
+
+    private function getEditComponentForm()
+    {
+        $this->_editComponentForm = new Application_Form_Admin_Component_Edit();
+        return $this->_editComponentForm;
+    }
+
     public function addcomponentAction()
     {
     }
@@ -703,6 +838,154 @@ class AdminController extends Zend_Controller_Action
     }
 
     //<----!!FINE GESTIONE COMPONENTI!!---->
+
+    //<----!!INIZIO GESTIONE NTBU!!--->
+
+    private function getAddNtbuForm(){
+        $urlHelper = $this->_helper->getHelper('url');
+
+        $this->_addNtbuForm = new Application_Form_Admin_Ntbu_Add();
+        $this->_addNtbuForm->setAction($urlHelper->url(array(
+            'controller' => 'admin',
+            'action' => 'aggiungintbu'
+        ),
+            'default'
+        ));
+        return $this->_addNtbuForm;
+    }
+
+    private function getEditNtbuForm()
+    {
+        $this->_editNtbuForm = new Application_Form_Admin_Ntbu_Edit();
+        return $this->_editNtbuForm;
+    }
+
+    public function addntbuAction()
+    {
+    }
+
+    public function updatentbuAction()
+    {
+        //recupero l'id della ntbu da modificare
+        $id = intval($this->_request->getParam('id'));
+
+        //se l'id non è valido ritorno alla lista dei componenti da modificare
+        if($id == null){
+            $this->_helper->redirector('modificacancellantbu', 'admin');
+        }
+
+        $urlHelper = $this->_helper->getHelper('url');
+        $this->_editNtbuForm->setAction($urlHelper->url(array(
+            'controller' => 'admin',
+            'action' => 'modificantbu',
+            'id' => $id
+        ),
+            'default'
+        ));
+
+        //recupero la ntbu
+        $row = $this->_adminModel->getNtbuById($id);
+        foreach($row as $key=>$value) {
+            $vector[$key]=$value;
+        }
+
+
+        //rimuovo i campi che non ci sono nella form e popola la form
+        unset($vector['id']);
+
+        $this->_editNtbuForm->populate($vector);
+    }
+
+
+    public function modificacancellantbuAction()
+    {
+        //recupero l'eventuale pagina
+        $paged = $this->_request->getParam('page',1);
+
+        $ntbu = $this->_adminModel->selectNtbu($paged, $order=null);
+
+        //assegno le variabili alla view
+        $this->view->assign('Ntbu',$ntbu);
+    }
+
+    public function aggiungintbuAction()
+    {
+        //questa azione deve essere richiamata solo da richieste post
+        //se non è una post faccio il redirect alla index
+        if (!$this->getRequest()->isPost()) {
+            $this->_helper->redirector('index', 'admin');
+        }
+
+        $form = $this->_addNtbuForm;
+
+        //valido la form
+        if (!$form->isValid($_POST)) {
+            $form->setDescription('ATTENZIONE: alcuni dati inseriti sono errati!');
+
+            //richiamo la pagina dell'aggiunta del componente
+            //con return esco dal controller
+            return $this->render('addntbu');
+        }
+
+        //recupero i valori e li inserisco nel db
+        $values = $form->getValues();
+
+        $this->_adminModel->insertNtbu($values);
+    }
+
+    public function cancellaNtbuAction()
+    {
+        //recupero l'id del componente da rimuovere
+        $id = intval($this->_request->getParam('id'));
+
+        if ($id !== 0) {
+            $this->_adminModel->deleteNtbu($id);
+        }
+
+    }
+    public function modificantbuAction()
+    {
+        //questa azione deve essere richiamata solo da richieste post
+        //se non è una post faccio il redirect alla index
+        if (!$this->getRequest()->isPost()) {
+            $this->_helper->redirector('index', 'admin');
+        }
+
+        //recupero l'id
+        $id = intval($this->_request->getParam('id'));
+
+        $form = $this->_editNtbuForm;
+
+
+        //valido la form
+        if (!$form->isValid($_POST)) {
+            $form->setDescription('ATTENZIONE: alcuni dati inseriti sono errati!');
+
+            //riassocio l'azione alla form
+            $urlHelper = $this->_helper->getHelper('url');
+            $this->_editNtbuForm->setAction($urlHelper->url(array(
+                'controller' => 'admin',
+                'action' => 'modificantbu',
+                'id' => $id
+            ),
+                'default'
+            ));
+
+            //richiamo la pagina della modifica del componente
+            //con return esco dal controller
+            return $this->render('updatentbu');
+        }
+
+        //recupero i valori e li inserisco nel db
+        $values = $form->getValues();
+
+        $this->_adminModel->updateNtbu($values,$id);   //Definita in Model/Amministratore.php
+
+    }
+
+    //<----!!FINE GESTIONE NTBU!!---->
+
+
 
     //carica la view per l'inserimento di un utente
     public function adduserAction()
@@ -1217,64 +1500,11 @@ class AdminController extends Zend_Controller_Action
         return $this->_editProductForm;
     }
 
-    private function getAddComponentForm(){
-        $urlHelper = $this->_helper->getHelper('url');
 
-        $this->_addComponentForm = new Application_Form_Admin_Component_Add();
-        $this->_addComponentForm->setAction($urlHelper->url(array(
-            'controller' => 'admin',
-            'action' => 'aggiungicomponente'
-        ),
-            'default'
-        ));
-        return $this->_addComponentForm;
-    }
 
-    private function getEditComponentForm()
-    {
-        $this->_editComponentForm = new Application_Form_Admin_Component_Edit();
-        return $this->_editComponentForm;
-    }
 
-    private function getAddFaqForm()
-    {
-        $urlHelper = $this->_helper->getHelper('url');
 
-        $this->_addFaqForm = new Application_Form_Admin_Faq_Add();
-        $this->_addFaqForm->setAction($urlHelper->url(array(
-            'controller' => 'admin',
-            'action' => 'aggiungifaq'
-        ),
-            'default'
-        ));
-        return $this->_addFaqForm;
-    }
 
-    private function getEditFaqForm()
-    {
-        $this->_editFaqForm = new Application_Form_Admin_Faq_Edit();
-        return $this->_editFaqForm;
-    }
-
-    private function getAddCentroForm()
-    {
-        $urlHelper = $this->_helper->getHelper('url');
-
-        $this->_addCentroForm = new Application_Form_Admin_Centri_Add();
-        $this->_addCentroForm->setAction($urlHelper->url(array(
-            'controller' => 'admin',
-            'action' => 'aggiungicentro'
-        ),
-            'default'
-        ));
-        return $this->_addCentroForm;
-    }
-
-    private function getEditCentroForm()
-    {
-        $this->_editCentroForm = new Application_Form_Admin_Centri_Edit();
-        return $this->_editCentroForm;
-    }
 
     private function getAddUserForm()
     {

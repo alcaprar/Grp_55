@@ -1,0 +1,53 @@
+<?php
+echo'<div class="col-sm-9 padding-right">
+                <div class="features_items"><!--features_items-->
+                    <h2 class="title text-center">Modifica NTBU</h2>
+                    <div  id="cart_items" >
+                        <div  class="table-responsive cart_info">
+                            <table  class="table table-condensed">
+                                <thead>
+                                <tr class="cart_menu">
+                                    <td class="description">Nome</td>
+                                    <td class="description">Descrizione</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                </thead>
+                                <tbody>';
+foreach($this->Ntbu as $ntbu){
+    echo'<tr>
+
+                                    <td  class="cart_description">
+                                        <h4>'.$ntbu->Nome.'</h4>
+                                        <p>ID: '.$ntbu->id.'</p>
+                                    </td>
+                                    <td  class="cart_description">
+                                        <p>'.$ntbu->Descrizione.'</p>
+                                    </td>
+                                    <td  class="cart_delete">
+                                        <p><a class="cart_quantity_delete" href="'.$this->url(array(
+            'controller' => 'admin',
+            'action'     => 'updatentbu',
+            'id' => $ntbu->id
+        ),
+            'default',true
+        ).'"><i class="fa fa-pencil">Modifica</i></a></p>
+                                        <p><a class="cart_quantity_delete" href="'.$this->url(array(
+            'controller' => 'admin',
+            'action'     => 'cancellantbu',
+            'id' => $ntbu->id
+        ),
+            'default',true
+        ).'"><i class="fa fa-times">Cancella</i></a></p>
+                                    </td>
+                                </tr>';
+}
+echo'</tbody>
+                            </table>
+                        </div>
+                    </div>';
+if($this->Ntbu instanceof Zend_Paginator) {
+    echo '<div class="text-center">'.$this->paginationControl($this->Ntbu,'Elastic','admin/_paginatorNtbu.phtml').'</div>';
+};
+echo '</div><!--features_items-->
+            </div>';

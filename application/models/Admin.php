@@ -122,6 +122,36 @@ class Application_Model_Admin extends App_Model_Abstract
         return $this->getResource('Component')->getComponentByIdFind($idComponente);
     }
 
+    public function insertNtbu($ntbu)
+    {
+        return $this->getResource('Ntbu')->insertNtbu($ntbu);
+    }
+
+    public function selectNtbu($paged, $order)
+    {
+        return $this->getResource('Ntbu')->selectNtbu($paged, $order);
+    }
+
+    public function deleteNtbu($id)
+    {
+        return $this->getResource('Ntbu')->deleteNtbu($id);
+    }
+
+    public function updateNtbu($ntbu, $id)
+    {
+        return $this->getResource('Ntbu')->updateNtbu($ntbu,$id);
+    }
+
+    public function getNtbuById($id)
+    {
+        return $this->getResource('Ntbu')->getNtbuById($id);
+    }
+
+    public function associateNtbu($idProdotto, $idNtbu)
+    {
+        return $this->getResource('Ntbuprodotti')->associateNtbu($idProdotto,$idNtbu);
+    }
+
     public function insertFaq($faq)
     {
         return $this->getResource('Faq')->insertFaq($faq);

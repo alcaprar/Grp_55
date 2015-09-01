@@ -40,3 +40,4 @@ http://www.jqueryscript.net/accordion/Creating-An-Accordion-Style-FAQ-System-wit
   - [X] gestione centri
   - [ ] gestione categorie
   - [ ] gestione top categorie
+- [ ] implementare menu admin con zend_navigation
