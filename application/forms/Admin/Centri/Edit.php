@@ -35,7 +35,11 @@ class Application_Form_Admin_Centri_Edit extends App_Form_Abstract
             'label' => 'Telefono',
             'filters' => array('StringTrim'),
             'required' => true,
-            'validators' => array(array('StringLength',true, array(1,20))),
+            'validators' => array(
+                array('StringLength',true, array(5,20)),
+                array('regex' , true, array(
+                    'pattern'=> '/^\+[0-9 ]+$/'
+                ))),
             'decorators' => $this->elementDecorators,
         ));
 
@@ -43,7 +47,11 @@ class Application_Form_Admin_Centri_Edit extends App_Form_Abstract
             'label' => 'Cellulare',
             'filters' => array('StringTrim'),
             'required' => false,
-            'validators' => array(array('StringLength',true, array(1,20))),
+            'validators' => array(
+                array('StringLength',true, array(5,20)),
+                array('regex' , true, array(
+                    'pattern'=> '/^\+[0-9 ]+$/'
+                ))),
             'decorators' => $this->elementDecorators,
         ));
 
@@ -51,7 +59,11 @@ class Application_Form_Admin_Centri_Edit extends App_Form_Abstract
             'label' => 'Fax',
             'filters' => array('StringTrim'),
             'required' => false,
-            'validators' => array(array('StringLength',true, array(1,20))),
+            'validators' => array(
+                array('StringLength',true, array(5,20)),
+                array('regex' , true, array(
+                    'pattern'=> '/^\+[0-9 ]+$/'
+                ))),
             'decorators' => $this->elementDecorators,
         ));
 
@@ -59,7 +71,11 @@ class Application_Form_Admin_Centri_Edit extends App_Form_Abstract
             'label' => 'Skype',
             'filters' => array('StringTrim'),
             'required' => false,
-            'validators' => array(array('StringLength',true, array(1,30))),
+            'validators' => array(
+                array('StringLength',true, array(5,20)),
+                array('regex' , true, array(
+                    'pattern'=> '/^\+[0-9 ]+$/'
+                ))),
             'decorators' => $this->elementDecorators,
         ));
 
