@@ -99,6 +99,7 @@ class TecnicoController extends Zend_Controller_Action
 
         //se è passato il parametro prodotto recupera il prodotto
         $prodotto = null;
+        $ntbus = array();
         $components = array();
         $malfunctions = array();
         if(!is_null($idProdotto))
@@ -115,14 +116,21 @@ class TecnicoController extends Zend_Controller_Action
             foreach($temp as $t)
             {
                 $malfunction = $this->_tecnicoModel->getMalfunctionById($t->idMalfunzionamento);
-                $malfunctions[] = $malfunction->Malfunzionamento;
+                $malfunctions[] = $malfunction;
+            }
+            $temp = $this->_tecnicoModel->getNtbuByProd($idProdotto);
+            foreach($temp as $t)
+            {
+                $ntbu = $this->_tecnicoModel->getNtbuById($t->idNTBU);
+                $ntbus[] = $ntbu;
             }
         }
         // Definisce le variabili per il viewer
         $this->view->assign(array(
                 'Prodotto' => $prodotto,
                 'Componenti' => $components,
-                'Malfunzionamenti' => $malfunctions
+                'Malfunzionamenti' => $malfunctions,
+                'Ntbu' => $ntbus
             )
         );
     }

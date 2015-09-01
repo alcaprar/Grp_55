@@ -67,7 +67,19 @@
 							</div>
 							<div class="tab-pane fade" id="ntbu" >
 								<div class="col-sm-12">
-								    <p>'.$this->Prodotto->NTBU.'</p>
+								    <p>Lista note tecniche di buon uso:</p>
+								    <ul class="componenti">';
+				foreach($this->Ntbu as $ntbu)
+				{
+					echo '<div class="faq-c">
+                                <div class="faq-q"><span class="faq-t">+</span>'.$ntbu->Nome.'</div>
+                                <div class="faq-a">
+                                <p>'.$ntbu->Descrizione.'</p>
+                                </div>
+                             </div>';
+				};
+				echo'
+                </ul>
 
 								</div>
 							</div>

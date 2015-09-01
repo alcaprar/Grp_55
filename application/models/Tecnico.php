@@ -56,4 +56,14 @@ class Application_Model_Tecnico extends App_Model_Abstract
     {
         return $this->getResource('Faq')->selectFaq($paged, $order);
     }
+
+    public function getNtbuByProd($idProdotto)
+    {
+        return $this->getResource('Ntbuprodotti')->getNtbuByProd($idProdotto);
+    }
+
+    public function getNtbuById($id)
+    {
+        return $this->getResource('Ntbu')->getNtbuById($id);
+    }
 }

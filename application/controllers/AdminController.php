@@ -112,7 +112,7 @@ class AdminController extends Zend_Controller_Action
 
         //se l'id non è valido ritorno alla lista dei prodotti da modificare
         if($id == null){
-            $this->_helper->redirector('modificacancellaprodotti', 'admin');
+            $this->_helper->redirector('modificacancellaprodotto', 'admin');
         }
 
         $urlHelper = $this->_helper->getHelper('url');
@@ -391,6 +391,7 @@ class AdminController extends Zend_Controller_Action
         $this->_adminModel->updateProduct($values,$id);
 
         $this->_adminModel->updateComposition($componenti,$id);
+        $this->_adminModel->updateNtbuprodotti($ntbu,$id);
     }
 
 
