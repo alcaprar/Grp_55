@@ -72,15 +72,6 @@ class Application_Form_Admin_Product_Add extends App_Form_Abstract
 			'decorators' => $this->elementDecorators,
 		));
 
-        $this->addElement('textarea', 'ModInstallazione', array(
-            'label' => 'Modalità di installazione particolari',
-            'cols' => '60', 'rows' => '5',
-            'filters' => array('StringTrim'),
-            'required' => true,
-            'validators' => array(array('StringLength',true, array(1,2500))),
-            'decorators' => $this->elementDecorators,
-        ));
-
         $this->addElement('text', 'Cilindrata', array(
             'label' => 'Cilindrata',
             'filters' => array('StringTrim'),
