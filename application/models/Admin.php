@@ -92,6 +92,21 @@ class Application_Model_Admin extends App_Model_Abstract
         return $this->getResource('Composition')->associateComponent($idProdotto,$idComponente);
     }
 
+    public function getComponentsByProd($idProdotto)
+    {
+        return $this->getResource('Composition')->getComponentsByProd($idProdotto);
+    }
+
+    public function updateComposition($componenti, $idProdotto)
+    {
+        $this->getResource('Composition')->deleteComposition($idProdotto);
+
+        for($i=0; $i< sizeof($componenti);$i++)
+        {
+            $this->getResource('Composition')->associateComponent($idProdotto,$componenti[$i]);
+        }
+    }
+
     public function insertComponent($componente)
     {
         return $this->getResource('Component')->insertComponent($componente);
@@ -150,6 +165,21 @@ class Application_Model_Admin extends App_Model_Abstract
     public function associateNtbu($idProdotto, $idNtbu)
     {
         return $this->getResource('Ntbuprodotti')->associateNtbu($idProdotto,$idNtbu);
+    }
+
+    public function getNtbuByProd($idProdotto)
+    {
+        return $this->getResource('Ntbuprodotti')->getNtbuByProd($idProdotto);
+    }
+
+    public function updateNtbuProdotti($ntbu, $idProdotto)
+    {
+        $this->getResource('Ntbuprodotti')->deleteNtbu($idProdotto);
+
+        for($i=0; $i< sizeof($ntbu);$i++)
+        {
+            $this->getResource('Ntbuprodotti')->associateNtbu($idProdotto,$ntbu[$i]);
+        }
     }
 
     public function insertFaq($faq)

@@ -132,6 +132,27 @@ class AdminController extends Zend_Controller_Action
             $vector[$key]=$value;
         }
 
+        //recupero i componenti del prodotto
+        $components=array();
+        $temp = $this->_adminModel->getComponentsByProd($id);
+        foreach($temp as $t)
+        {
+            $component = $this->_adminModel->getComponentById($t->idComponente);
+            $components[] = $component['id'];
+        }
+        $this->_logger->log($components,Zend_Log::DEBUG);
+
+        //recupero le ntbu del prodotto
+        $ntbus=array();
+        $temp = $this->_adminModel->getNtbuByProd($id);
+        foreach($temp as $t)
+        {
+            $ntbu = $this->_adminModel->getNtbuById($t->idNTBU);
+            $ntbus[] = $ntbu['id'];
+        }
+        $this->_logger->log($ntbus,Zend_Log::DEBUG);
+
+
         //se la foto non è stata inserita aggiungo l'elemento alla form
         if($vector['Foto']==''){
             $this->_editProductForm->addElement('file', 'Foto', array(
@@ -154,6 +175,7 @@ class AdminController extends Zend_Controller_Action
         }
         $multicheckbox->setMultiOptions($componenti);
 
+
         //creo le checkbox di tutte le ntbu
         $multicheckbox2 = $this->_editProductForm->getElement('Ntbu');
         $rows = $this->_adminModel->selectNtbu($paged=null,$order=null);
@@ -172,8 +194,10 @@ class AdminController extends Zend_Controller_Action
         unset($vector['Foto']);
         unset($vector['idCategoria']);
 
-        //popolo la form con i campi ricevuti tramite post(solo quelli validi)
+        //popolo la form con i campi recuperati dal db
         $this->_editProductForm->populate($vector);
+        $multicheckbox->setValue($components);
+        $multicheckbox2->setValue($ntbus);
     }
 
     //mostra la lista dei prodotti presenti nel database
@@ -327,7 +351,7 @@ class AdminController extends Zend_Controller_Action
             ));
 
             //creo le checkbox dei componenti
-            $multicheckbox = $this->_addProductForm->getElement('Componenti');
+            $multicheckbox = $this->_editProductForm->getElement('Componenti');
             $rows = $this->_adminModel->selectComponent($paged=null,$order=null);
             $componenti = [];
             foreach($rows->toArray() as $row)
@@ -337,7 +361,7 @@ class AdminController extends Zend_Controller_Action
             $multicheckbox->setMultiOptions($componenti);
 
             //creo le checkbox di tutte le ntbu
-            $multicheckbox2 = $this->_addProductForm->getElement('Ntbu');
+            $multicheckbox2 = $this->_editProductForm->getElement('Ntbu');
             $rows = $this->_adminModel->selectNtbu($paged=null,$order=null);
             $ntbu = array();
             foreach($rows->toArray() as $row)
@@ -356,8 +380,18 @@ class AdminController extends Zend_Controller_Action
 
         //recupero i valori e li inserisco nel db
         $values = $form->getValues();
+        $componenti = $values['Componenti'];
+        $ntbu = $values['Ntbu'];
+        $this->_logger->log($values,Zend_Log::DEBUG);
+        unset($values['Componenti']);
+        unset($values['Ntbu']);
+
+        $this->_logger->log($componenti,Zend_Log::DEBUG);
+        $this->_logger->log($ntbu,Zend_Log::DEBUG);
 
         $this->_adminModel->updateProduct($values,$id);
+
+        $this->_adminModel->updateComposition($componenti,$id);
     }
 
 
