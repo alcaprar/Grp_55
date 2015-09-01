@@ -412,13 +412,16 @@ class AdminController extends Zend_Controller_Action
 
     //<----!!FINE GESTIONE FAQ!!---->
 
-    //carica la view per l'inserimento di un centro
+
+
+    //<----!!INIZIO GESTIONE CENTRI ASSISTENZA!!-->
+
+
     public function addcentroAction()
     {
 
     }
 
-    //popola la form per la modifica
     public function updatecentroAction()
     {
         //recupero l'id della faq da modificare
@@ -429,6 +432,7 @@ class AdminController extends Zend_Controller_Action
             $this->_helper->redirector('modificacancellacentro', 'admin');
         }
 
+        //associo l'azione alla form
         $urlHelper = $this->_helper->getHelper('url');
         $this->_editCentroForm->setAction($urlHelper->url(array(
             'controller' => 'admin',
@@ -438,26 +442,21 @@ class AdminController extends Zend_Controller_Action
             'default'
         ));
 
-        //recupero il centro
+        //recupero il centro e popolo la form
         $row = $this->_adminModel->getCentroById($id);
         foreach($row as $key=>$value) {
             $vector[$key]=$value;
         }
 
-        $this->view->assign('vector',$vector);
-
-        $this->_logger->log($vector,Zend_Log::DEBUG);
-
         //rimuovo i campi che non ci sono nella form
         unset($vector['id']);
         unset($vector['Latitudine']);
         unset($vector['Longitudine']);
-        $this->_logger->log($vector,Zend_Log::DEBUG);
 
         $this->_editCentroForm->populate($vector);
     }
 
-    //scarica dal db la lista dei centri assistenza
+
     public function modificacancellacentroAction()
     {
         //recupero l'eventuale pagina
@@ -468,6 +467,101 @@ class AdminController extends Zend_Controller_Action
         //assegno le variabili alla view
         $this->view->assign('Centro',$centro);
     }
+
+    public function aggiungicentroAction()
+    {
+        //questa azione deve essere richiamata solo da richieste post
+        //se non è una post faccio il redirect alla index
+        if (!$this->getRequest()->isPost()) {
+            $this->_helper->redirector('index', 'admin');
+        }
+
+        $form = $this->_addCentroForm;
+
+        //valido la form
+        if (!$form->isValid($_POST)) {
+            $form->setDescription('ATTENZIONE: alcuni dati inseriti sono errati!');
+
+            //richiamo la pagina dell'inserimento del centro
+            //con return esco dal controller
+            return $this->render('addcentro');
+        }
+
+        //recupero i valori e li inserisco nel db
+        $values = $form->getValues();
+
+        //recupero lat e long che servono per la mappa
+        $urlencodedAddress = urlencode($values['Indirizzo']);
+        $details_url = "http://maps.googleapis.com/maps/api/geocode/json?address=" . $urlencodedAddress . "&sensor=false";
+        $ch = curl_init($details_url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $geoloc = json_decode(curl_exec($ch), true);
+        $values['Latitudine'] = $geoloc['results'][0]['geometry']['location']['lat'];
+        $values['Longitudine'] = $geoloc['results'][0]['geometry']['location']['lng'];
+
+        $this->_adminModel->insertCentro($values);
+    }
+
+    public function modificaCentroAction()
+    {
+        //questa azione deve essere richiamata solo da richieste post
+        //se non è una post faccio il redirect alla index
+        if (!$this->getRequest()->isPost()) {
+            $this->_helper->redirector('index', 'admin');
+        }
+
+        //recupero l'id
+        $id = intval($this->_request->getParam('id'));
+
+        $form = $this->_editCentroForm;
+
+
+        //valido la form
+        if (!$form->isValid($_POST)) {
+            $form->setDescription('ATTENZIONE: alcuni dati inseriti sono errati!');
+
+            $urlHelper = $this->_helper->getHelper('url');
+            $this->_editCentroForm->setAction($urlHelper->url(array(
+                'controller' => 'admin',
+                'action' => 'modificacentro',
+                'id' => $id
+            ),
+                'default'
+            ));
+
+            //richiamo la pagina dell'aggiornamento del centro
+            //con return esco dal controller
+            return $this->render('updatecentro');
+        }
+
+        //recupero i valori e li inserisco nel db
+        $values = $form->getValues();
+
+        //recupero lat e long che servono per la mappa
+        $urlencodedAddress = urlencode($values['Indirizzo']);
+        $details_url = "http://maps.googleapis.com/maps/api/geocode/json?address=" . $urlencodedAddress . "&sensor=false";
+        $ch = curl_init($details_url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $geoloc = json_decode(curl_exec($ch), true);
+        $values['Latitudine'] = $geoloc['results'][0]['geometry']['location']['lat'];
+        $values['Longitudine'] = $geoloc['results'][0]['geometry']['location']['lng'];
+
+        $this->_adminModel->updateCentro($values,$id);
+
+    }
+
+    public function cancellacentroAction()
+    {
+        //recupero l'id del prodotto da rimuovere
+        $id = intval($this->_request->getParam('id'));
+
+        if ($id !== 0) {
+            $this->_adminModel->deleteCentro($id);
+        }
+
+    }
+
+    //<----!!FINE GESTIONE CENTRI ASSISTENZA!!---->
 
     //carica la view per l'inserimento di un componente
     public function addcomponentAction()
@@ -1107,133 +1201,7 @@ class AdminController extends Zend_Controller_Action
 
     }
 
-    public function aggiungicentroAction()
-    {
-        //Si attiva solo se la richiesta che ha attivato questa azione è di tipo post
-        //Se non lo è...
-        if (!$this->getRequest()->isPost()) {
-            //...ritorna alla home page dell'admin (actionIndex)
-            $this->_helper->redirector('logout', 'admin');        //Specificando solo il controller (index) prende come azione di default indexAction
-            $this->_logger->log('!isPost',Zend_Log::DEBUG);
-        }
 
-        $this->_logger->log('isPost',Zend_Log::DEBUG);
-        //Il server ha ricreato l'applicazione avendo inviato il form,
-        // devo incrociare i dati che mi sono arrivati, perciò devo reistanziare il form
-        $form = $this->_addCentroForm;
-
-
-        //Fa un incrocio fra $post e i campi ricevuti dalla form, restituisce true se sono compatibili, false altrimenti
-        if (!$form->isValid($_POST)) {
-            $form->setDescription('ATTENZIONE: alcuni dati inseriti sono errati!');
-            $this->_logger->log('!isValid',Zend_Log::DEBUG);
-            //Se non è stato validato rivisualizzo il risultato dell'azione registrautente
-            //Rivisualizzo quindi la form popolata (Aggiungendo però i messaggi di errore!)
-            return $this->render('addcentro'); //Esco poi dal controller con return
-        }
-
-        $this->_logger->log('isValid',Zend_Log::DEBUG);
-
-        //Con getValues estraggo tutti i valori validati
-        //Diventa un array di coppie nome-valori pronto per essere scritto sul DB se ho associato correttamente i nomi
-        $values = $form->getValues();
-        $this->_logger->log($values,Zend_Log::DEBUG);
-
-        //recupero lat e long che servono per la mappa
-        $urlencodedAddress = urlencode($values['Indirizzo']);
-
-        $details_url = "http://maps.googleapis.com/maps/api/geocode/json?address=" . $urlencodedAddress . "&sensor=false";
-
-        $this->_logger->log($details_url,Zend_Log::DEBUG);
-
-        $ch = curl_init($details_url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $geoloc = json_decode(curl_exec($ch), true);
-
-        $values['Latitudine'] = $geoloc['results'][0]['geometry']['location']['lat'];
-        $values['Longitudine'] = $geoloc['results'][0]['geometry']['location']['lng'];
-
-        $this->_logger->log($values,Zend_Log::DEBUG);
-
-        $this->_adminModel->insertCentro($values);   //Definita in Model/Amministratore.php
-    }
-
-    public function modificaCentroAction()
-    {
-        //Si attiva solo se la richiesta che ha attivato questa azione è di tipo post
-        //Se non lo è...
-        if (!$this->getRequest()->isPost()) {
-            //...ritorna alla home page dell'admin (actionIndex)
-            $this->_helper->redirector('logout', 'admin');        //Specificando solo il controller (index) prende come azione di default indexAction
-            $this->_logger->log('!isPost',Zend_Log::DEBUG);
-        }
-
-        //recupero l'id
-        $id = intval($this->_request->getParam('id'));
-
-        $this->_logger->log('isPost',Zend_Log::DEBUG);
-        //Il server ha ricreato l'applicazione avendo inviato il form,
-        // devo incrociare i dati che mi sono arrivati, perciò devo reistanziare il form
-        $form = $this->_editCentroForm;
-
-
-        //Fa un incrocio fra $post e i campi ricevuti dalla form, restituisce true se sono compatibili, false altrimenti
-        if (!$form->isValid($_POST)) {
-            $form->setDescription('ATTENZIONE: alcuni dati inseriti sono errati!');
-            $this->_logger->log('!isValid',Zend_Log::DEBUG);
-            //Se non è stato validato rivisualizzo il risultato dell'azione registrautente
-            //Rivisualizzo quindi la form popolata (Aggiungendo però i messaggi di errore!)
-
-
-            $urlHelper = $this->_helper->getHelper('url');
-            $this->_editCentroForm->setAction($urlHelper->url(array(
-                'controller' => 'admin',
-                'action' => 'modificacentro',
-                'id' => $id
-            ),
-                'default'
-            ));
-
-            $form->populate($_POST);
-            return $this->render('updatecentro'); //Esco poi dal controller con return
-        }
-
-        $this->_logger->log('isValid',Zend_Log::DEBUG);
-
-        //Con getValues estraggo tutti i valori validati
-        //Diventa un array di coppie nome-valori pronto per essere scritto sul DB se ho associato correttamente i nomi
-        $values = $form->getValues();
-        $this->_logger->log($values,Zend_Log::DEBUG);
-
-        //recupero lat e long che servono per la mappa
-        $urlencodedAddress = urlencode($values['Indirizzo']);
-
-        $details_url = "http://maps.googleapis.com/maps/api/geocode/json?address=" . $urlencodedAddress . "&sensor=false";
-
-        $this->_logger->log($details_url,Zend_Log::DEBUG);
-
-        $ch = curl_init($details_url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $geoloc = json_decode(curl_exec($ch), true);
-
-        $values['Latitudine'] = $geoloc['results'][0]['geometry']['location']['lat'];
-        $values['Longitudine'] = $geoloc['results'][0]['geometry']['location']['lng'];
-
-
-        $this->_adminModel->updateCentro($values,$id);
-
-    }
-
-    public function cancellacentroAction()
-    {
-        //recupero l'id del prodotto da rimuovere
-        $id = intval($this->_request->getParam('id'));
-
-        if ($id !== 0) {
-            $this->_adminModel->deleteCentro($id);
-        }
-
-    }
 
     public function viewstaticAction () {
         $page = $this->_getParam('staticPage');
