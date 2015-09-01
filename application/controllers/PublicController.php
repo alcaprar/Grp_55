@@ -203,11 +203,6 @@ class PublicController extends Zend_Controller_Action
 
             $param = $request->getParam('query');
             $products = $this->_publicModel->getProdByName($param, $page = null, $order = null);
-            $this->_logger->log($products, Zend_Log::DEBUG);
-            $data = array();
-            foreach ($products as $key=>$value) {
-                $data[$key] = $value;
-            };
             $this->_helper->json($products, $sendNow = true, $keepLayouts = false, $encodeData = true);
         } else {
             return;
