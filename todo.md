@@ -24,7 +24,7 @@ http://www.jqueryscript.net/accordion/Creating-An-Accordion-Style-FAQ-System-wit
 - [X] form pagina contatti e invio email
 - [ ] aggiungere search box per la modifica/cancellazione per prodotti, componenti ecc..
 - [ ] implementare search box prodotti con zend_form
-- [ ] ricerca con ajax (live search) (parziale)
+- [ok] ricerca con ajax (live search) da modificare nella visualizzazione
 - [ ] ricerca malfunzionamenti
 - [ ] aggiungere la ripartizione delle categorie tra tecnici dello staff
 - [ ] validazione form tramite javascript
