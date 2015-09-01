@@ -11,14 +11,19 @@ class Application_Form_Public_Mail_Send extends App_Form_Abstract
 
         //email del mittente
         $this->addElement('text', 'sender', array(
-            'label' => 'Email mittente',
             'filters' => array('StringTrim'),
+            'placeholder' => 'Email',
+            'class' => 'form-control',
             'required' => true,
             'validators' => array(
                 array('EmailAddress',  true  ),
                 array('StringLength',true, array(1,60))
             ),
-            'decorators' => $this->elementDecorators,
+            'decorators' =>array(
+                array('ViewHelper'),
+                array('HtmlTag', array('tag' => 'div', 'class'=>'form-group col-md-6')),
+                array('Errors', array('class'=>'error col-md-12')),
+            )
         ));
 
         //Input mittente della mail
@@ -26,39 +31,55 @@ class Application_Form_Public_Mail_Send extends App_Form_Abstract
             'filters'    => array('StringTrim'),
             'validators' => array(array('StringLength', true, array(3, 30))),
             'required'   => true,
-            'label'      => 'Nome e cognome del mittente',
-            'decorators' => $this->elementDecorators,
-        ))->setAttrib('placeholder', 'Nome e Cognome');;
+            'class' => 'form-control',
+            'decorators' =>array(
+                array('ViewHelper'),
+                array('HtmlTag', array('tag' => 'div', 'class'=>'form-group col-md-6')),
+                array('Errors', array('class'=>'error col-md-12')),
+            ),
+            'placeholder' => 'Nome e cognome del mittente',
+        ));
+
 
         //Input per l'oggetto della mail
         $this->addElement('text', 'subject', array(
             'filters'    => array('StringTrim'),
             'validators' => array(array('StringLength', true, array(3, 30))),
             'required'   => true,
-            'label'      => 'Oggetto',
-            'decorators' => $this->elementDecorators,
+            'class' => 'form-control',
+            'placeholder'=> 'Oggetto',
+            'decorators' =>array(
+                array('ViewHelper'),
+                array('HtmlTag', array('tag' => 'div', 'class'=>'form-group col-md-12')),
+                array('Errors', array('class'=>'error col-md-12')),
+            ),
         ))->setAttrib('placeholder', 'Oggetto');;
 
         //corpo del messaggio
         $this->addElement('textarea', 'body', array(
-            'label' => 'Messaggio',
+            'placeholder' => 'Scrivi il tuo messaggio qui',
             'cols' => '60', 'rows' => '10',
             'filters' => array('StringTrim'),
             'required' => true,
+            'class' => 'form-control',
             'validators' => array(array('StringLength',true, array(1,5000))),
-            'decorators' => $this->elementDecorators,
+            'decorators' =>array(
+                array('ViewHelper'),
+                array('HtmlTag', array('tag' => 'div', 'class'=>'form-group col-md-12')),
+                array('Errors', array('class'=>'error col-md-12')),
+            ),
         ));
 
         $this->addElement('submit', 'send', array(
             'label'    => 'Invia',
-            'decorators' => $this->buttonDecorators,
-        ));
+            'class' => 'btn btn-primary pull-right name',
+                'decorators' =>array(
+                    array('ViewHelper'),
+                    array('HtmlTag', array('tag' => 'div', 'class'=>'form-group col-md-12')),
+                    array('Errors', array('class'=>'error')),
+                ),
+            )
+        );
 
-        $this->setDecorators(array(
-            'FormElements',
-            array('HtmlTag', array('tag' => 'table', 'class' => 'zend_form')),
-            array('Description', array('placement' => 'prepend', 'class' => 'formerrors')),
-            'Form'
-        ));
     }
 }
