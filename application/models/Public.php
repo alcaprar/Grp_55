@@ -61,4 +61,14 @@ class Application_Model_Public extends App_Model_Abstract
     {
         return $this->getResource('Appartenenza')->updateAppartenenza($idCentro,$idTecnico);
     }
+
+    public function getNtbuByProd($idProdotto)
+    {
+        return $this->getResource('Ntbuprodotti')->getNtbuByProd($idProdotto);
+    }
+
+    public function getNtbuById($id)
+    {
+        return $this->getResource('Ntbu')->getNtbuById($id);
+    }
 }

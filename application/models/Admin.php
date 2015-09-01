@@ -174,7 +174,7 @@ class Application_Model_Admin extends App_Model_Abstract
 
     public function updateNtbuProdotti($ntbu, $idProdotto)
     {
-        $this->getResource('Ntbuprodotti')->deleteNtbu($idProdotto);
+        $this->getResource('Ntbuprodotti')->deleteNtbuprodotti($idProdotto);
 
         for($i=0; $i< sizeof($ntbu);$i++)
         {

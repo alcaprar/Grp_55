@@ -26,5 +26,10 @@ class Application_Resource_Malfunctions extends Zend_Db_Table_Abstract
             "idProdotto" => $idProdotto
         ));
     }
+
+    public function deleteMalfunctions($id)
+    {
+        $this->delete('idProdotto = '.$id);
+    }
 }
 

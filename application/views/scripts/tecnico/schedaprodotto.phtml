@@ -33,7 +33,7 @@
                 <?php
                 $urlfoto = ($this->Prodotto->Foto=='' || is_null($this->Prodotto->Foto))?($this->baseURL().'/images/product-details/image-coming-soon.png'):($this->baseURL() .'/images/products/'. $this->Prodotto->Foto);
                 echo'<div class="features_items"><!--features_items-->
-                     <h2 class="title text-center">Catalogo Pubblico</h2>
+                     <h2 class="title text-center">Catalogo Tecnico</h2>
                         <div class="col-sm-9 padding-right">
 					        <div class="product-details"><!--product-details-->
 						        <div class="col-sm-5">
@@ -69,13 +69,24 @@
 							</div>
 							<div class="tab-pane fade" id="ntbu" >
 								<div class="col-sm-12">
-								    <p>'.$this->Prodotto->NTBU.'</p>
+								    <p>Lista note tecniche di buon uso:</p>
+								    <ul class="componenti">';
+                foreach($this->Ntbu as $ntbu)
+                {
+                    echo '<div class="faq-c">
+                                <div class="faq-q"><span class="faq-t">+</span>'.$ntbu->Nome.'</div>
+                                <div class="faq-a">
+                                <p>'.$ntbu->Descrizione.'</p>
+                                </div>
+                             </div>';
+                };echo'
+                </ul>
 
 								</div>
 							</div>
 							<div class="tab-pane fade" id="componenti" >
 								<div class="col-sm-12">
-								    <p > Lista componenti:
+								    <p > Lista componenti:</p>
 								        <ul class="componenti">';
                 foreach($this->Componenti as $comp)
                 {
@@ -88,22 +99,23 @@
                         ).'>' . $comp->Nome . '</a></li>';
                 }
                 echo '</ul>
-                                    </p>
+
 								</div>
 							</div>
 							<div class="tab-pane fade" id="malfunzionamenti" >
 								<div class="col-sm-12">
-								    <p>
-								        <ul>';
-                foreach($this->Malfunzionamenti as $malf)
-                {
-                    echo '<li>
-                                                        <p>
-                                                          '.$malf.'
-                                                        </p>
-                                                      </li>';
-                }?></ul>
-                                    </p>
+								    <p > Lista Malfunzionamenti:</p>
+								        <ul class="componenti">';
+foreach($this->Malfunzionamenti as $malf)
+{
+    echo '<div class="faq-c">
+                                <div class="faq-q"><span class="faq-t">+</span>'.$malf->Malfunzionamento.'</div>
+                                <div class="faq-a">
+                                <p>'.$malf->Soluzione.'</p>
+                                </div>
+                             </div>';
+}?>
+</ul>
 
 								</div>
 							</div>

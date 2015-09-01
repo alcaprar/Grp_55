@@ -1,4 +1,3 @@
-- [ ] pagina chi siamo
 - [X] pagina dove siamo
 - [X] migliorare pagina FAQ
 http://www.jqueryscript.net/accordion/Creating-An-Accordion-Style-FAQ-System-with-jQuery-CSS3.html
@@ -10,26 +9,23 @@ http://www.jqueryscript.net/accordion/Creating-An-Accordion-Style-FAQ-System-wit
   - [X] quando si inserisce un nuovo tecnico inserire la possibilità di scegliere a che centro fa parte
   (ho già inserito la select sui centri. bisogna aggiungere che deve essere nascosta e mostrarla quando si seleziona tecnico)
   - [X] inserire un elemento select con tutti i centri nella form con attributo hidden e mostrarlo tramite jquery quando si seleziona tecnico
-- [ ] togliere la possibilità di inserimento di un nuovo admin
-  - [X] togliere amministratore dal menu a tendina nel pannello inserimento utente
-  - [ ] trovare una soluzione lato db per bloccare l'inserimento di un nuovo admin
 - [X] slider nella home page al posto della singola immagine
 - [X] sistemare pagine admin
   - [X] modifica utenti
   - [X] modifica faq
   - [X] modifica centri
+- [X] migliorare associazione prodotto componente
+   - [X] aggiungere update componenti
 - [ok] ricerca con wild-card(*)
 - [ok] ricerca prodotti indicando la descrizione
-- [ ] ricerca con ajax (live search) (parziale)
-- [ ] ricerca malfunzionamenti
 - [ok] inserire gestisci categoria nel panello admin
   - [ok] mettere le categorie auto e moto a livello db come topCat
   - [ok] aggiungere gestisci categorie Top in admin
-- [ ] aggiungere search box per la modifica/cancellazione per prodotti, componenti ecc..
 - [X] form pagina contatti e invio email
+- [ ] aggiungere search box per la modifica/cancellazione per prodotti, componenti ecc..
 - [ ] implementare search box prodotti con zend_form
-- [X] migliorare associazione prodotto componente
-  - [X] aggiungere update componenti
+- [ ] ricerca con ajax (live search) (parziale)
+- [ ] ricerca malfunzionamenti
 - [ ] aggiungere la ripartizione delle categorie tra tecnici dello staff
 - [ ] validazione form tramite javascript
 - [ ] sistemare admin controller
@@ -41,3 +37,7 @@ http://www.jqueryscript.net/accordion/Creating-An-Accordion-Style-FAQ-System-wit
   - [ ] gestione categorie
   - [ ] gestione top categorie
 - [ ] implementare menu admin con zend_navigation
+- [ ] pagina chi siamo
+- [ ] togliere la possibilità di inserimento di un nuovo admin
+  - [X] togliere amministratore dal menu a tendina nel pannello inserimento utente
+  - [ ] trovare una soluzione lato db per bloccare l'inserimento di un nuovo admin

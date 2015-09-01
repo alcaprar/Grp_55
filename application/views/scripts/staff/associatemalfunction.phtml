@@ -33,6 +33,7 @@ alert("fail :(");
     });
 
     function setMalfunzionamenti(data){
+$('div#steptwo').show("slow");
 $(':checkbox').prop('checked',false);
         for(var i in data){
 $(':checkbox#'+data[i]).prop('checked', true)
@@ -43,23 +44,46 @@ $(':checkbox#'+data[i]).prop('checked', true)
 <?php $this->headScript()->captureEnd() ?>
 
 
-<section>
+<div class="col-sm-9 padding-right">
     <h3>Associa Malfunzionamento</h3>
     <p>Utilizza questa pagina per gestire l'associazione tra prodotti e malfunzionamenti.</p>
-    <select class="col-sm-3" id="selectProdotti">
+    <div class="step-one col-md-12">
+        <h2 class="heading">Step1</h2>
+    </div>
+    <div class="col-md-9">
+        <p>Scegli un prodotto:</p>
+        <?php $action =$this->url(array(
+            'controller' => 'staff',
+            'action' => 'associamalfunzionamento'
+        ),
+            'default'
+        ) ?>
+        <form id="associatemalfunction" action="<?= $action ?>" method="post" enctype="application/x-www-form-urlencoded" name="associatemalfunction">
+        <select class="col-sm-3" id="selectProdotti" name="selectProdotti">
             <?php
             foreach($this->Prodotti as $prod)
-                {
-                    echo '<option value="'.$prod->id.'">'.$prod->Nome.'</option>';
-                }
+            {
+                echo '<option value="'.$prod->id.'">'.$prod->Nome.'</option>';
+            }
             ?>
-    </select>
-    <div class="col-sm-6" id="checkboxes">
+        </select>
+    </div>
+    <div id ="steptwo" style="display: none">
+    <div class="step-one col-md-12">
+        <h2 class="heading">Step2</h2>
+    </div>
+    <div class="col-sm-9" id="checkboxes">
+        <p>Scegli i malfunzionamenti da associare:</p>
         <?php
         foreach($this->Malfunzionamenti as $malf)
         {
-            echo '<input type="checkbox"  id="'.$malf->id.'">'.$malf->Malfunzionamento.'</input>';
+            echo '<input type="checkbox" name="malf[]" value="'.$malf->id.'" id="'.$malf->id.'">'.$malf->Malfunzionamento.'</input>';
         }
         ?>
     </div>
-</section>
+        <div class="col-md-9">
+        <input type="submit" value="Associa malfunzionamenti">
+        </form>
+            </div>
+    </div>
+</div>

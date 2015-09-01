@@ -107,12 +107,20 @@ class PublicController extends Zend_Controller_Action
             return $this->_helper->redirector('index', 'public');
         }
 
-        //se non è nullo recupero il prodotto
+        //se non è nullo recupero il prodotto e le ntbu
         $prodotto = $this->_publicModel->getProdById($idProdotto);
+        $ntbus=array();
+        $temp = $this->_publicModel->getNtbuByProd($idProdotto);
+        foreach($temp as $t)
+        {
+            $ntbu = $this->_publicModel->getNtbuById($t->idNTBU);
+            $ntbus[] = $ntbu;
+        }
 
         // Definisce le variabili per il viewer
         $this->view->assign(array(
-                'Prodotto' => $prodotto
+                'Prodotto' => $prodotto,
+                'Ntbu' =>$ntbus,
             )
         );
     }

@@ -58,4 +58,14 @@ class Application_Model_Staff extends App_Model_Abstract
         return $this->getResource('Product')->getProdById($id);
     }
 
+    public function associateMalfunction($idProdotto, $malf)
+    {
+        $this->getResource('Malfunctions')->deleteMalfunctions($idProdotto);
+
+        for($i=0; $i< sizeof($malf);$i++)
+        {
+            $this->getResource('Malfunctions')->associateMalfunction($malf[$i],$idProdotto);
+        }
+    }
+
 }
