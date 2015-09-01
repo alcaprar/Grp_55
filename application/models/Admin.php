@@ -27,6 +27,11 @@ class Application_Model_Admin extends App_Model_Abstract
         return $this->getResource('Category')->getCatById($id);
     }
 
+    public function getCategorie()
+    {
+        return $this->getResource('Category')->getCategorie();
+    }
+
     public function insertTopCategory($categoria)
     {
         return $this->getResource('TopCategory')->insertTopCategory($categoria);

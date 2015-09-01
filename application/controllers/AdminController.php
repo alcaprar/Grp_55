@@ -28,6 +28,8 @@ class AdminController extends Zend_Controller_Action
         $this->_logger = Zend_Registry::get('log');
         $this->_adminModel = new Application_Model_Admin();
 
+
+        //assegna alla view le form
         $this->view->addProductForm = $this->getProductForm();
         $this->view->editProductForm = $this->getEditProductForm();
         $this->view->addFaqForm = $this->getAddFaqForm();
@@ -43,45 +45,52 @@ class AdminController extends Zend_Controller_Action
         $this->view->addTopCategoryForm = $this->getAddTopCategoryForm();
         $this->view->editTopCategoryForm = $this->getEditTopCategoryForm();
 
+
+        //serve per l'acl
         $this->_authService = new Application_Service_Auth();
     }
 
+    //azione vuota perchè deve mostrare sola il viewscript associato
     public function indexAction()
     {
 
     }
 
-    //carica la view per l'inserimento di un prodotto
+    //in tutti i controller è stata seguita questa logica:
+    //-l'azione con il nome inglese carica la view con la form
+    //-l'azione con il nome italiano riceve la post request, valida la orm
+    //e in caso positivo inserisce i valori nel db altrimenti
+    //viene richiamata l'azione inglese che ricarica la form ma con alcuni dati
+    //già inseriti e le indicazioni sugli errori
+
+    //<----!!INIZIO GESTIONE PRODOTTI!!---->
+
+
     public function addproductAction()
     {
+        //popolo la select con la lista delle categorie
         $select = $this->_addProductForm->getElement('idCategoria');
-
         $rows = $this->_adminModel->getCategorie();
-        $categorie = [];
-
+        $categorie = array();
         foreach($rows->toArray() as $row)
         {
             $categorie[$row['id']] = $row['Nome'];
         }
-
         $select->setMultiOptions($categorie);
 
-        //recupero i componenti
+
+        //creo le checkbox di tutti i componenti
         $multicheckbox = $this->_addProductForm->getElement('Componenti');
-
         $rows = $this->_adminModel->selectComponent($paged=null,$order=null);
-        $componenti = [];
-
+        $componenti = array();
         foreach($rows->toArray() as $row)
         {
             $componenti[$row['id']] = $row['Nome'];
         }
-
         $multicheckbox->setMultiOptions($componenti);
-
     }
 
-    //popola la form per la modifica
+
     public function updateproductAction()
     {
         //recupero l'id del prodotto da modificare
@@ -106,7 +115,6 @@ class AdminController extends Zend_Controller_Action
         foreach($row as $key=>$value) {
             $vector[$key]=$value;
         }
-        $this->_logger->log($vector,Zend_Log::DEBUG);
 
         //se la foto non è stata inserita aggiungo l'elemento alla form
         if($vector['Foto']==''){
@@ -122,17 +130,18 @@ class AdminController extends Zend_Controller_Action
 
         $this->view->assign('vector',$vector);
 
-        $this->_logger->log($vector,Zend_Log::DEBUG);
 
         //rimuovo i campi che non ci sono nella form
         unset($vector['id']);
         unset($vector['Foto']);
         unset($vector['idCategoria']);
 
+        //popolo la form con i campi ricevuti tramite post(solo quelli validi)
         $this->_editProductForm->populate($vector);
     }
 
-    //scarica dal db la lista dei prodotti
+    //mostra la lista dei prodotti presenti nel database
+    //è possibile cancellare e/o modificare ogni prodotto
     public function modificacancellaprodottoAction()
     {
         //recupero l'eventuale pagina
@@ -145,7 +154,7 @@ class AdminController extends Zend_Controller_Action
 
     }
 
-    public function associateproductAction()
+    /*public function associateproductAction()
     {
         //recupero i prodotti
         $select = $this->_associateProductForm->getElement('idProdotto');
@@ -172,25 +181,132 @@ class AdminController extends Zend_Controller_Action
         }
 
         $multicheckbox->setMultiOptions($componenti);
+    }*/
+
+    //azione richiamata al click di inserisci prodotto
+    public function aggiungiprodottoAction()
+    {
+        //questa azione deve essere richiamata solo da richieste post.
+        //se non è una post faccio il redirect alla index
+        if (!$this->getRequest()->isPost()) {
+            $this->_helper->redirector('index', 'admin');
+        }
+
+        $form = $this->_addProductForm;
+
+        //valida la form
+        if (!$form->isValid($_POST)) {
+            $form->setDescription('ATTENZIONE: alcuni dati inseriti sono errati!');
+
+            //popolo la select con la lista delle categorie
+            $select = $this->_addProductForm->getElement('idCategoria');
+            $rows = $this->_adminModel->getCategorie();
+            $categorie = [];
+            foreach($rows->toArray() as $row)
+            {
+                $categorie[$row['id']] = $row['Nome'];
+            }
+            $select->setMultiOptions($categorie);
+
+            //creo le checkbox dei componenti
+            $multicheckbox = $this->_addProductForm->getElement('Componenti');
+            $rows = $this->_adminModel->selectComponent($paged=null,$order=null);
+            $componenti = [];
+            foreach($rows->toArray() as $row)
+            {
+                $componenti[$row['id']] = $row['Nome'];
+            }
+            $multicheckbox->setMultiOptions($componenti);
+
+            //richiamo la pagina dell'inserimento dei prodotti.
+            //con return esco dal controller
+            return $this->render('addproduct');
+        }
+
+        //recupero i valori da inserire nel db
+        $values = $form->getValues();
+        $componenti = $values['Componenti'];
+        unset($values['Componenti']);
+
+        //inserisco nel db il prodotto e recupero il suo id per poi inserire i componenti
+        $idProduct = $this->_adminModel->insertProduct($values);
+        foreach($componenti as $componente)
+        {
+            $this->_adminModel->associateComponent($idProduct,$componente);
+        }
     }
 
-    //carica la view per l'inserimento di una faq
+    public function cancellaprodottoAction()
+    {
+        //recupero l'id del prodotto da rimuovere
+        $id = intval($this->_request->getParam('id'));
+
+        if ($id !== 0) {
+            $this->_adminModel->deleteProduct($id);
+        }
+    }
+
+    public function modificaprodottoAction()
+    {
+        //questa azione deve essere richiamata solo da richieste post
+        //se non è una post faccio il redirect alla index
+        if (!$this->getRequest()->isPost()) {
+            $this->_helper->redirector('index', 'admin');
+        }
+
+        //recupero l'id
+        $id = intval($this->_request->getParam('id'));
+
+        $form = $this->_editProductForm;
+
+        //valida la form
+        if (!$form->isValid($_POST)) {
+            $form->setDescription('ATTENZIONE: alcuni dati inseriti sono errati!');
+
+            //riassocio l'azione al controller
+            $urlHelper = $this->_helper->getHelper('url');
+            $this->_editProductForm->setAction($urlHelper->url(array(
+                'controller' => 'admin',
+                'action' => 'modificaprodotto',
+                'id' => $id
+            ),
+                'default'
+            ));
+
+            //richiamo la pagina della modifica del prodotto
+            //con return esco dal controller
+            return $this->render('updateproduct');
+        }
+
+        //recupero i valori e li inserisco nel db
+        $values = $form->getValues();
+
+        $this->_adminModel->updateProduct($values,$id);
+    }
+
+
+    //<----!!FINE GESTIONE PRODOTTI!!---->
+
+
+
+    //<----!!INIZIO GESTIONE FAQ!!---->
+
     public function addfaqAction()
     {
 
     }
 
-    //popola la form per la modifica
     public function updatefaqAction()
     {
         //recupero l'id della faq da modificare
         $id = intval($this->_request->getParam('id'));
 
-        //se l'id non è valido ritorno alla lista dei prodotti da modificare
+        //se l'id non è valido ritorno alla lista delle faq da modificare
         if($id == null){
             $this->_helper->redirector('modificacancellafaq', 'admin');
         }
 
+        //associo l'azione alla form
         $urlHelper = $this->_helper->getHelper('url');
         $this->_editFaqForm->setAction($urlHelper->url(array(
             'controller' => 'admin',
@@ -200,23 +316,18 @@ class AdminController extends Zend_Controller_Action
             'default'
         ));
 
-        //recupero la faq
+        //recupero la faq e la associo alla view
         $row = $this->_adminModel->getFaqById($id);
         foreach($row as $key=>$value) {
             $vector[$key]=$value;
         }
 
-        $this->view->assign('vector',$vector);
-
-        $this->_logger->log($vector,Zend_Log::DEBUG);
-
-        //rimuovo i campi che non ci sono nella form
+        //rimuovo i campi che non ci sono nella form e popolo la form
         unset($vector['id']);
-
         $this->_editFaqForm->populate($vector);
     }
 
-    //scarica dal db la lista delle faq
+
     public function modificacancellafaqAction()
     {
         //recupero l'eventuale pagina
@@ -227,6 +338,79 @@ class AdminController extends Zend_Controller_Action
         //assegno le variabili alla view
         $this->view->assign('Faq',$faq);
     }
+
+    public function aggiungifaqAction()
+    {
+        //questa azione deve essere richiamata solo da richieste post
+        //se non è una post faccio il redirect alla index
+        if (!$this->getRequest()->isPost()) {
+            $this->_helper->redirector('index', 'admin');
+        }
+
+        $form = $this->_addFaqForm;
+
+        //valida la form
+        if (!$form->isValid($_POST)) {
+            $form->setDescription('ATTENZIONE: alcuni dati inseriti sono errati!');
+
+            //richiamo la pagina dell'inserimento della faq
+            //con return esco dal controller
+            return $this->render('addfaq');
+        }
+
+        //recupero i valori e li inserisco nel db
+        $values = $form->getValues();
+        $this->_adminModel->insertFaq($values);
+    }
+
+    public function modificafaqAction()
+    {
+        //questa azione deve essere richiamata solo da richieste post
+        //se non è una post faccio il redirect alla index
+        if (!$this->getRequest()->isPost()) {
+            $this->_helper->redirector('logout', 'admin');
+        }
+
+        //recupero l'id
+        $id = intval($this->_request->getParam('id'));
+
+        $form = $this->_editFaqForm;
+
+        //valida la form
+        if (!$form->isValid($_POST)) {
+            $form->setDescription('ATTENZIONE: alcuni dati inseriti sono errati!');
+
+            //riassocio l'azione alla form
+            $urlHelper = $this->_helper->getHelper('url');
+            $this->_editFaqForm->setAction($urlHelper->url(array(
+                'controller' => 'admin',
+                'action' => 'modificafaq',
+                'id' => $id
+            ),
+                'default'
+            ));
+
+            //richiamo la pagina dell'inserimento della faq
+            //con return esco dal controller
+            return $this->render('updatefaq');
+        }
+
+        //recupero i valori e li inserisco nel db
+        $values = $form->getValues();
+        $this->_adminModel->updateFaq($values,$id);
+    }
+
+    public function cancellafaqAction()
+    {
+        //recupero l'id del prodotto da rimuovere
+        $id = intval($this->_request->getParam('id'));
+
+        if ($id !== 0) {
+            $this->_adminModel->deleteFaq($id);
+        }
+    }
+
+    //<----!!FINE GESTIONE FAQ!!---->
 
     //carica la view per l'inserimento di un centro
     public function addcentroAction()
@@ -549,133 +733,7 @@ class AdminController extends Zend_Controller_Action
         $this->view->assign('Categorie',$categorie);
     }
 
-    public function aggiungiprodottoAction()
-    {
-        //Si attiva solo se la richiesta che ha attivato questa azione è di tipo post
-        //Se non lo è...
-        if (!$this->getRequest()->isPost()) {
-            //...ritorna alla home page dell'admin (actionIndex)
-            $this->_helper->redirector('logout', 'admin');        //Specificando solo il controller (index) prende come azione di default indexAction
-        }
 
-        //Il server ha ricreato l'applicazione avendo inviato il form,
-        // devo incrociare i dati che mi sono arrivati, perciò devo reistanziare il form
-        $form = $this->_addProductForm;
-
-        //Fa un incrocio fra $post e i campi ricevuti dalla form, restituisce true se sono compatibili, false altrimenti
-        if (!$form->isValid($_POST)) {
-            $form->setDescription('ATTENZIONE: alcuni dati inseriti sono errati!');
-
-            //carico le categorie
-            $select = $this->_addProductForm->getElement('idCategoria');
-
-            $rows = $this->_adminModel->getCategorie();
-            $categorie = [];
-
-            foreach($rows->toArray() as $row)
-            {
-                $categorie[$row['id']] = $row['Nome'];
-            }
-
-            $select->setMultiOptions($categorie);
-
-            //recupero i componenti
-            $multicheckbox = $this->_addProductForm->getElement('Componenti');
-
-            $rows = $this->_adminModel->selectComponent($paged=null,$order=null);
-            $componenti = [];
-
-            foreach($rows->toArray() as $row)
-            {
-                $componenti[$row['id']] = $row['Nome'];
-            }
-
-            $multicheckbox->setMultiOptions($componenti);
-            //Se non è stato validato rivisualizzo il risultato dell'azione registrautente
-            //Rivisualizzo quindi la form popolata (Aggiungendo però i messaggi di errore!)
-            return $this->render('addproduct'); //Esco poi dal controller con return
-        }
-
-        //Con getValues estraggo tutti i valori validati
-        //Diventa un array di coppie nome-valori pronto per essere scritto sul DB se ho associato correttamente i nomi
-        $values = $form->getValues();
-
-        $componenti = $values['Componenti'];
-        unset($values['Componenti']);
-
-
-        $idIns = $this->_adminModel->insertProduct($values);   //Definita in Model/Amministratore.php
-
-        foreach($componenti as $componente)
-        {
-            $this->_adminModel->associateComponent($idIns,$componente);
-        }
-
-    }
-
-    public function cancellaprodottoAction()
-    {
-        //recupero l'id del prodotto da rimuovere
-        $id = intval($this->_request->getParam('id'));
-
-        if ($id !== 0) {
-            $this->_adminModel->deleteProduct($id);
-        }
-        //$this->_helper->redirector('modificacancellaprodotto', 'admin'); //(azione, controller)
-
-    }
-
-    public function modificaprodottoAction()
-    {
-        //Si attiva solo se la richiesta che ha attivato questa azione è di tipo post
-        //Se non lo è...
-        if (!$this->getRequest()->isPost()) {
-            //...ritorna alla home page dell'admin (actionIndex)
-            $this->_helper->redirector('logout', 'admin');        //Specificando solo il controller (index) prende come azione di default indexAction
-            $this->_logger->log('!isPost',Zend_Log::DEBUG);
-        }
-
-        //recupero l'id
-        $id = intval($this->_request->getParam('id'));
-
-        $this->_logger->log('isPost',Zend_Log::DEBUG);
-        //Il server ha ricreato l'applicazione avendo inviato il form,
-        // devo incrociare i dati che mi sono arrivati, perciò devo reistanziare il form
-        $form = $this->_editProductForm;
-
-
-        //Fa un incrocio fra $post e i campi ricevuti dalla form, restituisce true se sono compatibili, false altrimenti
-        if (!$form->isValid($_POST)) {
-            $form->setDescription('ATTENZIONE: alcuni dati inseriti sono errati!');
-            $this->_logger->log('!isValid',Zend_Log::DEBUG);
-            //Se non è stato validato rivisualizzo il risultato dell'azione registrautente
-            //Rivisualizzo quindi la form popolata (Aggiungendo però i messaggi di errore!)
-
-
-            $urlHelper = $this->_helper->getHelper('url');
-            $this->_editProductForm->setAction($urlHelper->url(array(
-                'controller' => 'admin',
-                'action' => 'modificaprodotto',
-                'id' => $id
-            ),
-                'default'
-            ));
-
-            $form->populate($_POST);
-            return $this->render('updateproduct'); //Esco poi dal controller con return
-        }
-
-        $this->_logger->log('isValid',Zend_Log::DEBUG);
-
-        //Con getValues estraggo tutti i valori validati
-        //Diventa un array di coppie nome-valori pronto per essere scritto sul DB se ho associato correttamente i nomi
-        $values = $form->getValues();
-        $this->_logger->log($values,Zend_Log::DEBUG);
-
-        $this->_adminModel->updateProduct($values,$id);   //Definita in Model/Amministratore.php
-        //$this->_helper->redirector('modificacancellaprodotto','admin');
-
-    }
 
     public function aggiungitopcategoriaAction()
     {
@@ -933,103 +991,7 @@ class AdminController extends Zend_Controller_Action
 
     }
 
-    public function aggiungifaqAction()
-    {
-        //Si attiva solo se la richiesta che ha attivato questa azione è di tipo post
-        //Se non lo è...
-        if (!$this->getRequest()->isPost()) {
-            //...ritorna alla home page dell'admin (actionIndex)
-            $this->_helper->redirector('logout', 'admin');        //Specificando solo il controller (index) prende come azione di default indexAction
-            $this->_logger->log('!isPost',Zend_Log::DEBUG);
-        }
 
-        $this->_logger->log('isPost',Zend_Log::DEBUG);
-        //Il server ha ricreato l'applicazione avendo inviato il form,
-        // devo incrociare i dati che mi sono arrivati, perciò devo reistanziare il form
-        $form = $this->_addFaqForm;
-
-
-        //Fa un incrocio fra $post e i campi ricevuti dalla form, restituisce true se sono compatibili, false altrimenti
-        if (!$form->isValid($_POST)) {
-            $form->setDescription('ATTENZIONE: alcuni dati inseriti sono errati!');
-            $this->_logger->log('!isValid',Zend_Log::DEBUG);
-            //Se non è stato validato rivisualizzo il risultato dell'azione registrautente
-            //Rivisualizzo quindi la form popolata (Aggiungendo però i messaggi di errore!)
-            return $this->render('addfaq'); //Esco poi dal controller con return
-        }
-
-        $this->_logger->log('isValid',Zend_Log::DEBUG);
-
-        //Con getValues estraggo tutti i valori validati
-        //Diventa un array di coppie nome-valori pronto per essere scritto sul DB se ho associato correttamente i nomi
-        $values = $form->getValues();
-        $this->_logger->log($values,Zend_Log::DEBUG);
-
-        $this->_adminModel->insertFaq($values);   //Definita in Model/Amministratore.php
-    }
-
-    public function modificafaqAction()
-    {
-        //Si attiva solo se la richiesta che ha attivato questa azione è di tipo post
-        //Se non lo è...
-        if (!$this->getRequest()->isPost()) {
-            //...ritorna alla home page dell'admin (actionIndex)
-            $this->_helper->redirector('logout', 'admin');        //Specificando solo il controller (index) prende come azione di default indexAction
-            $this->_logger->log('!isPost',Zend_Log::DEBUG);
-        }
-
-        //recupero l'id
-        $id = intval($this->_request->getParam('id'));
-
-        $this->_logger->log('isPost',Zend_Log::DEBUG);
-        //Il server ha ricreato l'applicazione avendo inviato il form,
-        // devo incrociare i dati che mi sono arrivati, perciò devo reistanziare il form
-        $form = $this->_editFaqForm;
-
-
-        //Fa un incrocio fra $post e i campi ricevuti dalla form, restituisce true se sono compatibili, false altrimenti
-        if (!$form->isValid($_POST)) {
-            $form->setDescription('ATTENZIONE: alcuni dati inseriti sono errati!');
-            $this->_logger->log('!isValid',Zend_Log::DEBUG);
-            //Se non è stato validato rivisualizzo il risultato dell'azione registrautente
-            //Rivisualizzo quindi la form popolata (Aggiungendo però i messaggi di errore!)
-
-
-            $urlHelper = $this->_helper->getHelper('url');
-            $this->_editFaqForm->setAction($urlHelper->url(array(
-                'controller' => 'admin',
-                'action' => 'modificafaq',
-                'id' => $id
-            ),
-                'default'
-            ));
-
-            $form->populate($_POST);
-            return $this->render('updatefaq'); //Esco poi dal controller con return
-        }
-
-        $this->_logger->log('isValid',Zend_Log::DEBUG);
-
-        //Con getValues estraggo tutti i valori validati
-        //Diventa un array di coppie nome-valori pronto per essere scritto sul DB se ho associato correttamente i nomi
-        $values = $form->getValues();
-        $this->_logger->log($values,Zend_Log::DEBUG);
-
-        $this->_adminModel->updateFaq($values,$id);   //Definita in Model/Amministratore.php
-
-    }
-
-    public function cancellafaqAction()
-    {
-        //recupero l'id del prodotto da rimuovere
-        $id = intval($this->_request->getParam('id'));
-
-        if ($id !== 0) {
-            $this->_adminModel->deleteFaq($id);
-        }
-        //$this->_helper->redirector('modificacancellaprodotto', 'admin'); //(azione, controller)
-
-    }
 
     public function aggiungiutenteAction()
     {

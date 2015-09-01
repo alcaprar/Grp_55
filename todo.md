@@ -14,7 +14,7 @@ http://www.jqueryscript.net/accordion/Creating-An-Accordion-Style-FAQ-System-wit
   - [X] togliere amministratore dal menu a tendina nel pannello inserimento utente
   - [ ] trovare una soluzione lato db per bloccare l'inserimento di un nuovo admin
 - [X] slider nella home page al posto della singola immagine
-- [ ] sistemare pagine admin
+- [X] sistemare pagine admin
   - [X] modifica utenti
   - [X] modifica faq
   - [X] modifica centri
@@ -32,3 +32,11 @@ http://www.jqueryscript.net/accordion/Creating-An-Accordion-Style-FAQ-System-wit
   - [ ] aggiungere update componenti
 - [ ] aggiungere la ripartizione delle categorie tra tecnici dello staff
 - [ ]validazione form tramite javascript
+- [ ]sistemare admin controller
+  - [ ] gestione utenti
+  - [X] gesione prodotti
+  - [ ] gestione componenti
+  - [X] gestione faq
+  - [ ] gestione centri
+  - [ ] gestione categorie
+  - [ ] gestione top categorie
