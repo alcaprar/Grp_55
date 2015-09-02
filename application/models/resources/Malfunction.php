@@ -28,7 +28,7 @@ class Application_Resource_Malfunction extends Zend_Db_Table_Abstract
         $select = $this->select()
             ->setIntegrityCheck(false)
             ->from('Malfunzionamenti')
-            ->where('Malfunzionamento LIKE ?', '%'.$nome.'%');
+            ->where('Malfunzionamento LIKE ? or LIKE ? or LIKE ?', '% '.$nome.' %', ''.$nome.' %', '% '.$nome.'');
         if (true === is_array($order)) {
             $select->order($order);
         }
