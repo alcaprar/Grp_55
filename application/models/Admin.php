@@ -182,6 +182,26 @@ class Application_Model_Admin extends App_Model_Abstract
         }
     }
 
+    public function associateStaffCategoria($idUtente, $idCategoria)
+    {
+        return $this->getResource('StaffCategorie')->associateStaffCategoria($idUtente,$idCategoria);
+    }
+
+    public function getCatByUser($idUtente)
+    {
+        return $this->getResource('StaffCategorie')->getCatByUser($idUtente);
+    }
+
+    public function updateStaffCategorie($categorie, $idUtente)
+    {
+        $this->getResource('StaffCategorie')->deleteStaffCategorie($idUtente);
+
+        for($i=0; $i< sizeof($categorie);$i++)
+        {
+            $this->getResource('StaffCategorie')->associateStaffCategoria($idUtente,$categorie[$i]);
+        }
+    }
+
     public function insertFaq($faq)
     {
         return $this->getResource('Faq')->insertFaq($faq);

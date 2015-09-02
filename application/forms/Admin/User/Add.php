@@ -84,6 +84,28 @@ class Application_Form_Admin_User_Add extends App_Form_Abstract
             'registerInArrayValidator' => false
         ));
 
+        $this->addElement('multiCheckbox', 'Categorie', array(
+                'label' => 'Categorie che può gestire',
+                'required' => false,
+                'decorators' => $this->elementDecorators,
+                'registerInArrayValidator' => false,
+            )
+        );
+
+        $urlHelper = new Zend_View_Helper_Url();
+        $url = $urlHelper->url(array(
+            'controller' => 'admin',
+            'action' => 'addcategory',
+        ),
+            'default'
+        );
+
+        $this->addElement('Note','AddCategory',array(
+            'value' => '<a class ="addcategory" href="'.$url.'">Inserisci una nuova categoria</a>',
+            'decorators' => $this->elementDecorators,
+            'class' => 'addcategory'
+        ));
+
 
         $this->addElement('submit', 'add', array(
             'label' => 'Aggiungi utente',
