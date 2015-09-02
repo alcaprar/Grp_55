@@ -172,9 +172,6 @@ class TecnicoController extends Zend_Controller_Action
         $this->view->headTitle('Risultati ricerca');
         //recupero i parametri
         $query = $this->_getParam('query', null);
-        if(strpos($query, '*') == 0){
-            $query = str_replace($query, '', 0, strlen('*'));
-        }
         $page = $this->_getParam('page', 1);
 
         //se non è nullo recupero i prodotti
