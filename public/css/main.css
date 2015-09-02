@@ -2647,6 +2647,17 @@ tr.border_bottom td {
     display: block;
     background-color:#F0F0E9;
     max-height: 500px;
+    width: 155px;
+    position:absolute;
+    z-index: 1000;
+    left:0px;
+    overflow:auto;
+}
+
+.search-ul#contentmalf {
+    display: block;
+    background-color:#F0F0E9;
+    max-height: 500px;
     width: 200px;
     position:absolute;
     z-index: 1000;
