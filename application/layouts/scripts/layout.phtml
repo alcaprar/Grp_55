@@ -107,8 +107,10 @@
                         <div id="dropdown" class="search-div">
                             <ul id="content" class="search-ul"></ul>
                         </div>
+                    </div>
+                    <div class="search_box pull-right">
                     <?php
-                        if($this->layout()->Ruolo == "tecnico") echo '<div class="search_box pull-right">
+                        if($this->layout()->Ruolo !== "unregistered") echo '<div class="search_box pull-right">
                         <form action="'.$this->url(array(
                             'controller' => 'tecnico',
                             'action'     => 'redirectorurlcerca',
@@ -123,6 +125,7 @@
                         </div>
                     </div>';
                     ?>
+                    </div>
                     </div>
                 </div>
             </div>
