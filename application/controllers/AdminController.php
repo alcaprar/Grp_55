@@ -1074,6 +1074,16 @@ class AdminController extends Zend_Controller_Action
         }
 
         $select->setMultiOptions($centri);
+
+        //creo le checkbox di tutte le categorie
+        $multicheckbox = $this->_addUserForm->getElement('Categorie');
+        $rows = $this->_adminModel->getCategorie();
+        $categorie = array();
+        foreach($rows->toArray() as $row)
+        {
+            $categorie[$row['id']] = $row['Nome'];
+        }
+        $multicheckbox->setMultiOptions($categorie);
     }
 
     //popola la form per la modifica
@@ -1091,8 +1101,18 @@ class AdminController extends Zend_Controller_Action
 
         $select->setMultiOptions($centri);
 
+        //creo le checkbox di tutte le categorie
+        $multicheckbox = $this->_editUserForm->getElement('Categorie');
+        $rows = $this->_adminModel->getCategorie();
+        $categorie = array();
+        foreach($rows->toArray() as $row)
+        {
+            $categorie[$row['id']] = $row['Nome'];
+        }
+        $multicheckbox->setMultiOptions($categorie);
 
-        //recupero l'id della faq da modificare
+
+        //recupero l'id dell'utente da modificare
         $id = intval($this->_request->getParam('id'));
 
         //se l'id non è valido ritorno alla lista dei prodotti da modificare
@@ -1115,6 +1135,16 @@ class AdminController extends Zend_Controller_Action
             $vector[$key]=$value;
         }
 
+        //recupero le categorie del prodotto
+        $categorie=array();
+        $temp = $this->_adminModel->getCatByUser($id);
+        foreach($temp as $t)
+        {
+            $categoria = $this->_adminModel->getCatById($t->idCategoria);
+            $categorie[] = $categoria['id'];
+        }
+        $this->_logger->log($categorie,Zend_Log::DEBUG);
+
         $this->view->assign('vector',$vector);
 
 
@@ -1122,6 +1152,7 @@ class AdminController extends Zend_Controller_Action
         unset($vector['idUtenti']);
 
         $this->_editUserForm->populate($vector);
+        $multicheckbox->setValue($categorie);
     }
 
         //scarica dal db la lista delle faq
@@ -1167,6 +1198,17 @@ class AdminController extends Zend_Controller_Action
             }
 
             $select->setMultiOptions($centri);
+
+            //creo le checkbox di tutte le categorie
+            $multicheckbox = $this->_addUserForm->getElement('Categorie');
+            $rows = $this->_adminModel->getCategorie();
+            $categorie = array();
+            foreach($rows->toArray() as $row)
+            {
+                $categorie[$row['id']] = $row['Nome'];
+            }
+            $multicheckbox->setMultiOptions($categorie);
+
             return $this->render('adduser'); //Esco poi dal controller con return
         }
         //Con getValues estraggo tutti i valori validati
@@ -1176,13 +1218,22 @@ class AdminController extends Zend_Controller_Action
         $this->_logger->log($values,Zend_Log::DEBUG);
 
         $centro = $values['centri'];
+        $categorie = $values['Categorie'];
         unset($values['centri']);
+        unset($values['Categorie']);
 
-        $idIns = $this->_adminModel->insertUser($values);
+        $idUser = $this->_adminModel->insertUser($values);
         if($values['Ruolo']=='tec')
         {
-            $this->_adminModel->insertAppartenenza($centro, $idIns);
+            $this->_adminModel->insertAppartenenza($centro, $idUser);
+        }else
+        {
+            foreach ($categorie as $categoria)
+            {
+                $this->_adminModel->associateStaffCategoria($idUser,$categoria);
+            }
         }
+
 
     }
 
@@ -1219,7 +1270,28 @@ class AdminController extends Zend_Controller_Action
                 'default'
             ));
 
-            $form->populate($_POST);
+            $select = $this->_editUserForm->getElement('centri');
+
+            $rows = $this->_adminModel->selectCentro($paged=null,$order=null);
+            $centri = [];
+
+            foreach($rows->toArray() as $row)
+            {
+                $centri[$row['id']] = $row['Nome'];
+            }
+
+            $select->setMultiOptions($centri);
+
+            //creo le checkbox di tutte le categorie
+            $multicheckbox = $this->_editUserForm->getElement('Categorie');
+            $rows = $this->_adminModel->getCategorie();
+            $categorie = array();
+            foreach($rows->toArray() as $row)
+            {
+                $categorie[$row['id']] = $row['Nome'];
+            }
+            $multicheckbox->setMultiOptions($categorie);
+
             return $this->render('updateuser'); //Esco poi dal controller con return
         }
 
@@ -1228,11 +1300,15 @@ class AdminController extends Zend_Controller_Action
         $values = $form->getValues();
 
         $centro = $values['centri'];
+        $categorie = $values['Categorie'];
         unset($values['centri']);
+        unset($values['Categorie']);
 
         if($values['Ruolo']=='tec')
         {
             $this->_adminModel->updateAppartenenza($centro, $id);
+        }else{
+            $this->_adminModel->updateStaffCategorie($categorie,$id);
         }
 
         $this->_adminModel->updateUser($values,$id);

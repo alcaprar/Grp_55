@@ -19,11 +19,12 @@ echo'<div class="col-sm-9 padding-right">
 foreach($this->Utenti as $utente){
     echo'<tr>
                                     <td  class="cart_description">
-                                        <p>'.$utente->Username.'</p>
+                                        <h4>'.$utente->Username.'</h4>
+                                        <p>ID: '.$utente->idUtenti.'</p>
                                     </td>
                                     <td  class="cart_description">
-                                        <h4>'.$utente->Nome.'</h4>
-                                        <p>ID: '.$utente->idUtenti.'</p>
+                                        <p>'.$utente->Nome.'</p>
+
                                     </td>
                                     <td  class="cart_description">
                                         <p>'.$utente->Cognome.'</p>
