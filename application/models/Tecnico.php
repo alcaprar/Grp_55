@@ -66,4 +66,9 @@ class Application_Model_Tecnico extends App_Model_Abstract
     {
         return $this->getResource('Ntbu')->getNtbuById($id);
     }
+
+    public function selectMalfunction($paged, $order)
+    {
+        return $this->getResource('Malfunction')->selectMalfunction($paged, $order);
+    }
 }

@@ -183,6 +183,17 @@ class TecnicoController extends Zend_Controller_Action
         );
     }
 
+    public function listamalfunzionamentiAction()
+    {
+        //recupero l'eventuale pagina
+        $paged = $this->_request->getParam('page',1);
+
+        $malfunzionamenti = $this->_tecnicoModel->selectMalfunction($paged, $order=null);
+
+        //assegno le variabili alla view
+        $this->view->assign('Malfunzionamenti',$malfunzionamenti);
+    }
+
     //Cancella l'identità e poi reindirizza all'azione index del controller public
     public function logoutAction()
     {

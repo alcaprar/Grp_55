@@ -1,0 +1,35 @@
+<div class="col-sm-3">
+    <div class="left-sidebar">
+        <h2>Menu Tecnico</h2>
+        <div class="panel-group category-products" id="accordian"><!--category-productsr-->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title"><a href="<?=$this->url(array('controller' => 'tecnico','action' => 'listamalfunzionamenti'), 'default',true)?>">Lista Malfunzionamenti</a></h4>
+                </div>
+            </div>
+        </div>
+        <h2>Categorie</h2>
+        <div class="panel-group category-products" id="accordian"><!--category-productsr-->
+            <?php foreach($this->TopCats as $topcat)
+            { echo '<div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordian" href="#'.$topcat['Nome'].'">
+                                        <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+                                        '.$topcat['Nome'].'
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="'.$topcat['Nome'].'" class="panel-collapse collapse">
+                                <div class="panel-body">';
+                echo $this->navigation()->menu()
+                    ->renderMenu($this->Menu[$topcat['Nome']]);
+                echo '
+                                </div>
+                            </div>
+                        </div>';
+            } ?>
+
+        </div><!--/category-products-->
+    </div>
+</div>

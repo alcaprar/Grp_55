@@ -1,5 +1,8 @@
-<?php
-echo'<div class="col-sm-9 padding-right">
+<section>
+    <div class="container">
+        <div class="row">
+            <?php include 'menu.phtml';?>
+            <div class="col-sm-9 padding-right">
                 <div class="features_items"><!--features_items-->
                     <h2 class="title text-center">Modifica Malfunzionamenti</h2>
                     <div  id="cart_items" >
@@ -13,7 +16,8 @@ echo'<div class="col-sm-9 padding-right">
                                     <td></td>
                                 </tr>
                                 </thead>
-                                <tbody>';
+                                <tbody>
+                                <?php
 foreach($this->Malfunzionamenti as $malf){
     $malfunzionamento =  strlen($malf->Malfunzionamento) > 50 ? substr($malf->Malfunzionamento,0,50)."..." : $malf->Malfunzionamento;
     $soluzione =  strlen($malf->Soluzione) > 50 ? substr($malf->Soluzione,0,50)."..." : $malf->Soluzione;
@@ -24,22 +28,6 @@ foreach($this->Malfunzionamenti as $malf){
                                     <td  class="cart_description">
                                         <p> '.$soluzione.'</p>
                                     </td>
-                                    <td  class="cart_delete">
-                                        <p><a class="cart_quantity_delete" href="'.$this->url(array(
-            'controller' => 'staff',
-            'action'     => 'updatemalfunction',
-            'id' => $malf->id
-        ),
-            'default',true
-        ).'"><i class="fa fa-pencil">Modifica</i></a></p>
-                                        <p><a class="cart_quantity_delete" href="'.$this->url(array(
-            'controller' => 'staff',
-            'action'     => 'cancellamalfunzionamento',
-            'id' => $malf->id
-        ),
-            'default',true
-        ).'"><i class="fa fa-times">Cancella</i></a></p>
-                                    </td>
                                 </tr>';
 }
 echo'</tbody>
@@ -47,7 +35,10 @@ echo'</tbody>
                         </div>
                     </div>';
 if($this->Malfunzionamenti instanceof Zend_Paginator) {
-    echo '<div class="text-center">'.$this->paginationControl($this->Malfunzionamenti,'Elastic','staff/_paginatorMalf.phtml').'</div>';
-};
-echo '</div><!--features_items-->
-            </div>';
+    echo '<div class="text-center">'.$this->paginationControl($this->Malfunzionamenti,'Elastic','tecnico/_paginatorMalf.phtml').'</div>';
+};?>
+                        </div><!--features_items-->
+            </div>'
+                </div>
+            </div>
+</section>
