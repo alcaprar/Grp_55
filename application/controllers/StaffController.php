@@ -31,17 +31,20 @@ class StaffController extends Zend_Controller_Action
 
     public function indexAction()
     {
+        $this->view->headTitle('Home staff');
         $this->_logger->log($this->_categorie,Zend_Log::DEBUG);
     }
 
     //carica la view per l'inserimento di un malfunzionamento
     public function addmalfunctionAction()
     {
+        $this->view->headTitle('Aggiungi malfunzionamento');
     }
 
     //carica la view di scelta del prodotto con aggiornamento lato client dei malfunzionamenti.
     public function associatemalfunctionAction()
     {
+        $this->view->headTitle('Associa malfunzionamento');
         $where = (sizeof($this->_categorie)==0)? null : $this->_categorie;
         $prodotti = $this->_staffModel->getProducts($where);
         $malfunzionamenti = $this->_staffModel->selectMalfunction($paged=null, $order=null);
@@ -77,6 +80,7 @@ class StaffController extends Zend_Controller_Action
     //popola la form per la modifica
     public function updatemalfunctionAction()
     {
+        $this->view->headTitle('Aggiorna malfunzionamento');
         //recupero l'id del malfunzionamento da modificare
         $id = intval($this->_request->getParam('id'));
 
@@ -112,6 +116,7 @@ class StaffController extends Zend_Controller_Action
     //scarica dal db la lista dei malfunzionamenti
     public function modificacancellamalfunzionamentoAction()
     {
+        $this->view->headTitle('Gestisci malfunzionamenti');
         //recupero l'eventuale pagina
         $paged = $this->_request->getParam('page',1);
 
@@ -123,6 +128,7 @@ class StaffController extends Zend_Controller_Action
 
     public function aggiungimalfunzionamentoAction()
     {
+        $this->view->headTitle('Aggiungi malfunzionamenti');
         //Si attiva solo se la richiesta che ha attivato questa azione è di tipo post
         //Se non lo è...
         if (!$this->getRequest()->isPost()) {
@@ -153,6 +159,7 @@ class StaffController extends Zend_Controller_Action
 
     public function modificamalfunzionamentoAction()
     {
+        $this->view->headTitle('Aggiorna malfunzionamento');
         //Si attiva solo se la richiesta che ha attivato questa azione è di tipo post
         //Se non lo è...
         if (!$this->getRequest()->isPost()) {
@@ -201,6 +208,7 @@ class StaffController extends Zend_Controller_Action
 
     public function cancellamalfunzionamentoAction()
     {
+        $this->view->headTitle('Cancella malfunzionamento');
         //recupero l'id del prodotto da rimuovere
         $id = intval($this->_request->getParam('id'));
 
@@ -212,6 +220,7 @@ class StaffController extends Zend_Controller_Action
 
     public function associamalfunzionamentoAction()
     {
+        $this->view->headTitle('Associa malfunzionamento');
         //questa azione deve essere richiamata solo da richieste post.
         //se non è una post faccio il redirect alla index
         if (!$this->getRequest()->isPost()) {

@@ -46,46 +46,16 @@ class TecnicoController extends Zend_Controller_Action
                 'Menu' => $navMenus,
                 'TopCats' => $TopCats)
         );
-
-        /*$navCatAutoArray = array();
-        foreach ($CategorieA->toArray() as $categoria) {
-            $navCatAutoArray[] = array(
-                'controller' => 'public',
-                'action' => 'catalogo',
-                'params' => array('categoria' => $categoria['Nome']),
-                'label' => $categoria['Nome'],
-                'resource' => 'public',
-                'privilege' => 'catalogo'
-            );
-        }
-        $configAuto = new Zend_Config($navCatAutoArray);
-
-        $navigationAuto = new Zend_Navigation($configAuto);
-
-        $navCatMotoArray = array();
-        foreach ($CategorieM->toArray() as $categoria) {
-            $navCatMotoArray[] = array(
-                'controller' => 'public',
-                'action' => 'catalogo',
-                'params' => array('categoria' => $categoria['Nome']),
-                'label' => $categoria['Nome'],
-                'resource' => 'public',
-                'privilege' => 'catalogo'
-            );
-        }
-
-        $configMoto = new Zend_Config($navCatMotoArray);
-
-        $navigationMoto = new Zend_Navigation($configMoto);*/
     }
 
     public function indexAction()
     {
-
+        $this->view->headTitle('Home tecnico');
     }
 
     public function schedaprodottoAction()
     {
+        $this->view->headTitle('Scheda prodotto');
         //recupero i parametri
         $idProdotto = $this->_getParam('prodotto',null);
         $paged = $this->_getParam('page', 1);
@@ -137,6 +107,7 @@ class TecnicoController extends Zend_Controller_Action
 
     public function schedacomponenteAction()
     {
+        $this->view->headTitle('Scheda componente');
         //recupero i parametri
         $idComponente = $this->_getParam('componente',null);
         $paged = $this->_getParam('page', 1);
@@ -161,6 +132,7 @@ class TecnicoController extends Zend_Controller_Action
 
     public function catalogoAction()
     {
+        $this->view->headTitle('Catalogo tecnico');
         //recupero la categoria e la pagina
         $nomeCategoria = $this->_getParam('categoria', null);
         $paged = $this->_getParam('page', 1);
@@ -185,6 +157,7 @@ class TecnicoController extends Zend_Controller_Action
 
     public function listamalfunzionamentiAction()
     {
+        $this->view->headTitle('Lista malfunzionamenti');
         //recupero l'eventuale pagina
         $paged = $this->_request->getParam('page',1);
 
