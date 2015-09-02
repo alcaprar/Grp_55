@@ -257,7 +257,6 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var t = $('#fbody');
-        var query = $('#query').val();
         $.extend($.expr[':'], {
             'containsi': function(elem, i, match, array)
             {
@@ -265,7 +264,8 @@
                         .indexOf((match[3] || "").toLowerCase()) >= 0;
             }
         });
-        $(query).on('input', function(){
+        $('#query').on('keyup', function(){
+            var query = $('#query').val();
             $(t).find('tr').filter(":not(:contains('" + query + "'))").hide();
         });
     });
