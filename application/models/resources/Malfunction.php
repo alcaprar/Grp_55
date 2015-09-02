@@ -25,10 +25,20 @@ class Application_Resource_Malfunction extends Zend_Db_Table_Abstract
     public function getMalfunctionsByName($nome, $paged, $order)
     {
         $nome = str_replace('*', '%', $nome);
-        $select = $this->select()
+        $select1 = $this->select()
             ->setIntegrityCheck(false)
             ->from('Malfunzionamenti')
-            ->where('Malfunzionamento LIKE ? or LIKE ? or LIKE ?', '% '.$nome.' %', ''.$nome.' %', '% '.$nome.'');
+            ->where('Malfunzionamento LIKE ?', '% '.$nome.' %');
+        $select2 = $this->select()
+            ->setIntegrityCheck(false)
+            ->from('Malfunzionamenti')
+            ->where('Malfunzionamento LIKE ?',''.$nome.' %');
+        $select3 = $this->select()
+            ->setIntegrityCheck(false)
+            ->from('Malfunzionamenti')
+            ->where('Malfunzionamento LIKE ?', '% '.$nome.'');
+        $select = $this->select()
+            ->union(array($select1, $select2, $select3));
         if (true === is_array($order)) {
             $select->order($order);
         }
