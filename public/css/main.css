@@ -2623,4 +2623,19 @@ tr.border_bottom td {
   transform: translate(-50%, -50%);
 }
 
+.search-div{
+    position: relative;
+    box-shadow: 2px;
+}
+
+.search-ul {
+    display: block;
+    background-color:#F0F0E9;
+    max-height: 500px;
+    width: 155px;
+    position:absolute;
+    z-index: 1000;
+    left:0px;
+    overflow:auto;
+}
 

@@ -104,7 +104,9 @@
                         ?>" method="post">
                             <input name="query" id="query" type="text" placeholder="Cerca prodotto"/>
                         </form>
-                        <ul id="content"></ul>
+                        <div id="dropdown" class="search-div">
+                            <ul id="content" class="search-ul"></ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -253,6 +255,7 @@
         $('#query').on('input', function() {
             var searchKeyword = $(this).val();
             if (searchKeyword.length >= 1) {
+                $('div#dropdown').slideDown(200);
                 $.post('<?php echo $this->url(array('controller' => 'public', 'action' => 'livesearch',), 'default');  ?>', { query: searchKeyword }, function(data) {
                     $('ul#content').empty()
                     $.each(data, function() {
