@@ -50,11 +50,14 @@ class Application_Resource_Category extends Zend_Db_Table_Abstract
     }
 
     //estrae tutte le categorie
-    public function getCategorie()
+    public function getCategorie($where=null)
     {
         $select = $this->select()
             ->from('Categorie')
             ->order('Nome');
+        if(true ===is_array($where)){
+            $select->where('id IN(?)',$where);
+        }
         return $this->fetchAll($select);
     }
 }

@@ -64,22 +64,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         $this->_acl = new Application_Model_Acl();
         $this->_auth = Zend_Auth::getInstance();
-        //$this->_logger->log($this->_auth,Zend_Log::DEBUG);
         $this->_role = !$this->_auth->hasIdentity() ? 'unregistered' : $this->_auth->getIdentity()->Ruolo;
-        //if(!$this->_auth->hasIdentity()) {$this->_auth->getStorage()->read()->role = 'unregistered';}
-
         $fc = Zend_Controller_Front::getInstance();
         $fc->registerPlugin(new App_Controller_Plugin_Acl($this->_acl));
-        $this->_logger->log($this->_auth,Zend_Log::DEBUG);
     }
-
-    /*protected function _initFrontControllerPlugin()
-    {
-        //Prende l'istanza del singleton FrontController, cioè il componente al quale il plugin va agganciato
-        $front = Zend_Controller_Front::getInstance();
-        //Attiviamo un suo metodo predefinito a cui passiamo l'istanza della classe plugin da noi definita)
-        $front->registerPlugin(new App_Controller_Plugin_Acl());
-    }*/
 
     protected function _initNavigationHeader()
     {

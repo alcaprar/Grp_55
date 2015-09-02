@@ -21,6 +21,22 @@ class App_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
         $resource = $request->getControllerName();
         $action = $request->getActionName();
         $role = $this->_role;
+
+        //se è un tecnico dello staff recupero le categorie che può modificare
+        if ($this->_auth->hasIdentity())
+        {
+            if($this->_auth->getIdentity()->Ruolo=='staff'){
+                $session = new Zend_Session_Namespace('staff');
+
+                $id = $this->_auth->getIdentity()->idUtenti;
+
+                $adminmodel = new Application_Model_Admin();
+
+                $categorie = $adminmodel->getCatByUser($id);
+
+                $session->categorie = $categorie;
+            }
+        }
         if(!$this->_acl->isAllowed($role, $resource, $action)) {
             $this->_auth->clearIdentity();
             $this->denyAccess();

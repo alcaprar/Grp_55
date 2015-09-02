@@ -64,11 +64,14 @@ class Application_Resource_Product extends Zend_Db_Table_Abstract
     }
 
     // Estrae tutti i prodotti , eventualmente paginati ed ordinati
-    public function selectProduct($paged=null, $order=null)
+    public function selectProduct($paged=null, $order=null, $where=null)
     {
         $select = $this->select()
             ->setIntegrityCheck(false)
             ->from('Prodotti');
+        if(true ===is_array($where)){
+            $select->where('idCategoria IN(?)',$where);
+        }
         if (true === is_array($order)) {
             $select->order($order);
         }

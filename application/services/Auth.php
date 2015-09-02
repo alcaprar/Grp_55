@@ -23,6 +23,7 @@ class Application_Service_Auth
         }
         $user = $this->_adminModel->getUserByName($credentials['username']);
         $auth->getStorage()->write($user);
+
         return true;
     }
 

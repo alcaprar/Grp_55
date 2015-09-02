@@ -7,6 +7,7 @@ class StaffController extends Zend_Controller_Action
     protected $_staffModel;
     protected $_addMalfunctionForm;
     protected $_editMalfunctionForm;
+    protected $_categorie;
 
     public function init()
     {
@@ -17,12 +18,18 @@ class StaffController extends Zend_Controller_Action
         $this->view->addMalfunctionForm = $this->getAddMalfunctionForm();
         $this->view->editMalfunctionForm = $this->getEditMalfunctionForm();
 
+        $this->_categorie = array();
+        $sessionCat = $_SESSION['staff']['categorie']->toArray();
+        for($i=0;$i<sizeof($sessionCat);$i++){
+            $this->_categorie[] = $sessionCat[$i]['idCategoria'];
+        }
+
         $this->_authService = new Application_Service_Auth();
     }
 
     public function indexAction()
     {
-
+        $this->_logger->log($this->_categorie,Zend_Log::DEBUG);
     }
 
     //carica la view per l'inserimento di un malfunzionamento
@@ -33,7 +40,8 @@ class StaffController extends Zend_Controller_Action
     //carica la view di scelta del prodotto con aggiornamento lato client dei malfunzionamenti.
     public function associatemalfunctionAction()
     {
-        $prodotti = $this->_staffModel->getProducts();
+        $where = (sizeof($this->_categorie)==0)? null : $this->_categorie;
+        $prodotti = $this->_staffModel->getProducts($where);
         $malfunzionamenti = $this->_staffModel->selectMalfunction($paged=null, $order=null);
 
         $this->_logger->log($prodotti, Zend_Log::DEBUG);

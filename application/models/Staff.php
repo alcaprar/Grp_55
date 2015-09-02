@@ -43,9 +43,9 @@ class Application_Model_Staff extends App_Model_Abstract
         return $this->getResource('Malfunction')->deleteMalfunction($idMalf);
     }
 
-    public function getProducts()
+    public function getProducts($where)
     {
-        return $this->getResource('Product')->selectProduct();
+        return $this->getResource('Product')->selectProduct(null,null,$where);
     }
 
     public function getProdByName($prodname)
@@ -66,6 +66,11 @@ class Application_Model_Staff extends App_Model_Abstract
         {
             $this->getResource('Malfunctions')->associateMalfunction($malf[$i],$idProdotto);
         }
+    }
+
+    public function getCategorie($where)
+    {
+        return $this->getResource('Category')->getCategorie($where);
     }
 
 }
