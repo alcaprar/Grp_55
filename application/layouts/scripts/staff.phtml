@@ -98,7 +98,7 @@
                             'default',true
                         );
                         ?>" method="post">
-                            <input name="query" id="query"type="text" placeholder="Cerca prodotto"/>
+                            <input name="query" id="query" type="text" placeholder="Cerca prodotto"/>
                         </form>
                     </div>
                 </div>
@@ -256,7 +256,7 @@
 <script src="<?php echo $this->baseURL();?>/js/main.js"></script>
 <script type="text/javascript">
     $(function() {
-        $('#query').on('keyup', function () {
+        $('#query2').on('input', function () {
             $.extend($.expr[':'], {
                 'containsi': function (elem, i, match, array) {
                     return (elem.textContent || elem.innerText || '').toLowerCase()
@@ -264,11 +264,28 @@
                 }
             });
             var t = $('#fbody');
-            var query = $('#query').val();
+            var query = $('#query2').val();
             $(t).find('tr').hide();
-            $(t).find('tr').filter("contains('" + query + "'))").show();
+            $(t).find('tr').filter(":contains('" + query + "')").show();
         });
-    };
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var baseUrl = "<?php echo $this->baseUrl();?>/index.php/public/schedaprodotto/prodotto/";
+        $('#query').on('input', function() {
+            var searchKeyword = $(this).val();
+            if (searchKeyword.length >= 1) {
+                $('div#dropdown').slideDown(200);
+                $.post('<?php echo $this->url(array('controller' => 'public', 'action' => 'livesearch',), 'default');  ?>', { query: searchKeyword }, function(data) {
+                    $('ul#content').empty()
+                    $.each(data, function() {
+                        $('ul#content').append('<li><a href="' + baseUrl + this.id + '">' + this.Nome + '</a></li>');
+                    });
+                }, "json");
+            }
+        });
+    });
 </script>
 </body>
 </html>

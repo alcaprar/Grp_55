@@ -436,6 +436,23 @@
 <script src="<?php echo $this->baseURL();?>/js/price-range.js"></script>
 <script src="<?php echo $this->baseURL();?>/js/jquery.prettyPhoto.js"></script>
 <script src="<?php echo $this->baseURL();?>/js/main.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var baseUrl = "<?php echo $this->baseUrl();?>/index.php/public/schedaprodotto/prodotto/";
+        $('#query').on('input', function() {
+            var searchKeyword = $(this).val();
+            if (searchKeyword.length >= 1) {
+                $('div#dropdown').slideDown(200);
+                $.post('<?php echo $this->url(array('controller' => 'public', 'action' => 'livesearch',), 'default');  ?>', { query: searchKeyword }, function(data) {
+                    $('ul#content').empty()
+                    $.each(data, function() {
+                        $('ul#content').append('<li><a href="' + baseUrl + this.id + '">' + this.Nome + '</a></li>');
+                    });
+                }, "json");
+            }
+        });
+    });
+</script>
 </body>
 </html>
 
