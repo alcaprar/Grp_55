@@ -24,7 +24,7 @@ class Application_Resource_Malfunction extends Zend_Db_Table_Abstract
 
     public function getMalfunctionsByName($nome, $paged, $order)
     {
-        $nome = str_replace('*', '%', $nome);
+        $nome = str_replace('*', '', $nome);
         $select1 = $this->select()
             ->setIntegrityCheck(false)
             ->from('Malfunzionamenti')
