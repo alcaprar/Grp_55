@@ -124,54 +124,9 @@
                             </div>
                             <div id="prodotti" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <ul>
-                                        <li><a href=" <?= $this->url(array(
-                                                'controller' => 'admin',
-                                                'action' => 'addproduct'),
-                                                'default',true
-                                            );
-                                            ?>">Aggiungi Prodotto</a></li>
-                                    </ul>
-                                    <ul>
-                                        <li><a href=" <?= $this->url(array(
-                                                'controller' => 'admin',
-                                                'action' => 'modificacancellaprodotto'),
-                                                'default',true
-                                            );
-                                            ?>">Modifica/cancella prodotto</a></li>
-                                    </ul>
-                                    <ul>
-                                        <li><a href=" <?= $this->url(array(
-                                                'controller' => 'admin',
-                                                'action' => 'addcomponent'),
-                                                'default',true
-                                            );
-                                            ?>">Aggiungi Componente</a></li>
-                                    </ul>
-                                    <ul>
-                                        <li><a href=" <?= $this->url(array(
-                                                'controller' => 'admin',
-                                                'action' => 'modificacancellacomponente'),
-                                                'default',true
-                                            );
-                                            ?>">Modifica/cancella componente</a></li>
-                                    </ul>
-                                    <ul>
-                                        <li><a href=" <?= $this->url(array(
-                                                'controller' => 'admin',
-                                                'action' => 'addntbu'),
-                                                'default',true
-                                            );
-                                            ?>">Aggiungi Nota Tecnica Buon Uso</a></li>
-                                    </ul>
-                                    <ul>
-                                        <li><a href=" <?= $this->url(array(
-                                                'controller' => 'admin',
-                                                'action' => 'modificacancellantbu'),
-                                                'default',true
-                                            );
-                                            ?>">Modifica/cancella Nota Tecnica Buon Uso</a></li>
-                                    </ul>
+                                    <?php echo $this->navigation()->menu()
+                                        ->setUlClass('')
+                                        ->renderMenu($this->layout()->prodottiMenu) ?>
                                 </div>
                             </div>
                         </div>
@@ -186,38 +141,9 @@
                             </div>
                             <div id="categorie" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <ul>
-                                        <li><a href=" <?= $this->url(array(
-                                                'controller' => 'admin',
-                                                'action' => 'addtopcategory'),
-                                                'default',true
-                                            );
-                                            ?>">Aggiungi Macro-Categoria</a></li>
-                                    </ul>
-                                    <ul>
-                                        <li><a href=" <?= $this->url(array(
-                                                'controller' => 'admin',
-                                                'action' => 'modificacancellatopcategoria'),
-                                                'default',true
-                                            );
-                                            ?>">Modifica/Cancella Macro-Categoria</a></li>
-                                    </ul>
-                                    <ul>
-                                        <li><a href=" <?= $this->url(array(
-                                                'controller' => 'admin',
-                                                'action' => 'addcategory'),
-                                                'default',true
-                                            );
-                                            ?>">Aggiungi Categoria</a></li>
-                                    </ul>
-                                    <ul>
-                                        <li><a href=" <?= $this->url(array(
-                                                'controller' => 'admin',
-                                                'action' => 'modificacancellacategoria'),
-                                                'default',true
-                                            );
-                                            ?>">Modifica/cancella Categoria</a></li>
-                                    </ul>
+                                    <?php echo $this->navigation()->menu()
+                                        ->setUlClass('')
+                                        ->renderMenu($this->layout()->categorieMenu) ?>
                                 </div>
                             </div>
                         </div>
@@ -232,22 +158,9 @@
                             </div>
                             <div id="utenti" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <ul>
-                                        <li><a href=" <?= $this->url(array(
-                                                'controller' => 'admin',
-                                                'action' => 'adduser'),
-                                                'default',true
-                                            );
-                                            ?>">Aggiungi Utente</a></li>
-                                    </ul>
-                                    <ul>
-                                        <li><a href=" <?= $this->url(array(
-                                                'controller' => 'admin',
-                                                'action' => 'modificacancellautente'),
-                                                'default',true
-                                            );
-                                            ?>">Modifica/cancella utente</a></li>
-                                    </ul>
+                                    <?php echo $this->navigation()->menu()
+                                        ->setUlClass('')
+                                        ->renderMenu($this->layout()->utentiMenu) ?>
                                 </div>
                             </div>
                         </div>
@@ -262,22 +175,9 @@
                             </div>
                             <div id="faq" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <ul>
-                                        <li><a href=" <?= $this->url(array(
-                                                'controller' => 'admin',
-                                                'action' => 'addfaq'),
-                                                'default',true
-                                            );
-                                            ?>">Aggiungi Faq</a></li>
-                                    </ul>
-                                    <ul>
-                                        <li><a href=" <?= $this->url(array(
-                                                'controller' => 'admin',
-                                                'action' => 'modificacancellafaq'),
-                                                'default',true
-                                            );
-                                            ?>">Modifica/cancella FAQ</a></li>
-                                    </ul>
+                                    <?php echo $this->navigation()->menu()
+                                        ->setUlClass('')
+                                        ->renderMenu($this->layout()->faqMenu) ?>
                                 </div>
                             </div>
                         </div>
@@ -292,22 +192,9 @@
                             </div>
                             <div id="centriassistenza" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <ul>
-                                        <li><a href=" <?= $this->url(array(
-                                                'controller' => 'admin',
-                                                'action' => 'addcentro'),
-                                                'default',true
-                                            );
-                                            ?>">Aggiungi Centro assistenza</a></li>
-                                    </ul>
-                                    <ul>
-                                        <li><a href=" <?= $this->url(array(
-                                                'controller' => 'admin',
-                                                'action' => 'modificacancellacentro'),
-                                                'default',true
-                                            );
-                                            ?>">Modifica/cancella centro assistenza</a></li>
-                                    </ul>
+                                    <?php echo $this->navigation()->menu()
+                                        ->setUlClass('')
+                                        ->renderMenu($this->layout()->centriMenu) ?>
                                 </div>
                             </div>
                         </div>

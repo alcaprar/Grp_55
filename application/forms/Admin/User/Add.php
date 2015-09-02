@@ -72,7 +72,7 @@ class Application_Form_Admin_User_Add extends App_Form_Abstract
             'decorators' => $this->elementDecorators,
             'registerInArrayValidator' => false,
             'multiOptions' => array(
-                'tec' => 'Tecnico',
+                'tecnico' => 'Tecnico',
                 'staff' => 'Staff amministrazione',
             ),
         ));

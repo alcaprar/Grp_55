@@ -237,6 +237,161 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     }
 
+    protected function _initNavigationAdmin()
+    {
+        $this->bootstrap('layout');
+        $layout = $this->getResource('layout');
+
+        $navProdottiArray = array(
+            array(
+                'controller' => 'admin',
+                'action'=>'addproduct',
+                'label' =>'Aggiungi prodotto',
+                'resource' => 'admin',
+                'privilege' => 'index'
+            ),
+            array(
+                'controller'=>'admin',
+                'action'=>'modificacancellaprodotto',
+                'label'=>'Modifica/cancella prodotti',
+                'resource' => 'admin',
+                'privilege' => 'index'
+            ),
+            array(
+                'controller' => 'admin',
+                'action'=>'addcomponent',
+                'label' =>'Aggiungi componente',
+                'resource' => 'admin',
+                'privilege' => 'index'
+            ),
+            array(
+                'controller'=>'admin',
+                'action'=>'modificacancellacomponente',
+                'label'=>'Modifica/cancella componenti',
+                'resource' => 'admin',
+                'privilege' => 'index'
+            ),
+            array(
+                'controller' => 'admin',
+                'action'=>'addntbu',
+                'label' =>'Aggiungi nota tecnica di buon uso',
+                'resource' => 'admin',
+                'privilege' => 'index'
+            ),
+            array(
+                'controller'=>'admin',
+                'action'=>'modificacancellantbu',
+                'label'=>'Modifica/cancella note tecniche di buon uso',
+                'resource' => 'admin',
+                'privilege' => 'index'
+            ),
+        );
+
+        $navCategorieArray = array(
+            array(
+                'controller' => 'admin',
+                'action'=>'addtopcategory',
+                'label' =>'Aggiungi macro-categoria',
+                'resource' => 'admin',
+                'privilege' => 'index'
+            ),
+            array(
+                'controller'=>'admin',
+                'action'=>'modificacancellatopcategoria',
+                'label'=>'Modifica/cancella macro-categoria',
+                'resource' => 'admin',
+                'privilege' => 'index'
+            ),
+            array(
+                'controller' => 'admin',
+                'action'=>'addcategory',
+                'label' =>'Aggiungi categoria',
+                'resource' => 'admin',
+                'privilege' => 'index'
+            ),
+            array(
+                'controller'=>'admin',
+                'action'=>'modificacancellacategoria',
+                'label'=>'Modifica/cancella categorie',
+                'resource' => 'admin',
+                'privilege' => 'index'
+            ),
+        );
+
+        $navUtentiArray = array(
+            array(
+                'controller' => 'admin',
+                'action'=>'adduser',
+                'label' =>'Aggiungi utente',
+                'resource' => 'admin',
+                'privilege' => 'index'
+            ),
+            array(
+                'controller'=>'admin',
+                'action'=>'modificacancellautente',
+                'label'=>'Modifica/cancella utenti',
+                'resource' => 'admin',
+                'privilege' => 'index'
+            ),
+        );
+
+        $navFaqArray = array(
+            array(
+                'controller' => 'admin',
+                'action'=>'addfaq',
+                'label' =>'Aggiungi FAQ',
+                'resource' => 'admin',
+                'privilege' => 'index'
+            ),
+            array(
+                'controller'=>'admin',
+                'action'=>'modificacancellafaq',
+                'label'=>'Modifica/cancella FAQ\'s',
+                'resource' => 'admin',
+                'privilege' => 'index'
+            ),
+        );
+
+        $navCentriArray = array(
+            array(
+                'controller' => 'admin',
+                'action'=>'addcentro',
+                'label' =>'Aggiungi centro assistenza',
+                'resource' => 'admin',
+                'privilege' => 'index'
+            ),
+            array(
+                'controller'=>'admin',
+                'action'=>'modificacancellacentro',
+                'label'=>'Modifica/cancella centri assistenza',
+                'resource' => 'admin',
+                'privilege' => 'index'
+            ),
+        );
+
+
+
+        $configProdotti = new Zend_Config($navProdottiArray);
+        $configCategorie = new Zend_Config($navCategorieArray);
+        $configUtenti = new Zend_Config($navUtentiArray);
+        $configCentri = new Zend_Config($navCentriArray);
+        $configFaq = new Zend_Config($navFaqArray);
+
+        $navigationProdotti = new Zend_Navigation($configProdotti);
+        $navigationCategorie = new Zend_Navigation($configCategorie);
+        $navigationUtenti = new Zend_Navigation($configUtenti);
+        $navigationCentri = new Zend_Navigation($configCentri);
+        $navigationFaq = new Zend_Navigation($configFaq);
+
+
+        $layout->prodottiMenu = $navigationProdotti;
+        $layout->categorieMenu = $navigationCategorie;
+        $layout->utentiMenu = $navigationUtenti;
+        $layout->centriMenu = $navigationCentri;
+        $layout->faqMenu = $navigationFaq;
+
+    }
+
     protected function _initMail()
     {
         try {

@@ -3,7 +3,7 @@
 <?php echo $this->addUserForm ?>
 <script>
     var label = $('input[type="checkbox"]').parent('label');
-    if($('select#Ruolo').val()=='tec'){
+    if($('select#Ruolo').val()=='tecnico'){
         $('input[type="checkbox"]').hide();
         label.hide();
         $('td#Categorie-label').hide();
@@ -15,7 +15,7 @@
     }
 
     $('select#Ruolo').on('change', function() {
-        if(this.value =='tec'){
+        if(this.value =='tecnico'){
             $('select#centri').show("slow");
             $('td#centri-label').show("slow");
             $('input[type="checkbox"]').hide("slow");
