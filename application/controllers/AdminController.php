@@ -62,7 +62,7 @@ class AdminController extends Zend_Controller_Action
 
     //in tutti i controller è stata seguita questa logica:
     //-l'azione con il nome inglese carica la view con la form
-    //-l'azione con il nome italiano riceve la post request, valida la orm
+    //-l'azione con il nome italiano riceve la post request, valida la form
     //e in caso positivo inserisce i valori nel db altrimenti
     //viene richiamata l'azione inglese che ricarica la form ma con alcuni dati
     //già inseriti e le indicazioni sugli errori
