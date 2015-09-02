@@ -57,7 +57,7 @@ class AdminController extends Zend_Controller_Action
     //azione vuota perchè deve mostrare sola il viewscript associato
     public function indexAction()
     {
-
+        $this->view->headTitle('Home admin');
     }
 
     //in tutti i controller è stata seguita questa logica:
@@ -91,6 +91,7 @@ class AdminController extends Zend_Controller_Action
 
     public function addproductAction()
     {
+        $this->view->headTitle('Aggiungi prodotto');
         //popolo la select con la lista delle categorie
         $select = $this->_addProductForm->getElement('idCategoria');
         $rows = $this->_adminModel->getCategorie();
@@ -125,6 +126,7 @@ class AdminController extends Zend_Controller_Action
 
     public function updateproductAction()
     {
+        $this->view->headTitle('Aggiorna prodotto');
         //recupero l'id del prodotto da modificare
         $id = intval($this->_request->getParam('id'));
 
@@ -222,6 +224,7 @@ class AdminController extends Zend_Controller_Action
     //è possibile cancellare e/o modificare ogni prodotto
     public function modificacancellaprodottoAction()
     {
+        $this->view->headTitle('Gestisci prodotti');
         //recupero l'eventuale pagina
         $paged = $this->_request->getParam('page',1);
 
@@ -232,38 +235,10 @@ class AdminController extends Zend_Controller_Action
 
     }
 
-    /*public function associateproductAction()
-    {
-        //recupero i prodotti
-        $select = $this->_associateProductForm->getElement('idProdotto');
-
-        $rows = $this->_adminModel->selectProduct($paged=null,$order=null);
-        $prodotti = [];
-
-        foreach($rows->toArray() as $row)
-        {
-            $prodotti[$row['id']] = $row['Nome'];
-        }
-
-        $select->setMultiOptions($prodotti);
-
-        //recupero i componenti
-        $multicheckbox = $this->_associateProductForm->getElement('Componenti');
-
-        $rows = $this->_adminModel->selectComponent($paged=null,$order=null);
-        $componenti = [];
-
-        foreach($rows->toArray() as $row)
-        {
-            $componenti[$row['id']] = $row['Nome'];
-        }
-
-        $multicheckbox->setMultiOptions($componenti);
-    }*/
-
-    //azione richiamata al click di inserisci prodotto
+        //azione richiamata al click di inserisci prodotto
     public function aggiungiprodottoAction()
     {
+        $this->view->headTitle('Aggiungi prodotto');
         //questa azione deve essere richiamata solo da richieste post.
         //se non è una post faccio il redirect alla index
         if (!$this->getRequest()->isPost()) {
@@ -332,6 +307,7 @@ class AdminController extends Zend_Controller_Action
 
     public function cancellaprodottoAction()
     {
+        $this->view->headTitle('Cancella prodotto');
         //recupero l'id del prodotto da rimuovere
         $id = intval($this->_request->getParam('id'));
 
@@ -342,6 +318,7 @@ class AdminController extends Zend_Controller_Action
 
     public function modificaprodottoAction()
     {
+        $this->view->headTitle('Aggiorna prodotto');
         //questa azione deve essere richiamata solo da richieste post
         //se non è una post faccio il redirect alla index
         if (!$this->getRequest()->isPost()) {
@@ -441,11 +418,12 @@ class AdminController extends Zend_Controller_Action
 
     public function addfaqAction()
     {
-
+        $this->view->headTitle('Aggiungi FAQ');
     }
 
     public function updatefaqAction()
     {
+        $this->view->headTitle('Aggiorna FAQ');
         //recupero l'id della faq da modificare
         $id = intval($this->_request->getParam('id'));
 
@@ -478,6 +456,7 @@ class AdminController extends Zend_Controller_Action
 
     public function modificacancellafaqAction()
     {
+        $this->view->headTitle('Gestisci FAQ\'s');
         //recupero l'eventuale pagina
         $paged = $this->_request->getParam('page',1);
 
@@ -489,6 +468,7 @@ class AdminController extends Zend_Controller_Action
 
     public function aggiungifaqAction()
     {
+        $this->view->headTitle('Aggiungi FAQ');
         //questa azione deve essere richiamata solo da richieste post
         //se non è una post faccio il redirect alla index
         if (!$this->getRequest()->isPost()) {
@@ -513,6 +493,7 @@ class AdminController extends Zend_Controller_Action
 
     public function modificafaqAction()
     {
+        $this->view->headTitle('Aggiorna FAQ');
         //questa azione deve essere richiamata solo da richieste post
         //se non è una post faccio il redirect alla index
         if (!$this->getRequest()->isPost()) {
@@ -550,6 +531,7 @@ class AdminController extends Zend_Controller_Action
 
     public function cancellafaqAction()
     {
+        $this->view->headTitle('Cancella FAQ');
         //recupero l'id del prodotto da rimuovere
         $id = intval($this->_request->getParam('id'));
 
@@ -587,11 +569,12 @@ class AdminController extends Zend_Controller_Action
 
     public function addcentroAction()
     {
-
+        $this->view->headTitle('Aggiungi centro assistenza');
     }
 
     public function updatecentroAction()
     {
+        $this->view->headTitle('Aggiorna centro assistenza');
         //recupero l'id della faq da modificare
         $id = intval($this->_request->getParam('id'));
 
@@ -627,6 +610,7 @@ class AdminController extends Zend_Controller_Action
 
     public function modificacancellacentroAction()
     {
+        $this->view->headTitle('Gestisci centri assistenza');
         //recupero l'eventuale pagina
         $paged = $this->_request->getParam('page',1);
 
@@ -638,6 +622,7 @@ class AdminController extends Zend_Controller_Action
 
     public function aggiungicentroAction()
     {
+        $this->view->headTitle('Aggiungi centro assistenza');
         //questa azione deve essere richiamata solo da richieste post
         //se non è una post faccio il redirect alla index
         if (!$this->getRequest()->isPost()) {
@@ -672,6 +657,7 @@ class AdminController extends Zend_Controller_Action
 
     public function modificaCentroAction()
     {
+        $this->view->headTitle('Aggiorna centro assistenza');
         //questa azione deve essere richiamata solo da richieste post
         //se non è una post faccio il redirect alla index
         if (!$this->getRequest()->isPost()) {
@@ -720,6 +706,7 @@ class AdminController extends Zend_Controller_Action
 
     public function cancellacentroAction()
     {
+        $this->view->headTitle('Cancella centro assistenza');
         //recupero l'id del prodotto da rimuovere
         $id = intval($this->_request->getParam('id'));
 
@@ -755,10 +742,12 @@ class AdminController extends Zend_Controller_Action
 
     public function addcomponentAction()
     {
+        $this->view->headTitle('Aggiungi componente');
     }
 
     public function updatecomponentAction()
     {
+        $this->view->headTitle('Aggiorna componente');
         //recupero l'id del componente da modificare
         $id = intval($this->_request->getParam('id'));
 
@@ -804,6 +793,7 @@ class AdminController extends Zend_Controller_Action
 
     public function modificacancellacomponenteAction()
     {
+        $this->view->headTitle('Gestisci componenti');
         //recupero l'eventuale pagina
         $paged = $this->_request->getParam('page',1);
 
@@ -815,6 +805,7 @@ class AdminController extends Zend_Controller_Action
 
     public function aggiungicomponenteAction()
     {
+        $this->view->headTitle('Aggiungi componente');
         //questa azione deve essere richiamata solo da richieste post
         //se non è una post faccio il redirect alla index
         if (!$this->getRequest()->isPost()) {
@@ -840,6 +831,7 @@ class AdminController extends Zend_Controller_Action
 
     public function cancellacomponenteAction()
     {
+        $this->view->headTitle('Cancella componente');
         //recupero l'id del componente da rimuovere
         $id = intval($this->_request->getParam('id'));
 
@@ -851,6 +843,7 @@ class AdminController extends Zend_Controller_Action
 
     public function modificacomponenteAction()
     {
+        $this->view->headTitle('Aggiorna componente');
         //questa azione deve essere richiamata solo da richieste post
         //se non è una post faccio il redirect alla index
         if (!$this->getRequest()->isPost()) {
@@ -914,10 +907,12 @@ class AdminController extends Zend_Controller_Action
 
     public function addntbuAction()
     {
+        $this->view->headTitle('Aggiungi nota tecnica di buon uso');
     }
 
     public function updatentbuAction()
     {
+        $this->view->headTitle('Aggiorna nota tecnica di buon uso');
         //recupero l'id della ntbu da modificare
         $id = intval($this->_request->getParam('id'));
 
@@ -950,6 +945,7 @@ class AdminController extends Zend_Controller_Action
 
     public function modificacancellantbuAction()
     {
+        $this->view->headTitle('Gestisci note tecniche di buon uso');
         //recupero l'eventuale pagina
         $paged = $this->_request->getParam('page',1);
 
@@ -961,6 +957,7 @@ class AdminController extends Zend_Controller_Action
 
     public function aggiungintbuAction()
     {
+        $this->view->headTitle('Aggiungi nota tecnica di buon uso');
         //questa azione deve essere richiamata solo da richieste post
         //se non è una post faccio il redirect alla index
         if (!$this->getRequest()->isPost()) {
@@ -986,6 +983,7 @@ class AdminController extends Zend_Controller_Action
 
     public function cancellaNtbuAction()
     {
+        $this->view->headTitle('Cancella nota tecnica di buon uso');
         //recupero l'id del componente da rimuovere
         $id = intval($this->_request->getParam('id'));
 
@@ -997,6 +995,7 @@ class AdminController extends Zend_Controller_Action
 
     public function modificantbuAction()
     {
+        $this->view->headTitle('Aggiorna nota tecnica di buon uso');
         //questa azione deve essere richiamata solo da richieste post
         //se non è una post faccio il redirect alla index
         if (!$this->getRequest()->isPost()) {
@@ -1063,6 +1062,7 @@ class AdminController extends Zend_Controller_Action
     //carica la view per l'inserimento di un utente
     public function adduserAction()
     {
+        $this->view->headTitle('Aggiungi utente');
         $select = $this->_addUserForm->getElement('centri');
 
         $rows = $this->_adminModel->selectCentro($paged=null,$order=null);
@@ -1089,6 +1089,7 @@ class AdminController extends Zend_Controller_Action
     //popola la form per la modifica
     public function updateuserAction()
     {
+        $this->view->headTitle('Aggiorna utente');
         $select = $this->_editUserForm->getElement('centri');
 
         $rows = $this->_adminModel->selectCentro($paged=null,$order=null);
@@ -1158,6 +1159,7 @@ class AdminController extends Zend_Controller_Action
         //scarica dal db la lista delle faq
     public function modificacancellautenteAction()
     {
+        $this->view->headTitle('Gestisci utenti');
         //recupero l'eventuale pagina
         $paged = $this->_request->getParam('page',1);
 
@@ -1169,6 +1171,7 @@ class AdminController extends Zend_Controller_Action
 
     public function aggiungiutenteAction()
     {
+        $this->view->headTitle('Aggiungi utente');
         //Si attiva solo se la richiesta che ha attivato questa azione è di tipo post
         //Se non lo è...
         if (!$this->getRequest()->isPost()) {
@@ -1239,6 +1242,7 @@ class AdminController extends Zend_Controller_Action
 
     public function modificautenteAction()
     {
+        $this->view->headTitle('Aggiorna utente');
         //Si attiva solo se la richiesta che ha attivato questa azione è di tipo post
         //Se non lo è...
         if (!$this->getRequest()->isPost()) {
@@ -1317,6 +1321,7 @@ class AdminController extends Zend_Controller_Action
 
     public function cancellauserAction()
     {
+        $this->view->headTitle('Cancella utente');
         //recupero l'id del prodotto da rimuovere
         $id = intval($this->_request->getParam('id'));
 
@@ -1354,11 +1359,12 @@ class AdminController extends Zend_Controller_Action
 
     public function addtopcategoryAction()
     {
-
+        $this->view->headTitle('Aggiungi categoria top');
     }
 
     public function updatetopcategoryAction()
     {
+        $this->view->headTitle('Aggiorna categoria top');
         //recupero l'id della faq da modificare
         $id = intval($this->_request->getParam('id'));
 
@@ -1395,6 +1401,7 @@ class AdminController extends Zend_Controller_Action
 
     public function modificacancellatopcategoriaAction()
     {
+        $this->view->headTitle('Gestisci categorie top');
         $categorie = $this->_adminModel->getTopCats();
 
         //assegno le variabili alla view
@@ -1403,6 +1410,7 @@ class AdminController extends Zend_Controller_Action
 
     public function aggiungitopcategoriaAction()
     {
+        $this->view->headTitle('Aggiungi categoria top');
         //Si attiva solo se la richiesta che ha attivato questa azione è di tipo post
         //Se non lo è...
         if (!$this->getRequest()->isPost()) {
@@ -1429,6 +1437,7 @@ class AdminController extends Zend_Controller_Action
 
     public function modificatopcategoriaAction()
     {
+        $this->view->headTitle('Aggiorna categoria top');
         //Si attiva solo se la richiesta che ha attivato questa azione è di tipo post
         //Se non lo è...
         if (!$this->getRequest()->isPost()) {
@@ -1472,6 +1481,7 @@ class AdminController extends Zend_Controller_Action
 
     public function eliminatopcategoriaAction()
     {
+        $this->view->headTitle('Cancella categoria top');
         //recupero l'id del prodotto da rimuovere
         $id = intval($this->_request->getParam('id'));
 
@@ -1508,6 +1518,7 @@ class AdminController extends Zend_Controller_Action
 
     public function addcategoryAction()
     {
+        $this->view->headTitle('Aggiungi categoria');
         $select = $this->_addCategoryForm->getElement('Tipo');
 
         $rows = $this->_adminModel->getTopCats();
@@ -1523,6 +1534,7 @@ class AdminController extends Zend_Controller_Action
 
     public function updatecategoryAction()
     {
+        $this->view->headTitle('Aggiorna categoria');
         //recupero l'id della faq da modificare
         $id = intval($this->_request->getParam('id'));
 
@@ -1571,6 +1583,7 @@ class AdminController extends Zend_Controller_Action
 
     public function modificacancellacategoriaAction()
     {
+        $this->view->headTitle('Gestisci categorie');
         $categorie = $this->_adminModel->getCats();
 
         //assegno le variabili alla view
@@ -1579,6 +1592,7 @@ class AdminController extends Zend_Controller_Action
 
     public function aggiungicategoriaAction()
     {
+        $this->view->headTitle('Aggiungi categoria');
         //Si attiva solo se la richiesta che ha attivato questa azione è di tipo post
         //Se non lo è...
         if (!$this->getRequest()->isPost()) {
@@ -1618,6 +1632,7 @@ class AdminController extends Zend_Controller_Action
 
     public function modificacategoriaAction()
     {
+        $this->view->headTitle('Aggiorna categoria');
         //Si attiva solo se la richiesta che ha attivato questa azione è di tipo post
         //Se non lo è...
         if (!$this->getRequest()->isPost()) {
@@ -1661,6 +1676,7 @@ class AdminController extends Zend_Controller_Action
 
     public function eliminacategoriaAction()
     {
+        $this->view->headTitle('Cancella categoria');
         //recupero l'id del prodotto da rimuovere
         $id = intval($this->_request->getParam('id'));
 

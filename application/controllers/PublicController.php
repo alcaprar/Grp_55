@@ -57,36 +57,6 @@ class PublicController extends Zend_Controller_Action
             'TopCats' => $TopCats)
         );
 
-        /*$navCatAutoArray = array();
-        foreach ($CategorieA->toArray() as $categoria) {
-            $navCatAutoArray[] = array(
-                'controller' => 'public',
-                'action' => 'catalogo',
-                'params' => array('categoria' => $categoria['Nome']),
-                'label' => $categoria['Nome'],
-                'resource' => 'public',
-                'privilege' => 'catalogo'
-            );
-        }
-        $configAuto = new Zend_Config($navCatAutoArray);
-
-        $navigationAuto = new Zend_Navigation($configAuto);
-
-        $navCatMotoArray = array();
-        foreach ($CategorieM->toArray() as $categoria) {
-            $navCatMotoArray[] = array(
-                'controller' => 'public',
-                'action' => 'catalogo',
-                'params' => array('categoria' => $categoria['Nome']),
-                'label' => $categoria['Nome'],
-                'resource' => 'public',
-                'privilege' => 'catalogo'
-            );
-        }
-
-        $configMoto = new Zend_Config($navCatMotoArray);
-
-        $navigationMoto = new Zend_Navigation($configMoto);*/
     }
 
     public function indexAction()
@@ -96,6 +66,7 @@ class PublicController extends Zend_Controller_Action
 
     public function schedaprodottoAction()
     {
+        $this->view->headTitle('Scheda prodotto');
         //recupero i parametri
         $idProdotto = $this->_getParam('prodotto',null);
         $paged = $this->_getParam('page', 1);
@@ -127,6 +98,7 @@ class PublicController extends Zend_Controller_Action
 
     public function catalogoAction()
     {
+        $this->view->headTitle('Catalogo pubblico');
         //recupero la categoria e la pagina
         $nomeCategoria = $this->_getParam('categoria', null);
         $paged = $this->_getParam('page', 1);
@@ -151,6 +123,7 @@ class PublicController extends Zend_Controller_Action
 
     public function cercaAction()
     {
+        $this->view->headTitle('Risultati ricerca');
         //recupero i parametri
         $query = $this->_getParam('query', null);
         if(strpos($query, '*') == 0){
@@ -256,6 +229,7 @@ class PublicController extends Zend_Controller_Action
     //carica la view per la form di login
     public function loginAction()
     {
+        $this->view->headTitle('Login');
     }
 
     //metodo per la verifica del login
@@ -280,6 +254,7 @@ class PublicController extends Zend_Controller_Action
 
     public function inviamailAction()
     {
+        $this->view->headTitle('Invia Mail');
         $request = $this->getRequest();
         if (!$request->isPost()) {
             return $this->_helper->redirector('viewstatic', 'public', 'default', array('page' => 'contact'));
@@ -304,10 +279,6 @@ class PublicController extends Zend_Controller_Action
             $form->setDescription('C\'é stato un problema con l\'invio, riprovare.');
             return $this->render('contact');
         }
-    }
-
-    public function successomailAction()
-    {
     }
 
     //ottiene la form di login, richiamato dall'action login
@@ -341,6 +312,7 @@ class PublicController extends Zend_Controller_Action
 
     public function accessonegatoAction()
     {
+        $this->view->headTitle('Accesso negato');
         $redirect = $this->_helper->getHelper('url')->url(array(
             'controller' => 'public',
             'action' => 'index'
