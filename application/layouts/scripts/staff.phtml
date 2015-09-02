@@ -254,6 +254,22 @@
 <script src="<?php echo $this->baseURL();?>/js/price-range.js"></script>
 <script src="<?php echo $this->baseURL();?>/js/jquery.prettyPhoto.js"></script>
 <script src="<?php echo $this->baseURL();?>/js/main.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var t = $('#fbody');
+        var query = $('#query').val();
+        $.extend($.expr[':'], {
+            'containsi': function(elem, i, match, array)
+            {
+                return (elem.textContent || elem.innerText || '').toLowerCase()
+                        .indexOf((match[3] || "").toLowerCase()) >= 0;
+            }
+        });
+        $(query).on('input', function(){
+            $(t).find('tr').filter(":not(:contains('" + query + "'))").hide();
+        });
+    });
+</script>
 </body>
 </html>
 

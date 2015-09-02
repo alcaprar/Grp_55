@@ -1,10 +1,13 @@
 <?php
 echo'<div class="col-sm-9 padding-right">
                 <div class="features_items"><!--features_items-->
-                    <h2 class="title text-center">Modifica prodotti</h2>
+                <div class="search_box pull-right">
+                    <input id="query" type="text" placeholder="Cerca nella lista"/>
+                    </div>
+                    <h2 class="title text-center">Modifica malfunzionamenti</h2>
                     <div  id="cart_items" >
                         <div  class="table-responsive cart_info">
-                            <table  class="table table-condensed">
+                            <table  id="table" class="table table-condensed">
                                 <thead>
                                 <tr class="cart_menu">
                                     <td class="description">Malfunzionamento</td>
@@ -13,12 +16,12 @@ echo'<div class="col-sm-9 padding-right">
                                     <td></td>
                                 </tr>
                                 </thead>
-                                <tbody>';
-foreach($this->Malfunzionamenti as $malf){
-    $malfunzionamento =  strlen($malf->Malfunzionamento) > 50 ? substr($malf->Malfunzionamento,0,50)."..." : $malf->Malfunzionamento;
-    $soluzione =  strlen($malf->Soluzione) > 50 ? substr($malf->Soluzione,0,50)."..." : $malf->Soluzione;
-    echo'<tr>
-                                    <td  class="cart_description">
+                                <tbody id="fbody">';
+                                foreach($this->Malfunzionamenti as $malf){
+                                    $malfunzionamento =  strlen($malf->Malfunzionamento) > 50 ? substr($malf->Malfunzionamento,0,50)."..." : $malf->Malfunzionamento;
+                                    $soluzione =  strlen($malf->Soluzione) > 50 ? substr($malf->Soluzione,0,50)."..." : $malf->Soluzione;
+                                    echo'<tr>
+                                    <td  id="malf" class="cart_description">
                                         <p>'.$malfunzionamento.'</p>
                                     </td>
                                     <td  class="cart_description">
@@ -50,4 +53,5 @@ if($this->Malfunzionamenti instanceof Zend_Paginator) {
     echo '<div class="text-center">'.$this->paginationControl($this->Malfunzionamenti,'Elastic','staff/_paginatorMalf.phtml').'</div>';
 };
 echo '</div><!--features_items-->
-            </div>';
+            </div> '; ?>
+

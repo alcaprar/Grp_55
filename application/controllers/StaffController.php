@@ -55,7 +55,6 @@ class StaffController extends Zend_Controller_Action
 
     public function populatemalfAction()
     {
-
         if($this->getRequest()->isXmlHttpRequest()) {
 
             $this->_helper->getHelper('layout')->disableLayout();
