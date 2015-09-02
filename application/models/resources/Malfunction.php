@@ -22,6 +22,27 @@ class Application_Resource_Malfunction extends Zend_Db_Table_Abstract
         return $this->find($id)->current();
     }
 
+    public function getMalfunctionsByName($nome, $paged, $order)
+    {
+        $nome = str_replace('*', '%', $nome);
+        $select = $this->select()
+            ->setIntegrityCheck(false)
+            ->from('Malfunzionamenti')
+            ->where('Malfunzionamento LIKE ?', '%'.$nome.'%');
+        if (true === is_array($order)) {
+            $select->order($order);
+        }
+        if (null !== $paged) {
+            $adapter = new Zend_Paginator_Adapter_DbTableSelect($select);
+            $paginator = new Zend_Paginator($adapter);
+            $paginator->setItemCountPerPage(3)
+                ->setPageRange(5)
+                ->setCurrentPageNumber((int) $paged);
+            return $paginator;
+        }
+        return $this->fetchAll($select);
+    }
+
     // Estrae tutti i malfunzionamenti, eventualmente paginati ed ordinati
     public function selectMalfunction($paged=null, $order=null)
     {

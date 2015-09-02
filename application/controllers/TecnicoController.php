@@ -167,6 +167,61 @@ class TecnicoController extends Zend_Controller_Action
         $this->view->assign('Malfunzionamenti',$malfunzionamenti);
     }
 
+    public function cercaAction()
+    {
+        $this->view->headTitle('Risultati ricerca');
+        //recupero i parametri
+        $query = $this->_getParam('query', null);
+        if(strpos($query, '*') == 0){
+            $query = str_replace($query, '', 0, strlen('*'));
+        }
+        $page = $this->_getParam('page', 1);
+
+        //se non è nullo recupero i prodotti
+        $malfunzionamenti = $this->_tecnicoModel->getMalfunctionsByName($query, $page, $order=null);
+
+        // Definisce le variabili per il viewer
+        $this->view->assign(array(
+                'query' => $query,
+                'Malfunzionamenti' => $malfunzionamenti
+            )
+        );
+    }
+
+    public function redirectorurlcercaAction()
+    {
+        $request = $this->getRequest();
+
+        //arrivata una richiesta di cerca
+        if ($request->isPost()) {
+            $query = $request->getPost()['querymalf'];
+            $this->_redirector = $this->_helper->getHelper('Redirector');
+
+            $this->_redirector->gotoSimple('cerca',
+                'tecnico',
+                null,
+                array('query' => $query));
+        }
+
+    }
+
+    public function livesearchAction()
+    {
+        $request = $this->getRequest();
+
+        if ($request->isXmlHttpRequest()) {
+
+            $this->_helper->getHelper('layout')->disableLayout();
+            $this->_helper->viewRenderer->setNoRender();
+
+            $param = $request->getParam('query');
+            $malfunctions = $this->_tecnicoModel->getMalfunctionsByName($param, $paged=null, $order=null);
+            $this->_helper->json($malfunctions, $sendNow = true, $keepLayouts = false, $encodeData = true);
+        } else {
+            return;
+        }
+    }
+
     //Cancella l'identità e poi reindirizza all'azione index del controller public
     public function logoutAction()
     {

@@ -52,6 +52,11 @@ class Application_Model_Tecnico extends App_Model_Abstract
         return $this->getResource('Malfunction')->getMalfunctionById($id);
     }
 
+    public function getMalfunctionsByName($malf, $paged, $order)
+    {
+        return $this->getResource('Malfunction')->getMalfunctionsByName($malf, $paged, $order);
+    }
+
     public function selectFaq($paged, $order)
     {
         return $this->getResource('Faq')->selectFaq($paged, $order);
