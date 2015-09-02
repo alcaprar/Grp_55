@@ -1,34 +1,33 @@
-<?php if ($this->pageCount > 1): ?>
-    <div id="pagination">
-        <?php echo 'Pagina '. $this->current; ?> di <?= $this->pageCount; ?> ---
+<?php if ($this->pageCount): ?>
+    <div class="pagination-area">
+        <ul class="pagination">
+            <!-- Previous page link -->
+            <?php if (isset($this->previous)): ?>
+                <li><a href="<?php echo $this->url(array('page' => $this->previous)); ?>">
+                        <i class="fa fa-angle-double-left"></i>
+                    </a></li>
+            <?php endif; ?>
 
-        <!-- Link alla prima pagina -->
-        <?php if (isset($this->previous)): ?>
-            <a href="<?= $this->url(array('controller' => 'admin', 'action' => 'modificacancellacentro', 'page' => $this->first)); ?>">Inizio</a> |
-        <?php else: ?>
-            Inizio |
-        <?php endif; ?>
+            <!-- Numbered page links -->
+            <?php foreach ($this->pagesInRange as $page): ?>
+                <?php if ($page != $this->current): ?>
+                    <li><a href="<?php echo $this->url(array('page' => $page)); ?>">
+                            <?php echo $page; ?>
+                        </a></li>
+                <?php else: ?>
+                    <li><a class ="active">
+                            <?php echo $page; ?>
+                        </a></li>
+                <?php endif; ?>
+            <?php endforeach; ?>
 
-        <!-- Link alla pagina precedente -->
-        <?php if (isset($this->previous)): ?>
-            <a href="<?= $this->url(array('controller' => 'admin', 'action' => 'modificacancellacentro', 'page' => $this->previous)); ?>">&lt; Precedente</a> |
-        <?php else: ?>
-            &lt; Precedente |
-        <?php endif; ?>
 
-        <!-- Link alla pagina successiva -->
-        <?php if (isset($this->next)): ?>
-            <a href="<?= $this->url(array('controller' => 'admin', 'action' => 'modificacancellacentro', 'page' => $this->next)); ?>">Successivo &gt;</a> |
-        <?php else: ?>
-            Successivo &gt; |
-        <?php endif; ?>
-
-        <!-- Link all'ultima pagina -->
-        <?php if (isset($this->next)): ?>
-            <a href="<?= $this->url(array('controller' => 'admin', 'action' => 'modificacancellacentro', 'page' => $this->last)); ?>">Fine</a>
-        <?php else: ?>
-            Fine
-        <?php endif; ?>
-
+            <!-- Next page link -->
+            <?php if (isset($this->next)): ?>
+                <li><a href="<?php echo $this->url(array('page' => $this->next)); ?>">
+                        <i class="fa fa-angle-double-right"></i>
+                    </a></li>
+            <?php endif; ?>
+        </ul>
     </div>
 <?php endif; ?>
