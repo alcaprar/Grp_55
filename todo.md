@@ -38,6 +38,7 @@ http://www.jqueryscript.net/accordion/Creating-An-Accordion-Style-FAQ-System-wit
   - [ ] gestione top categorie
 - [ ] implementare menu admin con zend_navigation
 - [ ] pagina chi siamo
+- [ ] creare dei file unici da richiamare nei vari layout per footer header ecc..( tutte quelle parti che si ripetono)
 - [ ] togliere la possibilità di inserimento di un nuovo admin
   - [X] togliere amministratore dal menu a tendina nel pannello inserimento utente
   - [ ] trovare una soluzione lato db per bloccare l'inserimento di un nuovo admin
