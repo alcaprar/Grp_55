@@ -266,7 +266,8 @@
         });
         $('#query').on('keyup', function(){
             var query = $('#query').val();
-            $(t).find('tr').filter(":not(:contains('" + query + "'))").hide();
+            $(t).find('tr').hide();
+            $(t).find('tr').filter("contains('" + query + "'))").show();
         });
     });
 </script>
