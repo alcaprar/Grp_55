@@ -22,11 +22,11 @@ http://www.jqueryscript.net/accordion/Creating-An-Accordion-Style-FAQ-System-wit
   - [ok] mettere le categorie auto e moto a livello db come topCat
   - [ok] aggiungere gestisci categorie Top in admin
 - [X] form pagina contatti e invio email
+- [ok] ricerca con ajax (live search) da modificare nella visualizzazione
+- [X] aggiungere la ripartizione delle categorie tra tecnici dello staff
+- [ ] aggiungere pagina con la lista dei malfunzionamenti (da specifiche)
 - [ ] aggiungere search box per la modifica/cancellazione per prodotti, componenti ecc..
 - [ ] implementare search box prodotti con zend_form
-- [ok] ricerca con ajax (live search) da modificare nella visualizzazione
-- [ ] ricerca malfunzionamenti
-- [ ] aggiungere la ripartizione delle categorie tra tecnici dello staff
 - [ ] validazione form tramite javascript
 - [ ] sistemare admin controller
   - [ ] gestione utenti
