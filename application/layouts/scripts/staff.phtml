@@ -255,21 +255,20 @@
 <script src="<?php echo $this->baseURL();?>/js/jquery.prettyPhoto.js"></script>
 <script src="<?php echo $this->baseURL();?>/js/main.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        var t = $('#fbody');
-        $.extend($.expr[':'], {
-            'containsi': function(elem, i, match, array)
-            {
-                return (elem.textContent || elem.innerText || '').toLowerCase()
-                        .indexOf((match[3] || "").toLowerCase()) >= 0;
-            }
-        });
-        $('#query').on('keyup', function(){
+    $(function() {
+        $('#query').on('keyup', function () {
+            $.extend($.expr[':'], {
+                'containsi': function (elem, i, match, array) {
+                    return (elem.textContent || elem.innerText || '').toLowerCase()
+                            .indexOf((match[3] || "").toLowerCase()) >= 0;
+                }
+            });
+            var t = $('#fbody');
             var query = $('#query').val();
             $(t).find('tr').hide();
             $(t).find('tr').filter("contains('" + query + "'))").show();
         });
-    });
+    };
 </script>
 </body>
 </html>
