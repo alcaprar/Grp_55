@@ -76,6 +76,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         $view = $layout->getView();
 
+        $layout->Ruolo = $this->_role;
+
         $navMainArray = array(
             array(
                 'controller' => 'public',
@@ -249,7 +251,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             $mailTransport = new Zend_Mail_Transport_Smtp('smtp.gmail.com', $config);
             Zend_Mail::setDefaultTransport($mailTransport);
         } catch (Zend_Exception $e){
-            //Do something with exception
+            $this->_logger->log('Eccezione initMail',Zend_Log::WARN);
         }
     }
 

@@ -21,11 +21,6 @@ class PublicController extends Zend_Controller_Action
         //recupera le categorie Top
         $TopCats = $this->_publicModel->getTopCats();
 
-        //recupera le categorie dal db attraverso il model
-        //serve per il menu
-        /*$CategorieA = $this->_publicModel->getCatsByParId('A');
-        $CategorieM = $this->_publicModel->getCatsByParId('M');*/
-
         $navMenus = array();
 
         foreach($TopCats as $topcat) {
@@ -34,7 +29,6 @@ class PublicController extends Zend_Controller_Action
             $navCatArray = array();
             foreach($categorie as $cat)
             {
-                $this->_logger->log($cat, Zend_Log::DEBUG);
                 $navCatArray[] = array(
                     'controller' => 'public',
                     'action' => 'catalogo',
@@ -48,7 +42,6 @@ class PublicController extends Zend_Controller_Action
             $configTopCat = new Zend_Config($navCatArray);
 
             $navMenus[$topcat['Nome']] = new Zend_Navigation($configTopCat);
-            $this->_logger->log($navMenus[$topcat['Nome']], Zend_Log::DEBUG);
         }
 
         // Definisce le variabili per il viewer
@@ -69,7 +62,6 @@ class PublicController extends Zend_Controller_Action
         $this->view->headTitle('Scheda prodotto');
         //recupero i parametri
         $idProdotto = $this->_getParam('prodotto',null);
-        $paged = $this->_getParam('page', 1);
 
         //se è nullo faccio il redirector sulla index action
         $prodotto=null;
@@ -131,17 +123,17 @@ class PublicController extends Zend_Controller_Action
         }
         $page = $this->_getParam('page', 1);
 
-            //se non è nullo recupero i prodotti
-            $prodotti = $this->_publicModel->getProdByName($query, $page, $order=null);
+        //se non è nullo recupero i prodotti
+        $prodotti = $this->_publicModel->getProdByName($query, $page, $order=null);
 
-            $this->_logger->log($prodotti,Zend_Log::DEBUG);
+        $this->_logger->log($prodotti,Zend_Log::DEBUG);
 
-            // Definisce le variabili per il viewer
-            $this->view->assign(array(
-                    'query' => $query,
-                    'Prodotti' => $prodotti
-                )
-            );
+        // Definisce le variabili per il viewer
+        $this->view->assign(array(
+                'query' => $query,
+                'Prodotti' => $prodotti
+            )
+        );
 
 
     }
