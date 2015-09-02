@@ -18,13 +18,15 @@ class StaffController extends Zend_Controller_Action
         $this->view->addMalfunctionForm = $this->getAddMalfunctionForm();
         $this->view->editMalfunctionForm = $this->getEditMalfunctionForm();
 
-        $this->_categorie = array();
-        $sessionCat = $_SESSION['staff']['categorie']->toArray();
-        for($i=0;$i<sizeof($sessionCat);$i++){
-            $this->_categorie[] = $sessionCat[$i]['idCategoria'];
-        }
-
         $this->_authService = new Application_Service_Auth();
+
+        if($this->_authService->getIdentity()->Ruolo=='staff') {
+            $this->_categorie = array();
+            $sessionCat = $_SESSION['staff']['categorie']->toArray();
+            for ($i = 0; $i < sizeof($sessionCat); $i++) {
+                $this->_categorie[] = $sessionCat[$i]['idCategoria'];
+            }
+        }
     }
 
     public function indexAction()

@@ -46,6 +46,10 @@ class Application_Service_Auth
 
     public function clear()
     {
+        if($this->getAuth()->getIdentity()->Ruolo=='staff'){
+            Zend_Session::namespaceUnset('staff');
+        }
+
         $this->getAuth()->clearIdentity();
     }
 
