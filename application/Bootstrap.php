@@ -181,14 +181,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         $navServiziArray = array(
             array(
-                'controller' => 'public',
-                'action'=>'viewstatic',
-                'params'=>array('page'=>'contact'),
-                'label' =>'Help-desk',
-                'resource' => 'public',
-                'privilege' => 'index'
-            ),
-            array(
                 'controller'=>'public',
                 'action'=>'viewstatic',
                 'params'=>array('page'=>'contact'),
