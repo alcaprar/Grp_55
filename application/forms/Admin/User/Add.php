@@ -39,7 +39,13 @@ class Application_Form_Admin_User_Add extends App_Form_Abstract
             'required' => true,
             'validators' => array(
                 array('EmailAddress',  true  ),
-                array('StringLength',true, array(1,60))
+                array('StringLength',true, array(1,60)),
+                array('Db_NoRecordExists', true, array(
+                    'table' => 'Utenti',
+                    'field' => 'Email',
+                    'messages' => array(
+                        'recordFound' => "Email già esistente."
+                    )))
             ),
             'decorators' => $this->elementDecorators,
         ));
