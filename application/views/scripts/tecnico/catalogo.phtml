@@ -7,6 +7,7 @@
                 echo '<div class="features_items"><!--features_items-->
                           <h2 class="title text-center">Catalogo Tecnico - '.$this->Categoria.'</h2>';
                 //stampo i singoli prodotti
+                if(sizeof($this->Prodotti)==0) echo'<div class="text-center"> Nessun prodotto trovato.</div>';
                 foreach($this->Prodotti as $prod){
                     $urlfoto = ($prod->Foto=='' || is_null($prod->Foto))?($this->baseURL().'/images/product-details/image-coming-soon.png'):($this->baseURL().'/images/products/'. $prod->Foto);
                     echo'<div class="col-sm-4">

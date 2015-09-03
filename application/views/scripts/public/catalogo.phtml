@@ -30,10 +30,11 @@
             </div>
             <div class="col-sm-9 padding-right">
                 <?php
-                    echo '<div class="features_items"><!--features_items-->
+                echo '<div class="features_items"><!--features_items-->
                           <h2 class="title text-center">Catalogo Pubblico - '.$this->Categoria.'</h2>';
                     //stampo i singoli prodotti
-                    foreach($this->Prodotti as $prod){
+                if(sizeof($this->Prodotti)==0) echo'<div class="text-center"> Nessun prodotto trovato.</div>';
+                foreach($this->Prodotti as $prod){
                         $urlfoto = ($prod->Foto=='' || is_null($prod->Foto))?($this->baseURL().'/images/product-details/image-coming-soon.png'):($this->baseURL().'/images/products/'. $prod->Foto);
                         echo'<div class="col-sm-4">
 							    <div class="product-image-wrapper">
