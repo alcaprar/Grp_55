@@ -75,7 +75,7 @@ class Application_Form_Admin_Centri_Add extends App_Form_Abstract
         $this->addElement('text', 'Email', array(
             'label' => 'Email',
             'filters' => array('StringTrim'),
-            'required' => true,
+            'required' => false,
             'validators' => array(
                 array('EmailAddress',  true  ),
                 array('StringLength',true, array(1,100))),

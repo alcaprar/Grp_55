@@ -32,13 +32,13 @@ class Application_Form_Admin_User_Add extends App_Form_Abstract
             'decorators' => $this->elementDecorators,
         ));
 
-        //email dell'utente
-        $this->addElement('text', 'Email', array(
+
+        $email = $this->createElement('text', 'Email', array(
             'label' => 'Email',
             'filters' => array('StringTrim'),
             'required' => true,
             'validators' => array(
-                array('EmailAddress',  true  ),
+                array('EmailAddress',  true),
                 array('StringLength',true, array(1,60)),
                 array('Db_NoRecordExists', true, array(
                     'table' => 'Utenti',
@@ -49,6 +49,9 @@ class Application_Form_Admin_User_Add extends App_Form_Abstract
             ),
             'decorators' => $this->elementDecorators,
         ));
+        $email->addErrorMessage('Email non valida!');
+
+        $this->addElement($email);
 
         //username dell'utente
         $this->addElement('text', 'Username', array(

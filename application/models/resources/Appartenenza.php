@@ -35,6 +35,11 @@ class Application_Resource_Appartenenza extends Zend_Db_Table_Abstract
         $this->fetchRow($this->select()->from('Appartenenza')->where('idTecnico = ?', $idTecnico))->delete();
     }
 
+    public function deleteAppartenenzaCentro($idCentro)
+    {
+        $this->delete('idCentro = '.$idCentro);
+    }
+
     public function updateAppartenenza($idCentro, $idTecnico)
     {
         $select = $this->select()
