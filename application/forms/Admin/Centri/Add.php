@@ -35,7 +35,7 @@ class Application_Form_Admin_Centri_Add extends App_Form_Abstract
             'validators' => array(
                 array('StringLength',true, array(5,20)),
                 array('regex' , true, array(
-                    'pattern'=> '/^\+[0-9 ]+$/'
+                    'pattern'=> '/^\+?[0-9 ]+$/'
                 ))),
             'decorators' => $this->elementDecorators,
         ));
