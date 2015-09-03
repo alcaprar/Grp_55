@@ -268,6 +268,14 @@ a#scrollUp i{
   background-position: 130px;
 }
 
+.search-prodotti {
+  padding-left: 15px;
+}
+
+.search-malfunzionamenti {
+  padding-right: 15px;
+}
+
 .search_box input#querymalf{
     background: #F0F0E9;
     border: medium none;

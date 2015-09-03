@@ -38,7 +38,7 @@ http://www.jqueryscript.net/accordion/Creating-An-Accordion-Style-FAQ-System-wit
   - [X] gestione centri
   - [X] gestione categorie
   - [X] gestione top categorie
-- [ ] implementare menu admin con zend_navigation
+- [X] implementare menu admin con zend_navigation
 - [ ] pagina chi siamo
 - [ ] creare dei file unici da richiamare nei vari layout per footer header ecc..( tutte quelle parti che si ripetono)
 - [ ] togliere la possibilità di inserimento di un nuovo admin

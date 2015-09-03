@@ -25,7 +25,6 @@ class PublicController extends Zend_Controller_Action
 
         foreach($TopCats as $topcat) {
             $categorie = $this->_publicModel->getCatsByParId($topcat->Nome);
-            $this->_logger->log($categorie, Zend_Log::DEBUG);
             $navCatArray = array();
             foreach($categorie as $cat)
             {
@@ -118,15 +117,14 @@ class PublicController extends Zend_Controller_Action
         $this->view->headTitle('Risultati ricerca');
         //recupero i parametri
         $query = $this->_getParam('query', null);
-        if(strpos($query, '*') == 0){
+        if(strpos($query, '*') === 0){
             $query = str_replace($query, '', 0, strlen('*'));
         }
+
         $page = $this->_getParam('page', 1);
 
         //se non è nullo recupero i prodotti
         $prodotti = $this->_publicModel->getProdByName($query, $page, $order=null);
-
-        $this->_logger->log($prodotti,Zend_Log::DEBUG);
 
         // Definisce le variabili per il viewer
         $this->view->assign(array(

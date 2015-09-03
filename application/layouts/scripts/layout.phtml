@@ -94,7 +94,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <div class="search_box pull-right">
+                    <div class="search_box pull-right search-prodotti">
                         <form action="<?= $this->url(array(
                             'controller' => 'public',
                             'action'     => 'redirectorurlcerca',
@@ -108,9 +108,9 @@
                             <ul id="content" class="search-ul"></ul>
                         </div>
                     </div>
-                    <div class="search_box pull-right">
+                    <div class="search_box pull-right search-malfunzionamenti">
                     <?php
-                        if($this->layout()->Ruolo !== "unregistered") echo '<div class="search_box pull-right">
+                        if($this->layout()->Ruolo !== "unregistered") echo '
                         <form action="'.$this->url(array(
                             'controller' => 'tecnico',
                             'action'     => 'redirectorurlcerca',
@@ -125,8 +125,6 @@
                         </div>
                     </div>';
                     ?>
-
-                    </div>
                     </div>
                 </div>
             </div>
