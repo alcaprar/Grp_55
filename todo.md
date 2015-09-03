@@ -42,6 +42,6 @@ http://www.jqueryscript.net/accordion/Creating-An-Accordion-Style-FAQ-System-wit
 - [ ] togliere la possibilità di inserimento di un nuovo admin
   - [X] togliere amministratore dal menu a tendina nel pannello inserimento utente
   - [ ] trovare una soluzione lato db per bloccare l'inserimento di un nuovo admin
-- [ ] inserire ricerca malfunzionamenti in scheda prodotto
-- [ ] sistemare funzioni javascript
-- [ ] impostare ricerca con ritardo per evitare troppe ajax call
+- [ ] inserire ricerca malfunzionamenti in scheda prodotto (da far funzionare)
+- [X] sistemare funzioni javascript
+- [X] impostare ricerca con ritardo per evitare troppe ajax call

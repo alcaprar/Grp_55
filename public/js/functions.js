@@ -98,7 +98,21 @@ function filterList(input, tbody){
         var t = $(tbody);
         var query = $(input).val();
         $(t).find('tr').hide();
-        $(t).find('tr').filter(":containsi('" + query + "')").show();
+        $(t).find('tr').filter(":contains('" + query + "')").show();
+    });
+}
+
+function filterFaq(input, div){
+    $(input).on('input', function () {
+        $.extend($.expr[':'], {
+            'containsi': function (elem, i, match, array) {
+                return (elem.textContent || elem.innerText || '').toLowerCase()
+                        .indexOf((match[3] || "").toLowerCase()) >= 0;
+            }
+        });
+        var query = $(input).val();
+        $(div).find('.faq-c').hide();
+        $(div).find('.faq-c').filter(":contains('" + query + "')").show();
     });
 }
 

@@ -78,17 +78,20 @@
 							<div class="tab-pane fade" id="malfunzionamenti" >
 								<div class="col-sm-12">
 								    <p > Lista Malfunzionamenti:</p>
+								    <div class="search_box pull-right">
+                        				<input id="querymalffaq" type="text" placeholder="Cerca nella lista"/>
+                    				</div>
 								        <ul class="componenti">';
-foreach($this->Malfunzionamenti as $malf)
-{
-    echo '<div class="faq-c">
-                                <div class="faq-q"><span class="faq-t">+</span>'.$malf->Malfunzionamento.'</div>
-                                <div class="faq-a">
+								foreach($this->Malfunzionamenti as $malf)
+								{
+									echo '<div class="faq-c">
+                                <div class="faq-q a"><span class="faq-t">+</span>'.$malf->Malfunzionamento.'</div>
+                                <div class="faq-a a">
                                 <p>'.$malf->Soluzione.'</p>
                                 </div>
                              </div>';
-}?>
-</ul>
+								}?>
+								</ul>
 
 								</div>
 							</div>
