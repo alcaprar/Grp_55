@@ -239,7 +239,9 @@ class Application_Model_Admin extends App_Model_Abstract
 
     public function deleteCentro($id)
     {
+        $this->getResource('Appartenenza')->deleteAppartenenzaCentro($id);
         return$this->getResource('Centri')->deleteCentro($id);
+
     }
 
     public function updateCentro($centro, $id)
