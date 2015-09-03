@@ -424,9 +424,8 @@ $translateValidators = array(
     Zend_Validate_NotEmpty::IS_EMPTY => 'Campo obbligatorio!',
     Zend_Validate_Regex::NOT_MATCH => 'Valore invalido!',
     Zend_Validate_StringLength::TOO_SHORT => 'Min di %min% caratteri.',
-    Zend_Validate_StringLength::TOO_LONG => 'Max %max% caratteri.',
-    Zend_Validate_EmailAddress::INVALID => 'E-mail invalida!',
-    Zend_Validate_EmailAddress::INVALID_FORMAT => 'E-mail invalida!'
+    Zend_Validate_StringLength::TOO_LONG => 'Max %max% caratteri.'
+
 );
 $translator = new Zend_Translate('array', $translateValidators);
 Zend_Validate_Abstract::setDefaultTranslator($translator);
