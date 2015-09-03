@@ -96,7 +96,7 @@ function filterList(input, tbody){
             }
         });
         var t = $(tbody);
-        var query = $(input).val();
+        var query = $(input).val().split(" ")[0];
         $(t).find('tr').hide();
         $(t).find('tr').filter(":contains('" + query + "')").show();
     });
@@ -110,7 +110,7 @@ function filterFaq(input, div){
                         .indexOf((match[3] || "").toLowerCase()) >= 0;
             }
         });
-        var query = $(input).val();
+        var query = $(input).val().split(" ")[0];
         $(div).find('.faq-c').hide();
         $(div).find('.faq-c').filter(":contains('" + query + "')").show();
     });
