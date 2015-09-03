@@ -26,10 +26,8 @@ http://www.jqueryscript.net/accordion/Creating-An-Accordion-Style-FAQ-System-wit
 - [X] aggiungere la ripartizione delle categorie tra tecnici dello staff
 - [ ] aggiungere pagina con la lista dei malfunzionamenti (da specifiche)
 - [ ] aggiungere search box per la modifica/cancellazione per prodotti, componenti ecc..
-- [ ] ricerca malfunzionamenti
-- [ ] aggiungere la ripartizione delle categorie tra tecnici dello staff
-- [ ] implementare search box prodotti con zend_form
-- [ ] validazione form tramite javascript
+- [X] ricerca malfunzionamenti
+- [X] validazione form tramite javascript
 - [X] sistemare admin controller
   - [X] gestione utenti
   - [X] gesione prodotti
@@ -39,8 +37,11 @@ http://www.jqueryscript.net/accordion/Creating-An-Accordion-Style-FAQ-System-wit
   - [X] gestione categorie
   - [X] gestione top categorie
 - [X] implementare menu admin con zend_navigation
-- [ ] pagina chi siamo
+- [X] pagina chi siamo
 - [ ] creare dei file unici da richiamare nei vari layout per footer header ecc..( tutte quelle parti che si ripetono)
 - [ ] togliere la possibilità di inserimento di un nuovo admin
   - [X] togliere amministratore dal menu a tendina nel pannello inserimento utente
   - [ ] trovare una soluzione lato db per bloccare l'inserimento di un nuovo admin
+- [ ] inserire ricerca malfunzionamenti in scheda prodotto
+- [ ] sistemare funzioni javascript
+- [ ] impostare ricerca con ritardo per evitare troppe ajax call

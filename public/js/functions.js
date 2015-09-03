@@ -29,3 +29,92 @@ function getErrorHtml(formErrors) {
     out += '</ul>';
     return out;
 }
+
+function searchDelay(box, callback, delay, baseUrl, actionUrl, div) {
+    var timer = null;
+    //caso di generico input, anche con copia/incolla o autocomplete
+    $(box).on('input',function() {
+        var searchKeyword = $(this).val();
+        if (timer) {
+            window.clearTimeout(timer);
+        }
+        timer = window.setTimeout( function() {
+            timer = null;
+            callback(baseUrl, actionUrl, searchKeyword);
+        }, delay );
+    });
+    //se la searchbox è vuota svuota anche l'elenco di risultati per nascondere il div
+    $(box).on('blur', function () {
+        if($(box).val() == null) $(div).find('ul').empty();
+    });
+    //necessario per effettuare una ricerca anche in caso di backspace o delete
+    $(box).on('keyUp', function(e){
+        if(e.keyCode == 8 || e.keyCode == 46){
+            var searchKeyword = $(this).val();
+            if (timer) {
+                window.clearTimeout(timer);
+            }
+            timer = window.setTimeout( function() {
+                timer = null;
+                callback(baseUrl, actionUrl, searchKeyword);
+            }, delay );
+        }
+    })
+    box = null;
+}
+
+function liveSearch(baseUrl, actionUrl, searchKeyword){
+        if (searchKeyword.length >= 1) {
+            $('div#dropdown').slideDown(200);
+            $.post(actionUrl, { query: searchKeyword }, function(data) {
+                $('ul#content').empty();
+                $.each(data, function() {
+                    $('ul#content').append('<li><a href="' + baseUrl + this.id + '">' + this.Nome + '</a></li>');
+                });
+            }, "json");
+        }
+}
+
+function liveSearchMalfunction(baseUrl, actionUrl, searchKeyword){
+        if (searchKeyword.length >= 1) {
+            $('div#dropdownmalf').slideDown(200);
+            $.post(actionUrl, { query: searchKeyword }, function(data) {
+                $('ul#contentmalf').empty();
+                $.each(data, function() {
+                    $('ul#contentmalf').append('<li><a href="' + baseUrl + searchKeyword + '">' + this.Malfunzionamento + '</a></li>');
+                });
+            }, "json");
+        }
+}
+
+function filterList(input, tbody){
+    $(input).on('input', function () {
+        $.extend($.expr[':'], {
+            'containsi': function (elem, i, match, array) {
+                return (elem.textContent || elem.innerText || '').toLowerCase()
+                        .indexOf((match[3] || "").toLowerCase()) >= 0;
+            }
+        });
+        var t = $(tbody);
+        var query = $(input).val();
+        $(t).find('tr').hide();
+        $(t).find('tr').filter(":containsi('" + query + "')").show();
+    });
+}
+
+function faqHandler(){
+    $(".faq-q").click( function () {
+        var container = $(this).parents(".faq-c");
+        var answer = container.find(".faq-a");
+        var trigger = container.find(".faq-t");
+
+        answer.slideToggle(200);
+
+        if (trigger.hasClass("faq-o")) {
+            trigger.removeClass("faq-o");
+        }
+        else {
+            trigger.addClass("faq-o");
+        }
+    });
+}
