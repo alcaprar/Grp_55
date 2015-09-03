@@ -1,3 +1,18 @@
 <h3>Aggiungi Macro-Categorie</h3>
 <p>Utilizza questa form per inserire una nuova macro-categoria nel Catalogo</p>
+<?php $this->headScript()
+    ->appendFile('https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
+    ->appendFile($this->baseUrl('js/functions.js'))
+    ->captureStart() ?>
+// codice jQuery inserito da view-script nella sezione head della pagina
+$(function()
+{
+var actionUrl='<?php echo $this->url(array('controller' => 'admin', 'action' => 'validateaddtopcategory',), 'default'); ?>';
+var formName='<?php echo $this->addTopCategoryForm->getName() ?>';
+$(":input").on('blur', function(event) {
+var formElementId = $(this).attr('id');
+doValidation(formElementId, actionUrl, formName);
+});
+});
+<?php $this->headScript()->captureEnd() ?>
 <?php echo $this->addTopCategoryForm ?>

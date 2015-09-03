@@ -1,3 +1,18 @@
 <h3>Modifica prodotto</h3>
 <p>Utilizza questa form per modificare il prodotto selezionato</p>
+<?php $this->headScript()
+    ->appendFile('https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
+    ->appendFile($this->baseUrl('js/functions.js'))
+    ->captureStart() ?>
+// codice jQuery inserito da view-script nella sezione head della pagina
+$(function()
+{
+var actionUrl='<?php echo $this->url(array('controller' => 'admin', 'action' => 'validateupdateproduct',), 'default'); ?>';
+var formName='<?php echo $this->editProductForm->getName() ?>';
+$(":input").on('blur', function(event) {
+var formElementId = $(this).attr('id');
+doValidation(formElementId, actionUrl, formName);
+});
+});
+<?php $this->headScript()->captureEnd() ?>
 <?php echo $this->editProductForm ?>

@@ -89,6 +89,30 @@ class AdminController extends Zend_Controller_Action
         return $this->_editProductForm;
     }
 
+    public function validateaddproductAction()
+    {
+        $this->_helper->getHelper('layout')->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+
+        $addProductForm = new Application_Form_Admin_Product_Add();
+        $response = $addProductForm->processAjax($_POST);
+        if ($response !== null) {
+            $this->getResponse()->setHeader('Content-type', 'application/json')->setBody($response);
+        }
+    }
+
+    public function validateupdateproductAction()
+    {
+        $this->_helper->getHelper('layout')->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+
+        $editProductForm = new Application_Form_Admin_Product_Edit();
+        $response = $editProductForm->processAjax($_POST);
+        if ($response !== null) {
+            $this->getResponse()->setHeader('Content-type', 'application/json')->setBody($response);
+        }
+    }
+
     public function addproductAction()
     {
         $this->view->headTitle('Aggiungi prodotto');
@@ -416,6 +440,30 @@ class AdminController extends Zend_Controller_Action
         return $this->_editFaqForm;
     }
 
+    public function validateaddfaqAction()
+    {
+        $this->_helper->getHelper('layout')->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+
+        $addFaqForm = new Application_Form_Admin_Faq_Add();
+        $response = $addFaqForm->processAjax($_POST);
+        if ($response !== null) {
+            $this->getResponse()->setHeader('Content-type', 'application/json')->setBody($response);
+        }
+    }
+
+    public function validateupdatefaqAction()
+    {
+        $this->_helper->getHelper('layout')->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+
+        $editFaqForm = new Application_Form_Admin_Faq_Edit();
+        $response = $editFaqForm->processAjax($_POST);
+        if ($response !== null) {
+            $this->getResponse()->setHeader('Content-type', 'application/json')->setBody($response);
+        }
+    }
+
     public function addfaqAction()
     {
         $this->view->headTitle('Aggiungi FAQ');
@@ -566,6 +614,29 @@ class AdminController extends Zend_Controller_Action
         return $this->_editCentroForm;
     }
 
+    public function validateaddcentroAction()
+    {
+        $this->_helper->getHelper('layout')->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+
+        $addCentroForm = new Application_Form_Admin_Centri_Add();
+        $response = $addCentroForm->processAjax($_POST);
+        if ($response !== null) {
+            $this->getResponse()->setHeader('Content-type', 'application/json')->setBody($response);
+        }
+    }
+
+    public function validateupdatecentroAction()
+    {
+        $this->_helper->getHelper('layout')->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+
+        $editCentroForm = new Application_Form_Admin_Centro_Edit();
+        $response = $editCentroForm->processAjax($_POST);
+        if ($response !== null) {
+            $this->getResponse()->setHeader('Content-type', 'application/json')->setBody($response);
+        }
+    }
 
     public function addcentroAction()
     {
@@ -740,6 +811,31 @@ class AdminController extends Zend_Controller_Action
         return $this->_editComponentForm;
     }
 
+    public function validateaddcomponentAction()
+    {
+        $this->_helper->getHelper('layout')->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+
+        $addComponentForm = new Application_Form_Admin_Component_Add();
+        $response = $addComponentForm->processAjax($_POST);
+        if ($response !== null) {
+            $this->getResponse()->setHeader('Content-type', 'application/json')->setBody($response);
+        }
+    }
+
+    public function validateupdatecomponentAction()
+    {
+        $this->_helper->getHelper('layout')->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+
+        $editComponentForm = new Application_Form_Admin_Component_Edit();
+        $response = $editComponentForm->processAjax($_POST);
+        if ($response !== null) {
+            $this->getResponse()->setHeader('Content-type', 'application/json')->setBody($response);
+        }
+    }
+
+
     public function addcomponentAction()
     {
         $this->view->headTitle('Aggiungi componente');
@@ -905,6 +1001,30 @@ class AdminController extends Zend_Controller_Action
         return $this->_editNtbuForm;
     }
 
+    public function validateaddntbuAction()
+    {
+        $this->_helper->getHelper('layout')->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+
+        $addNtbuForm = new Application_Form_Admin_Ntbu_Add();
+        $response = $addNtbuForm->processAjax($_POST);
+        if ($response !== null) {
+            $this->getResponse()->setHeader('Content-type', 'application/json')->setBody($response);
+        }
+    }
+
+    public function validateupdatentbuAction()
+    {
+        $this->_helper->getHelper('layout')->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+
+        $editNtbuForm = new Application_Form_Admin_Ntbu_Edit();
+        $response = $editNtbuForm->processAjax($_POST);
+        if ($response !== null) {
+            $this->getResponse()->setHeader('Content-type', 'application/json')->setBody($response);
+        }
+    }
+
     public function addntbuAction()
     {
         $this->view->headTitle('Aggiungi nota tecnica di buon uso');
@@ -1066,6 +1186,18 @@ class AdminController extends Zend_Controller_Action
 
         $addUserForm = new Application_Form_Admin_User_Add();
         $response = $addUserForm->processAjax($_POST);
+        if ($response !== null) {
+            $this->getResponse()->setHeader('Content-type', 'application/json')->setBody($response);
+        }
+    }
+
+    public function validateupdateuserAction()
+    {
+        $this->_helper->getHelper('layout')->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+
+        $editUserForm = new Application_Form_Admin_User_Edit();
+        $response = $editUserForm->processAjax($_POST);
         if ($response !== null) {
             $this->getResponse()->setHeader('Content-type', 'application/json')->setBody($response);
         }
@@ -1369,6 +1501,31 @@ class AdminController extends Zend_Controller_Action
         return $this->_editTopCategoryForm;
     }
 
+    public function validateaddtopcategoryAction()
+    {
+        $this->_helper->getHelper('layout')->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+
+        $addTopCategoryForm = new Application_Form_Admin_TopCategory_Add();
+        $response = $addTopCategoryForm->processAjax($_POST);
+        if ($response !== null) {
+            $this->getResponse()->setHeader('Content-type', 'application/json')->setBody($response);
+        }
+    }
+
+    public function validateupdatetopcategoryAction()
+    {
+        $this->_helper->getHelper('layout')->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+
+        $editTopCategoryForm = new Application_Form_Admin_TopCategory_Edit();
+        $response = $editTopCategoryForm->processAjax($_POST);
+        if ($response !== null) {
+            $this->getResponse()->setHeader('Content-type', 'application/json')->setBody($response);
+        }
+    }
+
+
     public function addtopcategoryAction()
     {
         $this->view->headTitle('Aggiungi categoria top');
@@ -1526,6 +1683,30 @@ class AdminController extends Zend_Controller_Action
     {
         $this->_editCategoryForm = new Application_Form_Admin_Category_Edit();
         return $this->_editCategoryForm;
+    }
+
+    public function validateaddcategoryAction()
+    {
+        $this->_helper->getHelper('layout')->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+
+        $addCategoryForm = new Application_Form_Admin_Category_Add();
+        $response = $addCategoryForm->processAjax($_POST);
+        if ($response !== null) {
+            $this->getResponse()->setHeader('Content-type', 'application/json')->setBody($response);
+        }
+    }
+
+    public function validateupdatecategoryAction()
+    {
+        $this->_helper->getHelper('layout')->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+
+        $editCategoryForm = new Application_Form_Admin_Category_Edit();
+        $response = $editCategoryForm->processAjax($_POST);
+        if ($response !== null) {
+            $this->getResponse()->setHeader('Content-type', 'application/json')->setBody($response);
+        }
     }
 
     public function addcategoryAction()

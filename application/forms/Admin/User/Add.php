@@ -15,7 +15,9 @@ class Application_Form_Admin_User_Add extends App_Form_Abstract
             'label' => 'Nome',
             'filters' => array('StringTrim'),
             'required' => true,
-            'validators' => array(array('StringLength',true, array(1,45))),
+            'validators' => array(
+                array('StringLength',true, array(1,45)),
+                array('Alpha',true)),
             'decorators' => $this->elementDecorators,
         ));
 
@@ -24,7 +26,9 @@ class Application_Form_Admin_User_Add extends App_Form_Abstract
             'label' => 'Cognome',
             'filters' => array('StringTrim'),
             'required' => true,
-            'validators' => array(array('StringLength',true, array(1,45))),
+            'validators' => array(
+                array('StringLength',true, array(1,45)),
+                array('Alpha',true)),
             'decorators' => $this->elementDecorators,
         ));
 
