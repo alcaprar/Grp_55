@@ -1,5 +1,20 @@
 <h3>Aggiungi Utente</h3>
 <p>Utilizza questa form per inserire un nuovo utente</p>
+<?php $this->headScript()
+    ->appendFile('https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
+    ->appendFile($this->baseUrl('js/functions.js'))
+    ->captureStart() ?>
+// codice jQuery inserito da view-script nella sezione head della pagina
+$(function()
+{
+var actionUrl='<?php echo $this->url(array('controller' => 'admin', 'action' => 'validateadduser',), 'default'); ?>';
+var formName='<?php echo $this->addUserForm->getName() ?>';
+$(":input").on('blur', function(event) {
+var formElementId = $(this).attr('id');
+doValidation(formElementId, actionUrl, formName);
+});
+});
+<?php $this->headScript()->captureEnd() ?>
 <?php echo $this->addUserForm ?>
 <script>
     var label = $('input[type="checkbox"]').parent('label');

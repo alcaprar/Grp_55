@@ -1059,6 +1059,18 @@ class AdminController extends Zend_Controller_Action
         return $this->_editUserForm;
     }
 
+    public function validateadduserAction()
+    {
+        $this->_helper->getHelper('layout')->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+
+        $addUserForm = new Application_Form_Admin_User_Add();
+        $response = $addUserForm->processAjax($_POST);
+        if ($response !== null) {
+            $this->getResponse()->setHeader('Content-type', 'application/json')->setBody($response);
+        }
+    }
+
     //carica la view per l'inserimento di un utente
     public function adduserAction()
     {
