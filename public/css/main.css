@@ -2731,22 +2731,18 @@ tr.border_bottom td {
     display:none;
     z-index:+300;
     position:absolute;
+    border-color: #000000;
     box-shadow: 8px;
 }
 
 .boxSol{
     overflow:auto;
-    width:200px;
-    height:200px;
     background-color:#F0F0E9;
     display:none;
     z-index:+300;
-    position:fixed;
-    left:10%;
-    top:10%;
-    -moz-border-radius: 15px;
-    -webkit-border-radius: 15px;
-    border-radius: 15px;
+    position:absolute;
+    border-color: #000000;
+    box-shadow: 8px;
 }
 
 .pointer{
