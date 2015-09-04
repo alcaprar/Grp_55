@@ -862,7 +862,7 @@ class AdminController extends Zend_Controller_Action
         ));
 
         //recupero il prodotto
-        $row = $this->_adminModel->getComponentByIdFind($id);
+        $row = $this->_adminModel->getComponentById($id);
         foreach($row as $key=>$value) {
             $vector[$key]=$value;
         }
