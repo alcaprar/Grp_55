@@ -2725,10 +2725,32 @@ tr.border_bottom td {
   border-radius: 15px;
 }
 
-.malfDiv .solDiv{
-  position: absolute;
-  z-index: +300;
-  box-shadow: 2px 2px 2px 2px;
+.boxMalf{
+    overflow:auto;
+    padding-left: 1%;
+    padding-right: 1%;
+    background-color:#F0F0E9;
+    display:none;
+    z-index:+300;
+    position:absolute;
+    border-style: solid;
+    border-width: thin;
+    border-color: #080808;
+    box-shadow: 10px 10px 5px #888888;
+}
+
+.boxSol{
+    overflow:auto;
+    padding-left: 1%;
+    padding-right: 1%;
+    background-color:#F0F0E9;
+    display:none;
+    z-index:+300;
+    position:absolute;
+    border-style: solid;
+    border-width: thin;
+    border-color: #080808;
+    box-shadow: 10px 10px 5px #888888;
 }
 
 .pointer{
