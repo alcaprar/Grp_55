@@ -10,6 +10,15 @@ class Application_Form_Staff_Malfunzionamento_Edit extends App_Form_Abstract
         $this->setName('editmalfunction');
         $this->setAction('');
 
+        $this->addElement('text', 'Nome', array(
+            'label' => 'Nome',
+            'filters' => array('StringTrim'),
+            'required' => true,
+            'validators' => array(
+                array('StringLength',true, array(1,50))),
+            'decorators' => $this->elementDecorators,
+        ));
+
         $this->addElement('textarea', 'Malfunzionamento', array(
             'label' => 'Malfunzionamento: ',
             'cols' => '60', 'rows' => '5',
