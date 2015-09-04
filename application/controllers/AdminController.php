@@ -1648,7 +1648,7 @@ class AdminController extends Zend_Controller_Action
         $this->_adminModel->updateTopCategory($values,$id);   //Definita in Model/Amministratore.php
     }
 
-    public function eliminatopcategoriaAction()
+    public function cancellatopcategoriaAction()
     {
         $this->view->headTitle('Cancella categoria top');
         //recupero l'id del prodotto da rimuovere
@@ -1868,7 +1868,7 @@ class AdminController extends Zend_Controller_Action
         $this->_adminModel->updateCategory($values,$id);   //Definita in Model/Amministratore.php
     }
 
-    public function eliminacategoriaAction()
+    public function cancellacategoriaAction()
     {
         $this->view->headTitle('Cancella categoria');
         //recupero l'id del prodotto da rimuovere
