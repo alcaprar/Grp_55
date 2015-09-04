@@ -94,7 +94,6 @@ function liveSearchMalfunction(baseUrl, actionUrl, searchKeyword){
 function filterMalf(input, ul){
     $(input).on('input', function () {
         var query = $(input).val().split(" ")[0];
-        alert(query);
         $(ul).find('li').hide();
         $(ul).find('li').filter(":contains('" + query + "')").show();
     });
