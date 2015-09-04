@@ -191,7 +191,8 @@ class TecnicoController extends Zend_Controller_Action
 
         //arrivata una richiesta di cerca
         if ($request->isPost()) {
-            $query = $request->getPost()['querymalf'];
+            $post = $request->getPost();
+            $query = $post['querymalf'];
             $this->_redirector = $this->_helper->getHelper('Redirector');
 
             $this->_redirector->gotoSimple('cerca',

@@ -142,7 +142,8 @@ class PublicController extends Zend_Controller_Action
 
         //arrivata una richiesta di cerca
         if ($request->isPost()) {
-            $query = $request->getPost()['query'];
+            $post = $request->getPost();
+            $query = $post['query'];
             $this->_redirector = $this->_helper->getHelper('Redirector');
 
             $this->_redirector->gotoSimple('cerca',
