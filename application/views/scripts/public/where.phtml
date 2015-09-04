@@ -31,13 +31,13 @@
                     var map, marker, infowindow;
                     var locations = new Array();
 
-                        <?php
-                         $i=0; foreach($this->Centri as $centro)
-{
-echo"locations[".$i."]=[".$centro['id'].",'".$centro['Nome']."','".$centro['Indirizzo']."',".$centro['Latitudine'].",".$centro['Longitudine']."];\n";
-$i++;
-};
-?>
+                    <?php
+                     $i=0; foreach($this->Centri as $centro)
+                    {
+                    echo"locations[".$i."]=[".$centro['id'].",'".$centro['Nome']."','".$centro['Indirizzo']."',".$centro['Latitudine'].",".$centro['Longitudine']."];\n";
+                    $i++;
+                    };
+                    ?>
 
                     function infoCentro(id){
                         var arrayLenght = locations.length;
@@ -94,36 +94,36 @@ $i++;
                 </script>
                 <div id="map" class="col-sm-6"></div>
                 <?php foreach($this->Centri as $centro)
-{
-   echo'<div class="col-sm-4 contact" id="'.$centro->id.'" style="display:none">
-                    <div class="contact-info">
-                        <h2 class="title text-center">Contact Info</h2>
-                        <address>
-                            <p><b>'.$centro->Nome.'</b></p>
-                            <p>'.$centro->Indirizzo.'</p>
-                            <p><i class="fa fa-phone"></i>Telefono: <a href="skype:'.$centro->Telefono.'?call"> '.$centro->Telefono.'</a></p>';
-    $mobile = ((is_null($centro->Mobile) || $centro->Mobile==='') ? '': '<p><i class="fa fa-mobile"></i>Mobile:<a href="skype:'.$centro->Mobile.'?call"> '.$centro->Mobile.'</a></p>' );
-    $fax = ((is_null($centro->Fax) || $centro->Fax=='') ? '': '<p><i class="fa fa-fax"></i>Fax:<a href="skype:'.$centro->Fax.'?call"> '.$centro->Fax.'</a></p>' );
-    $skype = ((is_null($centro->Skype) || $centro->Skype=='') ? '': '<p><i class="fa fa-skype"></i>Skype: <a href="skype:'.$centro->Skype.'?call"> '.$centro->Skype.'</a></p>' );
-    $email = ((is_null($centro->Email) || $centro->Email=='') ? '': '<p><i class="fa fa-envelope"></i>Email: <a href="mailto:'.$centro->Email.'"> '.$centro->Email.'</a></p>' );
-    $sito = ((is_null($centro->Sito) || $centro->Sito=='') ? '': '<p><i class="fa fa-globe"></i>Sito: <a href="'.$centro->Sito.'"> '.$centro->Sito.'</a></p>' );
-    echo $mobile.
-        $fax.
-        $skype.
-        $email.
-        $sito.'
-                           </address>
-                        <div class="contact-info">
-                            <h2 class="title text-center">Lista tecnici</h2>
-                            ';
-    foreach($this->Tecnici[$centro['id']] as $tec)
-    {
-        echo '<p><i class="fa fa-user"></i>'. $tec['Nome'].' <i class="fa fa-envelope"></i><a href="mailto:'.$tec->Email.'">'.$tec->Email.'</a></p>';
-    }
-                        echo'</div>
-                    </div>
-                </div>';
-}?>
+                    {
+                       echo'<div class="col-sm-4 contact" id="'.$centro->id.'" style="display:none">
+                                            <div class="contact-info">
+                                                <h2 class="title text-center">Contact Info</h2>
+                                                <address>
+                                                    <p><b>'.$centro->Nome.'</b></p>
+                                                    <p>'.$centro->Indirizzo.'</p>
+                                                    <p><i class="fa fa-phone"></i>Telefono: <a href="skype:'.$centro->Telefono.'?call"> '.$centro->Telefono.'</a></p>';
+                            $mobile = ((is_null($centro->Mobile) || $centro->Mobile==='') ? '': '<p><i class="fa fa-mobile"></i>Mobile:<a href="skype:'.$centro->Mobile.'?call"> '.$centro->Mobile.'</a></p>' );
+                            $fax = ((is_null($centro->Fax) || $centro->Fax=='') ? '': '<p><i class="fa fa-fax"></i>Fax:<a href="skype:'.$centro->Fax.'?call"> '.$centro->Fax.'</a></p>' );
+                            $skype = ((is_null($centro->Skype) || $centro->Skype=='') ? '': '<p><i class="fa fa-skype"></i>Skype: <a href="skype:'.$centro->Skype.'?call"> '.$centro->Skype.'</a></p>' );
+                            $email = ((is_null($centro->Email) || $centro->Email=='') ? '': '<p><i class="fa fa-envelope"></i>Email: <a href="mailto:'.$centro->Email.'"> '.$centro->Email.'</a></p>' );
+                            $sito = ((is_null($centro->Sito) || $centro->Sito=='') ? '': '<p><i class="fa fa-globe"></i>Sito: <a href="'.$centro->Sito.'"> '.$centro->Sito.'</a></p>' );
+                            echo $mobile.
+                                $fax.
+                                $skype.
+                                $email.
+                                $sito.'
+                                                   </address>
+                                                <div class="contact-info">
+                                                    <h2 class="title text-center">Lista tecnici</h2>
+                                                    ';
+                            foreach($this->Tecnici[$centro['id']] as $tec)
+                            {
+                                echo '<p><i class="fa fa-user"></i>'. $tec['Nome'].' <i class="fa fa-envelope"></i><a href="mailto:'.$tec->Email.'">'.$tec->Email.'</a></p>';
+                            }
+                            echo'</div>
+                        </div>
+                    </div>';
+                }?>
             </div>
         </div>
     </div>

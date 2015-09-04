@@ -62,7 +62,7 @@ echo'<div class="box" id="malf'.$malf->id.'">
                 $urlfoto = ($this->Prodotto->Foto=='' || is_null($this->Prodotto->Foto))?($this->baseURL().'/images/product-details/image-coming-soon.png'):($this->baseURL() .'/images/products/'. $this->Prodotto->Foto);
                 echo'<div class="features_items"><!--features_items-->
                      <h2 class="title text-center">Catalogo Tecnico</h2>
-                        <div class="col-sm-9 padding-right">
+                        <div class="col-sm-12 padding-right">
 					        <div class="product-details"><!--product-details-->
 						        <div class="col-sm-5">
 							        <div class="view-product">
@@ -117,7 +117,7 @@ echo'<div class="box" id="malf'.$malf->id.'">
 								    <p > Lista componenti:</p>
 								        <ul class="componenti">';
 				foreach($this->Componenti as $comp)
-				{	echo '<li><span id="'.$comp->id.'" onclick="mostraComponente(this.id)">-'.$comp->Nome.'</span></li>';
+				{	echo '<li><span id="'.$comp->id.'" onclick="mostraComponente(this.id)">- '.$comp->Nome.'</span></li>';
 				}
                 echo '</ul>
 								</div>
@@ -130,7 +130,7 @@ echo'<div class="box" id="malf'.$malf->id.'">
 								<p> Lista Malfunzionamenti:</p>
 								<ul class="componenti" id="ul-malf">';
 								foreach($this->Malfunzionamenti as $malf)
-								{	echo '<li id="'.$malf->id.'"><span id="'.$malf->id.'" onclick="mostraMalfunzionamento(this.id)">-'.$malf->Nome.'</span></li>';
+								{	echo '<li id="'.$malf->id.'"><span id="'.$malf->id.'" onclick="mostraMalfunzionamento(this.id)">- '.$malf->Nome.'</span></li>';
 								}?>
 								</ul>
 								</div>
