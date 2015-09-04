@@ -1,17 +1,32 @@
 <script>
-	function mostraMalfunzionamento(id){
-		var malf = $('div.malf#'+id).html();
-		var sol = $('div.sol#'+id).html();
-		alert(sol);
-		var over = '<div id="overlay">' +
-			'<p id="overlaymalf">ID =' +id+'</br>' +
-			'Malf = '+malf+'</br>' +
-			'Sol = '+sol+'</p>' +
-			'</div>';
-		$(over).appendTo('body');
+	function chiudiOverlay(){
+		$('#overlay').fadeOut('fast');
+		$('.box').hide();
 	}
-</script>
 
+	function mostraMalfunzionamento(id){
+		$('#overlay').fadeIn('fast');
+		$('.box#'+id).fadeIn('slow');
+	}
+
+
+</script>
+<div class="overlay" id="overlay" style="display:none;" onclick="chiudiOverlay()"></div>
+<?php foreach($this->Malfunzionamenti as $malf)
+{
+echo'<div class="box" id="'.$malf->id.'">
+	<h1 class="titolo_box">'.$malf->Nome.'</h1>
+	<div class="step-one title text-center">
+        <h2 class="heading">Malfunzionamento</h2>
+    </div>
+	<div><p>'.$malf->Malfunzionamento.'</p></div>
+	<div class="step-one title text-center">
+        <h2 class="heading">Soluzione</h2>
+    </div>
+	<div ><p>'.$malf->Soluzione.'</p></div>
+	<p class="chiudi" onclick="chiudiOverlay()">CHIUDI<i class="fa fa-times"></i></p>
+</div>  <!--fine box-->';
+}?>
 <section>
     <div class="container">
         <div class="row">
@@ -95,12 +110,10 @@
 								    <div class="search_box pull-right">
                         				<input id="querymalffaq" type="text" placeholder="Cerca nella lista"/>
                     				</div>
+
 								        <ul class="componenti">';
 								foreach($this->Malfunzionamenti as $malf)
-								{
-									echo '<li><a id="malf-'.$malf->id.'" onclick="mostraMalfunzionamento(this.id)">-'.$malf->Nome.'</a></li>
-									<div class="malf" id="malf-'.$malf->id.'" style="display:none">'.$malf->Malfunzionamento.'</div>
-									<div class="sol" id="malf-'.$malf->id.'" style="display:none">'.$malf->Soluzione.'</div>';
+								{	echo '<li><span id="'.$malf->id.'" onclick="mostraMalfunzionamento(this.id)">-'.$malf->Nome.'</span></li>';
 								}?>
 								</ul>
 
