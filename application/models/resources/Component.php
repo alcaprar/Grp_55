@@ -64,5 +64,32 @@ class Application_Resource_Component extends Zend_Db_Table_Abstract
 
     }
 
+    public function getCompByName($nome, $paged, $order)
+    {
+        $nome = str_replace('*', '%', $nome);
+        $selectByName = $this->select()
+            ->setIntegrityCheck(false)
+            ->from('Componenti')
+            ->where('Nome LIKE ?', $nome);
+        $selectByDescription = $this->select() //query piuttosto lenta nell'esecuzione
+        ->setIntegrityCheck(false)
+            ->from('Componenti')
+            ->where('Descrizione LIKE ?', '%'.$nome.'%');
+        $select = $this->select()
+            ->union(array($selectByName, $selectByDescription));
+        if (true === is_array($order)) {
+            $select->order($order);
+        }
+        if (null !== $paged) {
+            $adapter = new Zend_Paginator_Adapter_DbTableSelect($select);
+            $paginator = new Zend_Paginator($adapter);
+            $paginator->setItemCountPerPage(3)
+                ->setPageRange(5)
+                ->setCurrentPageNumber((int) $paged);
+            return $paginator;
+        }
+        return $this->fetchAll($select);
+    }
+
 }
 

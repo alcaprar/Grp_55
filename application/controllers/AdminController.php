@@ -113,6 +113,45 @@ class AdminController extends Zend_Controller_Action
         }
     }
 
+    public function redirectorcercaprodottiAction()
+    {
+        $request = $this->getRequest();
+
+        //arrivata una richiesta di cerca
+        if ($request->isPost()) {
+            $query = $request->getPost()['query'];
+            $this->_redirector = $this->_helper->getHelper('Redirector');
+
+            $this->_redirector->gotoSimple('cercaprodotti',
+                'admin',
+                null,
+                array('query' => $query));
+        }
+    }
+
+    public function cercaprodottiAction()
+    {
+        $this->view->headTitle('Risultati ricerca');
+        //recupero i parametri
+        $query = $this->_getParam('query', null);
+        if(strpos($query, '*') === 0){
+            $query = str_replace($query, '', 0, strlen('*'));
+        }
+
+        $page = $this->_getParam('page', 1);
+
+        //se non è nullo recupero i prodotti
+        $prodotti = $this->_adminModel->getProdByName($query, $page, $order=null);
+
+        // Definisce le variabili per il viewer
+        $this->view->assign(array(
+                'query' => $query,
+                'Prodotti' => $prodotti
+            )
+        );
+        return $this->render('modificacancellaprodotto');
+    }
+
     public function addproductAction()
     {
         $this->view->headTitle('Aggiungi prodotto');
@@ -833,6 +872,31 @@ class AdminController extends Zend_Controller_Action
         if ($response !== null) {
             $this->getResponse()->setHeader('Content-type', 'application/json')->setBody($response);
         }
+    }
+
+
+
+    public function cercacomponentiAction()
+    {
+        $this->view->headTitle('Risultati ricerca');
+        //recupero i parametri
+        $query = $this->_getParam('query', null);
+        if(strpos($query, '*') === 0){
+            $query = str_replace($query, '', 0, strlen('*'));
+        }
+
+        $page = $this->_getParam('page', 1);
+
+        //se non è nullo recupero i prodotti
+        $prodotti = $this->_adminModel->getCompByName($query, $page, $order=null);
+
+        // Definisce le variabili per il viewer
+        $this->view->assign(array(
+                'query' => $query,
+                'Componenti' => $prodotti
+            )
+        );
+        return $this->render('modificacancellacomponente');
     }
 
 
@@ -1881,6 +1945,171 @@ class AdminController extends Zend_Controller_Action
     //<----------!!FINE GESTIONE CATEGORIE---------->
 
 
+    public function redirectorurlcercaAction()
+    {
+        $request = $this->getRequest();
+
+        //arrivata una richiesta di cerca
+        if ($request->isPost()) {
+            $this->_redirector = $this->_helper->getHelper('Redirector');
+
+            $post = $request->getPost();
+
+            if(!is_null($post['prodotti']))
+            {
+                $query = $post['prodotti']['query'];
+                $this->_redirector->gotoSimple('cerca', 'admin', null,array('prodotti' => $query));
+            }elseif(!is_null($post['componenti']))
+            {
+                $query = $post['componenti']['query'];
+                $this->_redirector->gotoSimple('cerca', 'admin', null,array('componenti' => $query));
+            }elseif(!is_null($post['ntbu']))
+            {
+                $query = $post['ntbu']['query'];
+                $this->_redirector->gotoSimple('cerca', 'admin', null,array('ntbu' => $query));
+            }elseif(!is_null($post['faq']))
+            {
+                $query = $post['faq']['query'];
+                $this->_redirector->gotoSimple('cerca', 'admin', null,array('faq' => $query));
+            }elseif(!is_null($post['utenti']))
+            {
+                $query = $post['utenti']['query'];
+                $this->_redirector->gotoSimple('cerca', 'admin', null,array('utenti' => $query));
+            }elseif(!is_null($post['centri'])) {
+                $query = $post['centri']['query'];
+                $this->_redirector->gotoSimple('cerca', 'admin', null,array('centri' => $query));
+            }else{
+                $this->_redirector->gotoSimple('index', 'admin', null);
+            }
+        }
+    }
+
+    public function cercaAction()
+    {
+        $this->view->headTitle('Risultati ricerca');
+        //recupero i parametri
+        if(!is_null($query=$this->_getParam('prodotti', null)))
+        {
+            if(strpos($query, '*') === 0){
+                $query = str_replace($query, '', 0, strlen('*'));
+            }
+
+            $page = $this->_getParam('page', 1);
+
+            //se non è nullo recupero i prodotti
+            $prodotti = $this->_adminModel->getProdByName($query, $page, $order=null);
+
+            // Definisce le variabili per il viewer
+            $this->view->assign(array(
+                    'query' => $query,
+                    'Prodotti' => $prodotti
+                )
+            );
+            return $this->render('modificacancellaprodotto');
+        }
+        elseif(!is_null($query=$this->_getParam('componenti', null)))
+        {
+            if(strpos($query, '*') === 0){
+                $query = str_replace($query, '', 0, strlen('*'));
+            }
+
+            $page = $this->_getParam('page', 1);
+
+            //se non è nullo recupero i prodotti
+            $componenti = $this->_adminModel->getCompByName($query, $page, $order=null);
+
+            // Definisce le variabili per il viewer
+            $this->view->assign(array(
+                    'query' => $query,
+                    'Componenti' => $componenti
+                )
+            );
+            return $this->render('modificacancellacomponente');
+        }
+        elseif(!is_null($query=$this->_getParam('ntbu', null)))
+        {
+            if(strpos($query, '*') === 0){
+                $query = str_replace($query, '', 0, strlen('*'));
+            }
+
+            $page = $this->_getParam('page', 1);
+
+            //se non è nullo recupero i prodotti
+            $ntbu = $this->_adminModel->getNtbuByName($query, $page, $order=null);
+            $this->_logger->log($ntbu,Zend_Log::DEBUG);
+
+            // Definisce le variabili per il viewer
+            $this->view->assign(array(
+                    'query' => $query,
+                    'Ntbu' => $ntbu
+                )
+            );
+            return $this->render('modificacancellantbu');
+        }
+        elseif(!is_null($query=$this->_getParam('faq', null)))
+        {
+            if(strpos($query, '*') === 0){
+                $query = str_replace($query, '', 0, strlen('*'));
+            }
+
+            $page = $this->_getParam('page', 1);
+
+            //se non è nullo recupero i prodotti
+            $faq = $this->_adminModel->getFaqByName($query, $page, $order=null);
+
+            // Definisce le variabili per il viewer
+            $this->view->assign(array(
+                    'query' => $query,
+                    'Faq' => $faq
+                )
+            );
+            return $this->render('modificacancellafaq');
+        }
+        elseif(!is_null($query=$this->_getParam('utenti', null)))
+        {
+            if(strpos($query, '*') === 0){
+                $query = str_replace($query, '', 0, strlen('*'));
+            }
+
+            $page = $this->_getParam('page', 1);
+
+            //se non è nullo recupero i prodotti
+            $utenti = $this->_adminModel->getUtentiByName($query, $page, $order=null);
+
+            // Definisce le variabili per il viewer
+            $this->view->assign(array(
+                    'query' => $query,
+                    'Utenti' => $utenti
+                )
+            );
+            return $this->render('modificacancellautente');
+        }
+        elseif(!is_null($query=$this->_getParam('centri', null)))
+        {
+            if(strpos($query, '*') === 0){
+                $query = str_replace($query, '', 0, strlen('*'));
+            }
+
+            $page = $this->_getParam('page', 1);
+
+            //se non è nullo recupero i prodotti
+            $centri = $this->_adminModel->getCentriByName($query, $page, $order=null);
+
+            // Definisce le variabili per il viewer
+            $this->view->assign(array(
+                    'query' => $query,
+                    'Centri' => $centri
+                )
+            );
+            return $this->render('modificacancellacentro');
+        }
+        else
+        {
+            $this->_redirector = $this->_helper->getHelper('Redirector');
+            $this->_redirector->gotoSimple('index', 'admin', null);
+        }
+
+    }
 
     public function viewstaticAction () {
         $page = $this->_getParam('staticPage');

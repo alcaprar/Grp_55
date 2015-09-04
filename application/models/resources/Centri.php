@@ -62,4 +62,35 @@ class Application_Resource_Centri extends Zend_Db_Table_Abstract
         $old->save($old);
 
     }
+
+    public function getCentriByName($nome, $paged, $order)
+    {
+        $nome = str_replace('*', '%', $nome);
+        $selectByName = $this->select()
+            ->setIntegrityCheck(false)
+            ->from('CentriAssistenza')
+            ->where('Nome LIKE ?', $nome);
+        $selectByIndirizzo = $this->select() //query piuttosto lenta nell'esecuzione
+        ->setIntegrityCheck(false)
+            ->from('CentriAssistenza')
+            ->where('Indirizzo LIKE ?', '%'.$nome.'%');
+        $selectByTelefono = $this->select() //query piuttosto lenta nell'esecuzione
+        ->setIntegrityCheck(false)
+            ->from('CentriAssistenza')
+            ->where('Telefono LIKE ?', '%'.$nome.'%');
+        $select = $this->select()
+            ->union(array($selectByName, $selectByIndirizzo,$selectByIndirizzo));
+        if (true === is_array($order)) {
+            $select->order($order);
+        }
+        if (null !== $paged) {
+            $adapter = new Zend_Paginator_Adapter_DbTableSelect($select);
+            $paginator = new Zend_Paginator($adapter);
+            $paginator->setItemCountPerPage(3)
+                ->setPageRange(5)
+                ->setCurrentPageNumber((int) $paged);
+            return $paginator;
+        }
+        return $this->fetchAll($select);
+    }
 }

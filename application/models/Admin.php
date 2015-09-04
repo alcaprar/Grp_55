@@ -87,6 +87,11 @@ class Application_Model_Admin extends App_Model_Abstract
         return $this->getResource('Product')->getProdById($idProdotto);
     }
 
+    public function getProdByName($nomeProdotto, $paged, $order)
+    {
+        return $this->getResource('Product')->getProdByName($nomeProdotto, $paged, $order);
+    }
+
     public function associateComponent($idProdotto, $idComponente)
     {
         return $this->getResource('Composition')->associateComponent($idProdotto,$idComponente);
@@ -137,6 +142,11 @@ class Application_Model_Admin extends App_Model_Abstract
         return $this->getResource('Component')->getComponentByIdFind($idComponente);
     }
 
+    public function getCompByName($nomeComponente, $paged, $order)
+    {
+        return $this->getResource('Component')->getCompByName($nomeComponente, $paged, $order);
+    }
+
     public function insertNtbu($ntbu)
     {
         return $this->getResource('Ntbu')->insertNtbu($ntbu);
@@ -160,6 +170,11 @@ class Application_Model_Admin extends App_Model_Abstract
     public function getNtbuById($id)
     {
         return $this->getResource('Ntbu')->getNtbuById($id);
+    }
+
+    public function getNtbuByName($nomeNtbu, $paged, $order)
+    {
+        return $this->getResource('Ntbu')->getNtbuByName($nomeNtbu, $paged, $order);
     }
 
     public function associateNtbu($idProdotto, $idNtbu)
@@ -227,6 +242,11 @@ class Application_Model_Admin extends App_Model_Abstract
         return $this->getResource('Faq')->getFaqById($idFaq);
     }
 
+    public function getFaqByName($nomeFaq, $paged, $order)
+    {
+        return $this->getResource('Faq')->getFaqByName($nomeFaq, $paged, $order);
+    }
+
     public function insertCentro($centro)
     {
         return $this->getResource('Centri')->insertCentro($centro);
@@ -252,6 +272,11 @@ class Application_Model_Admin extends App_Model_Abstract
     public function getCentroById($idCentro)
     {
         return $this->getResource('Centri')->getCentroById($idCentro);
+    }
+
+    public function getCentriByName($nomeCentri, $paged, $order)
+    {
+        return $this->getResource('Centri')->getCentriByName($nomeCentri, $paged, $order);
     }
 
     public function getUserByName($info)
@@ -282,6 +307,11 @@ class Application_Model_Admin extends App_Model_Abstract
     public function deleteUser($id)
     {
         return $this->getResource('Utenti')->deleteUser($id);
+    }
+
+    public function getUserByQuery($query, $paged, $order)
+    {
+        return $this->getResource('Utenti')->getUserByQuery($query, $paged, $order);
     }
 
     public function insertAppartenenza($idCentro, $idTecnico)

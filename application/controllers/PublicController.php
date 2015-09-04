@@ -150,7 +150,6 @@ class PublicController extends Zend_Controller_Action
                 null,
                 array('query' => $query));
         }
-
     }
 
     //da completare per la ricerca live
