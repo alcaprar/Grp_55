@@ -178,9 +178,15 @@ function showDiv(i){
 function chiudiOverlay(){
     $('#overlay').fadeOut('fast');
     $('.box').hide();
+    $('.box-comp').hide();
 }
 
 function mostraMalfunzionamento(id){
     $('#overlay').fadeIn('fast');
-    $('.box#'+id).fadeIn('slow');
+    $('.box#malf'+id).fadeIn('slow');
+}
+
+function mostraComponente(id){
+    $('#overlay').fadeIn('fast');
+    $('.box#comp'+id).fadeIn('slow');
 }

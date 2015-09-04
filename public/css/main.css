@@ -2710,9 +2710,19 @@ tr.border_bottom td {
 
 }
 
-.box{ width:600px; height:400px; background-color:#FFF; display:none; z-index:+300; position:fixed; left:30%; top:20%; -moz-border-radius: 15px;  -webkit-border-radius: 15px;
+.box{
+  overflow:auto;
+  width:450px;
+  height:500px;
+  background-color:#FFF;
+  display:none;
+  z-index:+300;
+  position:fixed;
+  left:30%;
+  top:10%;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
   border-radius: 15px;}
-
 
 .malfDiv .solDiv{
   position: relative;

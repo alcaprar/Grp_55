@@ -1,7 +1,45 @@
 <div class="overlay" id="overlay" style="display:none;" onclick="chiudiOverlay()"></div>
-<?php foreach($this->Malfunzionamenti as $malf)
+<?php
+foreach($this->Componenti as $comp){
+	$urlfoto = ($comp->Foto=='' || is_null($comp->Foto))?($this->baseURL().'/images/product-details/image-coming-soon.png'):($this->baseURL() .'/images/component/'. $comp->Foto);
+	echo'<div class="box" id="comp'.$comp->id.'">
+		<div class="product-details" ><!--product-details-->
+            <div class="col-sm-5">
+                <div class="view-product">
+                    <img src="'.$urlfoto.'" alt="" />
+                </div>
+
+            </div>
+            <div class="col-sm-7">
+                <div class="product-information"><!--/product-information-->
+
+                    <h2>'.$comp->Nome.'</h2>
+                    <p> ID: '.$comp->id.'</p>
+                </div><!--/product-information-->
+            </div>
+        </div><!--/product-details-->
+
+        <div class="category-tab shop-details-tab"><!--category-tab-->
+            <div class="col-sm-12">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#descrizione" data-toggle="tab">Descrizione</a></li>
+                </ul>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane fade active in" id="descrizione" >
+                    <div class="col-sm-12">
+                        <p>'.$comp->Descrizione.'</p>
+                    </div>
+                </div>
+            </div>
+            <p class="chiudi" onclick="chiudiOverlay()">CHIUDI<i class="fa fa-times"></i></p>
+        </div><!--/category-tab-->
+        </div>';
+}
+
+foreach($this->Malfunzionamenti as $malf)
 {
-echo'<div class="box" id="'.$malf->id.'">
+echo'<div class="box" id="malf'.$malf->id.'">
 	<h1 class="titolo_box">'.$malf->Nome.'</h1>
 	<div class="step-one title text-center">
         <h2 class="heading">Malfunzionamento</h2>
@@ -13,7 +51,8 @@ echo'<div class="box" id="'.$malf->id.'">
 	<div ><p>'.$malf->Soluzione.'</p></div>
 	<p class="chiudi" onclick="chiudiOverlay()">CHIUDI<i class="fa fa-times"></i></p>
 </div>  <!--fine box-->';
-}?>
+};
+?>
 <section>
     <div class="container">
         <div class="row">
@@ -77,16 +116,9 @@ echo'<div class="box" id="'.$malf->id.'">
 								<div class="col-sm-12">
 								    <p > Lista componenti:</p>
 								        <ul class="componenti">';
-                foreach($this->Componenti as $comp)
-                {
-                    echo '<li><a href='.$this->url(array(
-                            'controller' => 'tecnico',
-                            'action'     => 'schedacomponente',
-                            'componente' => $comp->id
-                        ),
-                            'default',true
-                        ).'>' . $comp->Nome . '</a></li>';
-                }
+				foreach($this->Componenti as $comp)
+				{	echo '<li><span id="'.$comp->id.'" onclick="mostraComponente(this.id)">-'.$comp->Nome.'</span></li>';
+				}
                 echo '</ul>
 
 								</div>
