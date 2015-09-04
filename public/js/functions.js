@@ -132,3 +132,37 @@ function faqHandler(){
         }
     });
 }
+
+function addUser(){
+    var label = $('input[type="checkbox"]').parent('label');
+    if($('select#Ruolo').val()=='tecnico'){
+        $('input[type="checkbox"]').hide();
+        label.hide();
+        $('td#Categorie-label').hide();
+        $('td#AddCategory-label').hide();
+        $('a.addcategory').hide();
+    } else{
+        $('select#centri').hide();
+        $('td#centri-label').hide();
+    }
+
+    $('select#Ruolo').on('change', function() {
+        if(this.value =='tecnico'){
+            $('select#centri').show("slow");
+            $('td#centri-label').show("slow");
+            $('input[type="checkbox"]').hide("slow");
+            label.hide();
+            $('td#Categorie-label').hide("slow");
+            $('td#AddCategory-label').hide("slow");
+            $('a.addcategory').hide("slow");
+        } else{
+            $('input[type="checkbox"]').show("slow");
+            label.show();
+            $('td#Categorie-label').show("slow");
+            $('td#AddCategory-label').show("slow");
+            $('a.addcategory').show("slow");
+            $('select#centri').hide("slow");
+            $('td#centri-label').hide("slow");
+        }
+    })
+}

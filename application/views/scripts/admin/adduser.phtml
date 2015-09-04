@@ -1,51 +1,26 @@
-<h3>Aggiungi Utente</h3>
-<p>Utilizza questa form per inserire un nuovo utente</p>
 <?php $this->headScript()
     ->appendFile('https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
     ->appendFile($this->baseUrl('js/functions.js'))
     ->captureStart() ?>
 // codice jQuery inserito da view-script nella sezione head della pagina
+
+//funzione di validazione
 $(function()
 {
-var actionUrl='<?php echo $this->url(array('controller' => 'admin', 'action' => 'validateadduser',), 'default'); ?>';
-var formName='<?php echo $this->addUserForm->getName() ?>';
-$(":input").on('blur', function(event) {
-var formElementId = $(this).attr('id');
-doValidation(formElementId, actionUrl, formName);
+    var actionUrl='<?php echo $this->url(array('controller' => 'admin', 'action' => 'validateadduser',), 'default'); ?>';
+    var formName='<?php echo $this->addUserForm->getName() ?>';
+    $(":input").on('blur', function(event) {
+        var formElementId = $(this).attr('id');
+        doValidation(formElementId, actionUrl, formName);
+    });
 });
+
+//funzione per la modifica della pagina
+$(function(){
+    addUser();
 });
 <?php $this->headScript()->captureEnd() ?>
-<?php echo $this->addUserForm ?>
-<script>
-    var label = $('input[type="checkbox"]').parent('label');
-    if($('select#Ruolo').val()=='tecnico'){
-        $('input[type="checkbox"]').hide();
-        label.hide();
-        $('td#Categorie-label').hide();
-        $('td#AddCategory-label').hide();
-        $('a.addcategory').hide();
-    } else{
-        $('select#centri').hide();
-        $('td#centri-label').hide();
-    }
 
-    $('select#Ruolo').on('change', function() {
-        if(this.value =='tecnico'){
-            $('select#centri').show("slow");
-            $('td#centri-label').show("slow");
-            $('input[type="checkbox"]').hide("slow");
-            label.hide();
-            $('td#Categorie-label').hide("slow");
-            $('td#AddCategory-label').hide("slow");
-            $('a.addcategory').hide("slow");
-        } else{
-            $('input[type="checkbox"]').show("slow");
-            label.show();
-            $('td#Categorie-label').show("slow");
-            $('td#AddCategory-label').show("slow");
-            $('a.addcategory').show("slow");
-            $('select#centri').hide("slow");
-            $('td#centri-label').hide("slow");
-        }
-    })
-</script>
+<h3>Aggiungi Utente</h3>
+<p>Utilizza questa form per inserire un nuovo utente</p>
+<?php echo $this->addUserForm ?>

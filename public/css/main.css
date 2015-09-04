@@ -1846,7 +1846,12 @@ tr.border_bottom td {
 **************************/
 
 .step-one {
-  margin-bottom: -10px
+  margin-top: -15px;
+  margin-bottom: -20px;
+}
+
+.step-two {
+  margin-bottom: -20px;
 }
 
 .register-req, .step-one .heading {
@@ -2672,4 +2677,5 @@ tr.border_bottom td {
     left:0px;
     overflow:auto;
 }
+
 

@@ -6,10 +6,10 @@
 $(function(){
     $('#selectProdotti').change(function(event){
         //inizio loading
-var over = '<div id="overlay">' +
-    '<img id="loading" src="<?php echo $this->baseURL();?>/images/ajax-loader.gif">' +
-    '</div>';
-$(over).appendTo('body');
+        var over = '<div id="overlay">' +
+            '<img id="loading" src="<?php echo $this->baseURL();?>/images/ajax-loader.gif">' +
+            '</div>';
+        $(over).appendTo('body');
         $.ajax({
             type: 'POST',
             url: '<?php echo $this->url(array(
@@ -20,24 +20,23 @@ $(over).appendTo('body');
                         )?>',
             data: { id: $('#selectProdotti').val() },
             dataType: 'json',
-complete: function(){
-$('#overlay').remove();
-},
+            complete: function(){
+                $('#overlay').remove();
+            },
             success: function(data){
-setMalfunzionamenti(data);
-},
-error:function(){
-alert("fail :(");
-}
+                setMalfunzionamenti(data);
+                },
+                error:function(){
+                alert("fail :(");
+            }
         });
     });
-
     function setMalfunzionamenti(data){
-$('div#steptwo').show("slow");
-$(':checkbox').prop('checked',false);
+        $('div#steptwo').show();
+        $(':checkbox').prop('checked',false);
         for(var i in data){
-$(':checkbox#'+data[i]).prop('checked', true)
-    }
+            $(':checkbox#'+data[i]).prop('checked', true)
+        }
     }
 });
 
@@ -47,8 +46,8 @@ $(':checkbox#'+data[i]).prop('checked', true)
 <div class="col-sm-9 padding-right">
     <h3>Associa Malfunzionamento</h3>
     <p>Utilizza questa pagina per gestire l'associazione tra prodotti e malfunzionamenti.</p>
-    <div class="step-one col-md-12">
-        <h2 class="heading">Step1</h2>
+    <div class="step-one title text-center col-md-6">
+        <h2 class="heading">Step 1</h2>
     </div>
     <div class="col-md-9">
         <p>Scegli un prodotto:</p>
@@ -58,8 +57,9 @@ $(':checkbox#'+data[i]).prop('checked', true)
         ),
             'default'
         ) ?>
-        <form id="associatemalfunction" action="<?= $action ?>" method="post" enctype="application/x-www-form-urlencoded" name="associatemalfunction">
-        <select class="col-sm-3" id="selectProdotti" name="selectProdotti">
+        <form class="step-two" id="associatemalfunction" action="<?= $action ?>" method="post" enctype="application/x-www-form-urlencoded" name="associatemalfunction">
+        <select class="col-sm-3" id="selectProdotti" name="selectProdotti" >
+            <option value="" disabled selected>Seleziona un prodotto</option>
             <?php
             foreach($this->Prodotti as $prod)
             {
@@ -69,17 +69,24 @@ $(':checkbox#'+data[i]).prop('checked', true)
         </select>
     </div>
     <div id ="steptwo" style="display: none">
-    <div class="step-one col-md-12">
+    <div class="step-one title text-center col-md-6">
         <h2 class="heading">Step2</h2>
     </div>
     <div class="col-sm-9" id="checkboxes">
         <p>Scegli i malfunzionamenti da associare:</p>
-        <?php
-        foreach($this->Malfunzionamenti as $malf)
-        {
-            echo '<input type="checkbox" name="malf[]" value="'.$malf->id.'" id="'.$malf->id.'">'.$malf->Malfunzionamento.'</input>';
-        }
-        ?>
+        <table>
+            <?php
+            foreach($this->Malfunzionamenti as $malf)
+            {
+                echo '<tr>
+                <td>
+                <input type="checkbox" name="malf[]" value="'.$malf->id.'" id="'.$malf->id.'">'.$malf->Malfunzionamento.'</input>
+                </td>
+                </tr>
+                ';
+            }
+            ?>
+        </table>
     </div>
         <div class="col-md-9">
         <input type="submit" value="Associa malfunzionamenti">

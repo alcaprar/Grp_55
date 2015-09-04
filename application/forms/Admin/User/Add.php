@@ -114,7 +114,7 @@ class Application_Form_Admin_User_Add extends App_Form_Abstract
         );
 
         $this->addElement('Note','AddCategory',array(
-            'value' => '<a class ="addcategory" href="'.$url.'">Inserisci una nuova categoria</a>',
+            'value' => '<a class="addcategory" href="'.$url.'">Inserisci una nuova categoria</a>',
             'decorators' => $this->elementDecorators,
             'class' => 'addcategory'
         ));
