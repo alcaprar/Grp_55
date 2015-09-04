@@ -126,15 +126,14 @@ echo'<div class="box" id="malf'.$malf->id.'">
 							<div class="tab-pane fade" id="malfunzionamenti" >
 								<div class="col-sm-12">
 								<div class="search_box pull-right">
-									<input id="querymalflist" type="text" placeholder="Cerca nella lista"/>
+									<input id="listMalf" type="text" placeholder="Cerca nella lista"/>
 								</div>
 								<p> Lista Malfunzionamenti:</p>
-								<ul id="ul-malf">';
+								<ul class="componenti" id="ul-malf">';
 								foreach($this->Malfunzionamenti as $malf)
 								{	echo '<li><span id="'.$malf->id.'" onclick="mostraMalfunzionamento(this.id)">-'.$malf->Nome.'</span></li>';
 								}?>
 								</ul>
-
 								</div>
 							</div>
 						</div>

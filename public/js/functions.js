@@ -87,15 +87,6 @@ function liveSearchMalfunction(baseUrl, actionUrl, searchKeyword){
         }
 }
 
-function filterList(input, tbody){
-    $(input).on('input', function () {
-        var t = $(tbody);
-        var query = $(input).val().split(" ")[0];
-        $(t).find('tr').hide();
-        $(t).find('tr').filter(":contains('" + query + "')").show();
-    });
-}
-
 function filterMalf(input, ul){
     $(input).on('input', function () {
         var query = $(input).val().split(" ")[0];

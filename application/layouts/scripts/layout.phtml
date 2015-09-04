@@ -247,7 +247,6 @@
 <script src="<?php echo $this->baseURL();?>/js/price-range.js"></script>
 <script src="<?php echo $this->baseURL();?>/js/jquery.prettyPhoto.js"></script>
 <script src="<?php echo $this->baseURL();?>/js/main.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 <script>
     $(function(){
         faqHandler();
@@ -271,12 +270,7 @@
 </script>
 <script type="text/javascript">
     $(function() {
-        filterList($('#querymalftab'), $('#fbody'));
-    });
-</script>
-<script type="text/javascript">
-    $(function() {
-        filterMalf($('#querymalflist'), $('ul#ul-malf'));
+        filterMalf($('#listMalf'), $('ul#ul-malf'));
     });
 </script>
 </body>
