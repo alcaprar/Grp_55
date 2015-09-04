@@ -183,10 +183,18 @@ function mostraComponente(id){
     $('.box#comp'+id).fadeIn('slow');
 }
 
+function showDivRicerca(pid){
+    var id = pid.split("-")[1];
+    showDivSol(id);
+    showDivMalf(id)
+}
+
 function showDivMalf(id){
-    alert(id);
-    $('p.malf-breve#'+id).toggle();
-    $('p.sol-breve#'+id).toggle();
-    $('p.malf-lungo#'+id).toggle();
-    $('p.sol-lungo#'+id).toggle();
+    $('#malfBreve-'+id).slideToggle();
+    $('#malfLungo-'+id).slideToggle();
+}
+
+function showDivSol(id){
+    $('#solBreve-'+id).slideToggle();
+    $('#solLungo-'+id).slideToggle();
 }
