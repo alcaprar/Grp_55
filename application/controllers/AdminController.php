@@ -726,7 +726,7 @@ class AdminController extends Zend_Controller_Action
         $this->_adminModel->insertCentro($values);
     }
 
-    public function modificaCentroAction()
+    public function modificacentroAction()
     {
         $this->view->headTitle('Aggiorna centro assistenza');
         //questa azione deve essere richiamata solo da richieste post
