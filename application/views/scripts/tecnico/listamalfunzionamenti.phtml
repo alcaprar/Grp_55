@@ -19,15 +19,19 @@
                                 <tbody id="fbody">
                                 <?php
 foreach($this->Malfunzionamenti as $malf){
-    $malfunzionamento =  strlen($malf->Malfunzionamento) > 50 ? substr($malf->Malfunzionamento,0,50)."..." : $malf->Malfunzionamento;
-    $soluzione =  strlen($malf->Soluzione) > 50 ? substr($malf->Soluzione,0,50)."..." : $malf->Soluzione;
     echo'<tr>
-                                    <td  class="cart_description">
-                                        <p>'.$malfunzionamento.'</p>
-                                    </td>
-                                    <td  class="cart_description">
-                                        <p> '.$soluzione.'</p>
-                                    </td>
+                                    <td  class="cart_description">';
+    echo strlen($malf->Malfunzionamento) > 50 ?
+        '<p id ="malfBreve-'.$malf->id.'" onclick="showDivRicerca(this.id)">'.substr($malf->Malfunzionamento,0,50).'...<i class="fa fa-plus"></i></p>
+        <p style="display:none" id ="malfLungo-'.$malf->id.'" onclick="showDivRicerca(this.id)">'.$malf->Malfunzionamento.'<i class="fa fa-minus"></i></p>':
+        '<p>'.$malf->Malfunzionamento.'</p>';
+    echo'</td>
+                <td  class="cart_description">';
+    echo strlen($malf->Soluzione) > 50 ?
+        '<p id ="solBreve-'.$malf->id.'" onclick="showDivRicerca(this.id)">'.substr($malf->Soluzione,0,50).'...<i class="fa fa-plus"></i></p>
+        <p style="display:none" id ="solLungo-'.$malf->id.'" onclick="showDivRicerca(this.id)">'.$malf->Soluzione.'<i class="fa fa-minus"></i></p>':
+        '<p>'.$malf->Soluzione.'</p>';
+    echo '</td>
                                 </tr>';
 }
 echo'</tbody>
