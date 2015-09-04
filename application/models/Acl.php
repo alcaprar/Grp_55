@@ -7,8 +7,8 @@ class Application_Model_Acl extends Zend_Acl
         //definisco i ruoli
         $this->addRole(new Zend_Acl_Role('unregistered'));
         $this->addRole(new Zend_Acl_Role('tecnico'),'unregistered');
-        $this->addRole(new Zend_Acl_Role('staff'),'tecnico');
-        $this->addRole(new Zend_Acl_Role('admin'),'staff');
+        $this->addRole(new Zend_Acl_Role('staff'));
+        $this->addRole(new Zend_Acl_Role('admin'));
 
         //definisco le risorse
         $this->addResource(new Zend_Acl_Resource('error'));
@@ -25,6 +25,8 @@ class Application_Model_Acl extends Zend_Acl
         $this->deny('tecnico','public','login');
         $this->allow('tecnico','tecnico');
         $this->allow('staff','staff');
+        $this->allow('staff','public','logout');
         $this->allow('admin','admin');
+        $this->allow('admin','public','logout');
     }
 }

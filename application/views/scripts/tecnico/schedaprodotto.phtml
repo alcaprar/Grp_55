@@ -1,16 +1,3 @@
-<script>
-	function chiudiOverlay(){
-		$('#overlay').fadeOut('fast');
-		$('.box').hide();
-	}
-
-	function mostraMalfunzionamento(id){
-		$('#overlay').fadeIn('fast');
-		$('.box#'+id).fadeIn('slow');
-	}
-
-
-</script>
 <div class="overlay" id="overlay" style="display:none;" onclick="chiudiOverlay()"></div>
 <?php foreach($this->Malfunzionamenti as $malf)
 {

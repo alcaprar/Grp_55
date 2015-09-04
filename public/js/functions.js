@@ -43,7 +43,7 @@ function searchDelay(box, callback, delay, baseUrl, actionUrl, div) {
             callback(baseUrl, actionUrl, searchKeyword);
         }, delay );
     });
-    //se la searchbox è vuota svuota anche l'elenco di risultati per nascondere il div
+    //se la searchbox ï¿½ vuota svuota anche l'elenco di risultati per nascondere il div
     $(box).on('blur', function () {
         if($(box).val() == null) $(div).find('ul').empty();
     });
@@ -173,4 +173,14 @@ function showDiv(i){
             $(i).find('div').toggle(); // Toggle the element's visibility
         });
     });
+}
+
+function chiudiOverlay(){
+    $('#overlay').fadeOut('fast');
+    $('.box').hide();
+}
+
+function mostraMalfunzionamento(id){
+    $('#overlay').fadeIn('fast');
+    $('.box#'+id).fadeIn('slow');
 }

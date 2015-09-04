@@ -51,13 +51,9 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="logo pull-left">
-                        <a href=" <?= $this->url(array(
-                            'controller' => 'index',
-                            'action'     => 'index',
-                        ),
-                            'default',true
-                        );
-                        ?>"><img class="border-radius" height="54" width="140" src="<?php echo $this->baseURL();?>/images/home/logo.png" alt="" /></a>
+                        <a href=" <?= $this->url(array('controller' => 'admin','action'=> 'index',),'default',true); ?>">
+                            <img class="border-radius" height="54" width="140" src="<?php echo $this->baseURL();?>/images/home/logo.png" alt="" />
+                        </a>
                     </div>
                 </div>
                 <div class="col-sm-8">
@@ -82,27 +78,6 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                    </div>
-                    <div class="mainmenu pull-left">
-                        <?php echo $this->navigation()->menu()
-                            ->setUlClass('nav navbar-nav collapse navbar-collapse')
-                            ->renderMenu($this->layout()->mainMenu) ?>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="search_box pull-right">
-                        <form action="<?= $this->url(array(
-                            'controller' => 'public',
-                            'action'     => 'redirectorurlcerca',
-                        ),
-                            'default',true
-                        );
-                        ?>" method="post">
-                            <input name="query" id="query" type="text" placeholder="Cerca prodotto"/>
-                        </form>
-                        <div id="dropdown" class="search-div">
-                            <ul id="content" class="search-ul"></ul>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -290,22 +265,6 @@
     <div class="footer-widget">
         <div class="container">
             <div class="row">
-                <div class="col-sm-2">
-                    <div class="single-widget">
-                        <h2>Servizi</h2>
-                        <?php echo $this->navigation()->menu()
-                            ->setUlClass('nav nav-pills nav-stacked')
-                            ->renderMenu($this->layout()->serviziMenu) ?>
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <div class="single-widget">
-                        <h2>Su di noi</h2>
-                        <?php echo $this->navigation()->menu()
-                            ->setUlClass('nav nav-pills nav-stacked')
-                            ->renderMenu($this->layout()->suDiNoiMenu) ?>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -313,7 +272,7 @@
     <div class="footer-bottom">
         <div class="container">
             <div class="row">
-                <p class="pull-left">Copyright © 2013 E-SHOPPER Inc. All rights reserved.</p>
+                <p class="pull-left">Copyright © 2015 Gruppo 55 All rights reserved.</p>
                 <p class="pull-right">Designed by <span><a target="_blank" href="http://www.themeum.com">Themeum</a></span></p>
             </div>
         </div>

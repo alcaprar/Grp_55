@@ -52,7 +52,7 @@
                 <div class="col-sm-4">
                     <div class="logo pull-left">
                         <a href=" <?= $this->url(array(
-                            'controller' => 'index',
+                            'controller' => 'staff',
                             'action'     => 'index',
                         ),
                             'default',true
@@ -82,24 +82,6 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                    </div>
-                    <div class="mainmenu pull-left">
-                        <?php echo $this->navigation()->menu()
-                            ->setUlClass('nav navbar-nav collapse navbar-collapse')
-                            ->renderMenu($this->layout()->mainMenu) ?>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="search_box pull-right">
-                        <form action="<?= $this->url(array(
-                            'controller' => 'public',
-                            'action'     => 'redirectorurlcerca',
-                        ),
-                            'default',true
-                        );
-                        ?>" method="post">
-                            <input name="query" id="query" type="text" placeholder="Cerca prodotto"/>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -238,10 +220,17 @@
         </div>
     </div>
 
+    <div class="footer-widget">
+        <div class="container">
+            <div class="row">
+            </div>
+        </div>
+    </div>
+
     <div class="footer-bottom">
         <div class="container">
             <div class="row">
-                <p class="pull-left">Copyright © 2013 E-SHOPPER Inc. All rights reserved.</p>
+                <p class="pull-left">Copyright © 2015 Gruppo 55 All rights reserved.</p>
                 <p class="pull-right">Designed by <span><a target="_blank" href="http://www.themeum.com">Themeum</a></span></p>
             </div>
         </div>
