@@ -137,11 +137,6 @@ class Application_Model_Admin extends App_Model_Abstract
         return $this->getResource('Component')->getComponentById($idComponent);
     }
 
-    public function getComponentByIdFind($idComponente)
-    {
-        return $this->getResource('Component')->getComponentByIdFind($idComponente);
-    }
-
     public function getCompByName($nomeComponente, $paged, $order)
     {
         return $this->getResource('Component')->getCompByName($nomeComponente, $paged, $order);
