@@ -2725,10 +2725,28 @@ tr.border_bottom td {
   border-radius: 15px;
 }
 
-.malfDiv .solDiv{
-  position: absolute;
-  z-index: +300;
-  box-shadow: 2px 2px 2px 2px;
+.boxMalf{
+    overflow:auto;
+    background-color:#F0F0E9;
+    display:none;
+    z-index:+300;
+    position:absolute;
+    box-shadow: 8px;
+}
+
+.boxSol{
+    overflow:auto;
+    width:200px;
+    height:200px;
+    background-color:#F0F0E9;
+    display:none;
+    z-index:+300;
+    position:fixed;
+    left:10%;
+    top:10%;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    border-radius: 15px;
 }
 
 .pointer{

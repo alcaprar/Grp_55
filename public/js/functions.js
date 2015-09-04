@@ -161,9 +161,15 @@ function addUser(){
     })
 }
 
-function showDiv(id){
-    $(function(){// When hovering
-        $('i#'+ id).parent().children('div').toggle(); // Toggle the element's visibility
+function showMalf(id){
+    $(function(){
+        $('.boxMalf#'+ id).toggle(); // Toggle the element's visibility
+    });
+}
+
+function showSol(id){
+    $(function(){
+        $('.boxSol#'+ id).toggle(); // Toggle the element's visibility
     });
 }
 
