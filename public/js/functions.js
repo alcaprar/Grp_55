@@ -63,7 +63,7 @@ function searchDelay(box, callback, delay, baseUrl, actionUrl, div) {
                 callback(baseUrl, actionUrl, searchKeyword);
             }, delay );
         }
-    })
+    });
     box = null;
 }
 
