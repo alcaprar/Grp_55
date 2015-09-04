@@ -89,6 +89,15 @@ class Application_Form_Admin_Centri_Edit extends App_Form_Abstract
             'decorators' => $this->elementDecorators,
         ));
 
+        $this->addElement('text', 'Sito', array(
+            'label' => 'Sito',
+            'filters' => array('StringTrim'),
+            'required' => false,
+            'validators' => array(
+                array('StringLength',true, array(1,300))),
+            'decorators' => $this->elementDecorators,
+        ));
+
         $this->addElement('submit', 'add', array(
             'label' => 'Modifica Centro Assistenza',
             'decorators' => $this->buttonDecorators,
