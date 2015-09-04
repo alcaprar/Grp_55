@@ -46,11 +46,12 @@ class Application_Resource_Category extends Zend_Db_Table_Abstract
         $select = $this->select()
             ->where('Tipo IN(?)', $top)
             ->order('Nome');
+
         return $this->fetchAll($select);
     }
 
     //estrae tutte le categorie
-    public function getCategorie($where=null)
+    public function getCategorie($where=null,$paged=null, $order=null)
     {
         $select = $this->select()
             ->from('Categorie')
@@ -58,6 +59,18 @@ class Application_Resource_Category extends Zend_Db_Table_Abstract
         if(true ===is_array($where)){
             $select->where('id IN(?)',$where);
         }
+        if (true === is_array($order)) {
+            $select->order($order);
+        }
+        if (null !== $paged) {
+            $adapter = new Zend_Paginator_Adapter_DbTableSelect($select);
+            $paginator = new Zend_Paginator($adapter);
+            $paginator->setItemCountPerPage(3)
+                ->setPageRange(5)
+                ->setCurrentPageNumber((int) $paged);
+            return $paginator;
+        }
+
         return $this->fetchAll($select);
     }
 }
