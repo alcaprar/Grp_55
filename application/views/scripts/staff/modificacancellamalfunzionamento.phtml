@@ -30,21 +30,21 @@ echo'<div class="col-sm-9 padding-right">
                                 </td>
                                     <td  class="cart_description">
                                         <p>'.$malfunzionamento.'</p>
-                                        <div class="boxMalf" id="'.$malf->id.'">
+                                        <div class="boxMalf" id="m-'.$malf->id.'">
 	                                    <p>'.$malf->Malfunzionamento.'</p>
                                         </div>
                                     </td>
                                     <td>
-                                        <i class="fa fa-plus-square pointer" onclick="showMalf(this.id)" id="'.$malf->id.'"></i>
+                                        <i class="fa fa-plus-square pointer" onclick="showMalf(this.id)" id="m-'.$malf->id.'"></i>
                                     </td>
                                     <td  class="cart_description">
-                                        <p> '.$soluzione.'</p>
-                                        <div class="boxSol" id="'.$malf->id.'">
+                                        <p>'.$soluzione.'</p>
+                                        <div class="boxSolution" id="s-'.$malf->id.'">
 	                                    <p>'.$malf->Soluzione.'</p>
                                         </div>
                                     </td>
                                     <td>
-                                        <i class="fa fa-plus-square pointer" onclick="showSol(this.id)" id="'.$malf->id.'"></i>
+                                        <i class="fa fa-plus-square pointer" onclick="showSolution(this.id)" id="s-'.$malf->id.'"></i>
                                     </td>
                                     <td  class="cart_delete">
                                         <p><a class="cart_quantity_delete" href="'.$this->url(array(

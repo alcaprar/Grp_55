@@ -2726,6 +2726,8 @@ tr.border_bottom td {
 }
 
 .boxMalf{
+    max-width: 300px;
+    max-height: 100px;
     overflow:auto;
     padding-left: 1%;
     padding-right: 1%;
@@ -2739,7 +2741,9 @@ tr.border_bottom td {
     box-shadow: 10px 10px 5px #888888;
 }
 
-.boxSol{
+.boxSolution{
+    max-width: 300px;
+    max-height: 100px;
     overflow:auto;
     padding-left: 1%;
     padding-right: 1%;
