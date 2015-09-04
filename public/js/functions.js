@@ -96,11 +96,11 @@ function filterList(input, tbody){
     });
 }
 
-function filterFaq(input, div){
+function filterMalf(input, ul){
     $(input).on('input', function () {
         var query = $(input).val().split(" ")[0];
-        $(div).find('.faq-c').hide();
-        $(div).find('.faq-c').filter(":contains('" + query + "')").show();
+        $(ul).find('li').hide();
+        $(ul).find('li').filter(":contains('" + query + "')").show();
     });
 }
 
