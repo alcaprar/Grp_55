@@ -29,7 +29,7 @@ class Application_Form_Admin_User_Edit extends App_Form_Abstract
             'decorators' => $this->elementDecorators,
         ));
 
-        $email = $this->createElement('text', 'Email', array(
+        $this->addElement('text', 'Email', array(
             'label' => 'Email',
             'filters' => array('StringTrim'),
             'required' => true,
@@ -45,9 +45,6 @@ class Application_Form_Admin_User_Edit extends App_Form_Abstract
             ),
             'decorators' => $this->elementDecorators,
         ));
-        $email->addErrorMessage('Email non valida!');
-
-        $this->addElement($email);
 
         //username dell'utente
         $this->addElement('text', 'Username', array(
