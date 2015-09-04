@@ -98,12 +98,6 @@ function filterList(input, tbody){
 
 function filterFaq(input, div){
     $(input).on('input', function () {
-        $.extend($.expr[':'], {
-            'containsi': function (elem, i, match, array) {
-                return (elem.textContent || elem.innerText || '').toLowerCase()
-                        .indexOf((match[3] || "").toLowerCase()) >= 0;
-            }
-        });
         var query = $(input).val().split(" ")[0];
         $(div).find('.faq-c').hide();
         $(div).find('.faq-c').filter(":contains('" + query + "')").show();
