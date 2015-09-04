@@ -17,9 +17,9 @@ class Application_Model_Admin extends App_Model_Abstract
         return $this->getResource('TopCategory')->getTopCatById($id);
     }
 
-    public function getCats()
+    public function getCats($paged = null, $order =null,$where=null)
     {
-        return $this->getResource('Category')->getCategorie();
+        return $this->getResource('Category')->getCategorie($where,$paged, $order);
     }
 
     public function getCatById($id)

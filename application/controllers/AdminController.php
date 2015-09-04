@@ -1648,7 +1648,7 @@ class AdminController extends Zend_Controller_Action
         $this->_adminModel->updateTopCategory($values,$id);   //Definita in Model/Amministratore.php
     }
 
-    public function eliminatopcategoriaAction()
+    public function cancellatopcategoriaAction()
     {
         $this->view->headTitle('Cancella categoria top');
         //recupero l'id del prodotto da rimuovere
@@ -1737,7 +1737,7 @@ class AdminController extends Zend_Controller_Action
         }
 
         $urlHelper = $this->_helper->getHelper('url');
-        $this->_editUserForm->setAction($urlHelper->url(array(
+        $this->_editCategoryForm->setAction($urlHelper->url(array(
             'controller' => 'admin',
             'action' => 'modificacategoria',
             'id' => $id
@@ -1751,10 +1751,6 @@ class AdminController extends Zend_Controller_Action
         foreach($row as $key=>$value) {
             $vector[$key]=$value;
         }
-
-
-        $this->view->assign('vector',$vector);
-
 
         //rimuovo i campi che non ci sono nella form
         unset($vector['id']);
@@ -1777,10 +1773,15 @@ class AdminController extends Zend_Controller_Action
     public function modificacancellacategoriaAction()
     {
         $this->view->headTitle('Gestisci categorie');
-        $categorie = $this->_adminModel->getCats();
+
+        //recupero l'eventuale pagina
+        $paged = $this->_request->getParam('page',1);
+
+        $categorie = $this->_adminModel->getCats($paged, $where =null, $order=null );
 
         //assegno le variabili alla view
         $this->view->assign('Categorie',$categorie);
+
     }
 
     public function aggiungicategoriaAction()
@@ -1867,7 +1868,7 @@ class AdminController extends Zend_Controller_Action
         $this->_adminModel->updateCategory($values,$id);   //Definita in Model/Amministratore.php
     }
 
-    public function eliminacategoriaAction()
+    public function cancellacategoriaAction()
     {
         $this->view->headTitle('Cancella categoria');
         //recupero l'id del prodotto da rimuovere

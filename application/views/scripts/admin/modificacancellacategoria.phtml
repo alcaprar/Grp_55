@@ -44,6 +44,9 @@ echo'<div class="col-sm-9 padding-right">
                             echo'</tbody>
                             </table>
                         </div>
-                    </div>
-                </div><!--features_items-->
+                    </div>';
+if($this->Categorie instanceof Zend_Paginator) {
+    echo '<div class="text-center">'.$this->paginationControl($this->Categorie,'Elastic','admin/_paginatorCategory.phtml').'</div>';
+};
+  echo'              </div><!--features_items-->
             </div>';
