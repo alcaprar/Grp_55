@@ -161,9 +161,9 @@ function showMalf(id){
     });
 }
 
-function showSol(id){
+function showSolution(id){
     $(function(){
-        $('.boxSol#'+ id).toggle(); // Toggle the element's visibility
+        $('.boxSolution#'+id).toggle(); // Toggle the element's visibility
     });
 }
 
