@@ -89,12 +89,6 @@ function liveSearchMalfunction(baseUrl, actionUrl, searchKeyword){
 
 function filterList(input, tbody){
     $(input).on('input', function () {
-        $.extend($.expr[':'], {
-            'containsi': function (elem, i, match, array) {
-                return (elem.textContent || elem.innerText || '').toLowerCase()
-                        .indexOf((match[3] || "").toLowerCase()) >= 0;
-            }
-        });
         var t = $(tbody);
         var query = $(input).val().split(" ")[0];
         $(t).find('tr').hide();
@@ -167,11 +161,9 @@ function addUser(){
     })
 }
 
-function showDiv(i){
-    $(function(){
-        $(i).hover(function() { // When hovering
-            $(i).parent().find('div').toggle(); // Toggle the element's visibility
-        });
+function showDiv(id){
+    $(function(){// When hovering
+        $('i#'+ id).parent().children('div').toggle(); // Toggle the element's visibility
     });
 }
 

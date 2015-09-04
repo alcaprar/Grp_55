@@ -2722,8 +2722,15 @@ tr.border_bottom td {
   top:10%;
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
-  border-radius: 15px;}
+  border-radius: 15px;
+}
 
 .malfDiv .solDiv{
-  position: relative;
+  position: absolute;
+  z-index: +300;
+  box-shadow: 2px 2px 2px 2px;
+}
+
+.pointer{
+  cursor: pointer;
 }

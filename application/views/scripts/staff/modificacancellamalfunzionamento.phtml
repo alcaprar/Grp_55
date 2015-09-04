@@ -32,14 +32,14 @@ echo'<div class="col-sm-9 padding-right">
                                         <p>'.$malfunzionamento.'</p>
                                     </td>
                                     <td>
-                                        <i class="fa fa-plus-square" id="'.$malf->id.'"></i>
+                                        <i class="fa fa-plus-square pointer" onclick="showDiv(this.id)" id="'.$malf->id.'"></i>
                                         <div class="malfDiv" id="'.$malf->id.'" style="display: none">'.$malf->Malfunzionamento.'</div>
                                     </td>
                                     <td  class="cart_description">
                                         <p> '.$soluzione.'</p>
                                     </td>
                                     <td>
-                                        <i class="fa fa-plus-square" id="'.$malf->id.'"></i>
+                                        <i class="fa fa-plus-square pointer" onclick="showDiv(this.id)" id="'.$malf->id.'"></i>
                                         <div class="solDiv" id="'.$malf->id.'" style="display: none">'.$malf->Soluzione.'</div>
                                     </td>
                                     <td  class="cart_delete">
