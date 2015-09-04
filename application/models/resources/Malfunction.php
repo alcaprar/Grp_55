@@ -82,7 +82,7 @@ class Application_Resource_Malfunction extends Zend_Db_Table_Abstract
     //rimuove un malfunzionamento
     public function deleteMalfunction($id)
     {
-        $this->fetchRow($this->select()->where('id = ?', $id))->delete();
+        $this->delete('id = '.$id);
     }
 
     //aggiorna un malfunzionamento

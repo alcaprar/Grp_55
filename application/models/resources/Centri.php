@@ -44,7 +44,7 @@ class Application_Resource_Centri extends Zend_Db_Table_Abstract
     //rimuove un centro
     public function deleteCentro($id)
     {
-        $this->fetchRow($this->select()->where('id = ?', $id))->delete();
+        $this->delete('id = '.$id);
     }
 
     //aggiorna il centro

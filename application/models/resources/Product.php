@@ -97,7 +97,7 @@ class Application_Resource_Product extends Zend_Db_Table_Abstract
     //rimuove un prodotto
     public function deleteProduct($id)
     {
-        $this->fetchRow($this->select()->where('id = ?', $id))->delete();
+        $this->delete('id = '.$id);
     }
 
     //aggiorna il prodotto

@@ -41,7 +41,7 @@ class Application_Resource_Ntbu extends Zend_Db_Table_Abstract
 
     public function deleteNtbu($id)
     {
-        $this->fetchRow($this->select()->where('id = ?', $id))->delete();
+        $this->delete('id = '.$id);
     }
 
     public function updateNtbu($ntbu, $id)

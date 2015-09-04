@@ -17,7 +17,7 @@ class Application_Resource_Category extends Zend_Db_Table_Abstract
 
     public function deleteCategory($id)
     {
-        $this->fetchRow($this->select()->where('id = ?', $id))->delete();
+        $this->delete('id = '.$id);
     }
 
     public function updateCategory($categoria, $id)
