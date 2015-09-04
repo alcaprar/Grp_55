@@ -1370,7 +1370,7 @@ class AdminController extends Zend_Controller_Action
         unset($values['Categorie']);
 
         $idUser = $this->_adminModel->insertUser($values);
-        if($values['Ruolo']=='tec')
+        if($values['Ruolo']=='tecnico')
         {
             $this->_adminModel->insertAppartenenza($centro, $idUser);
         }else {
@@ -1452,7 +1452,7 @@ class AdminController extends Zend_Controller_Action
         unset($values['centri']);
         unset($values['Categorie']);
 
-        if($values['Ruolo']=='tec')
+        if($values['Ruolo']=='tecnico')
         {
             $this->_adminModel->updateAppartenenza($centro, $id);
         }else{

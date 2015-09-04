@@ -117,35 +117,24 @@ function faqHandler(){
 }
 
 function addUser(){
-    var label = $('input[type="checkbox"]').parent('label');
+    var trCent = $('td#centri-label').parent();
+    var trCatAdd = $('td#AddCategory-label').parent();
+    var trCat = $('td#Categorie-label').parent();
     if($('select#Ruolo').val()=='tecnico'){
-        $('input[type="checkbox"]').hide();
-        label.hide();
-        $('td#Categorie-label').hide();
-        $('td#AddCategory-label').hide();
-        $('a.addcategory').hide();
+        trCat.hide();
+        trCatAdd.hide();
     } else{
-        $('select#centri').hide();
-        $('td#centri-label').hide();
+        trCent.hide();
     }
-
     $('select#Ruolo').on('change', function() {
         if(this.value =='tecnico'){
-            $('select#centri').show("slow");
-            $('td#centri-label').show("slow");
-            $('input[type="checkbox"]').hide("slow");
-            label.hide();
-            $('td#Categorie-label').hide("slow");
-            $('td#AddCategory-label').hide("slow");
-            $('a.addcategory').hide("slow");
+            trCent.show("slow");
+            trCat.hide("slow");
+            trCatAdd.hide("slow");
         } else{
-            $('input[type="checkbox"]').show("slow");
-            label.show();
-            $('td#Categorie-label').show("slow");
-            $('td#AddCategory-label').show("slow");
-            $('a.addcategory').show("slow");
-            $('select#centri').hide("slow");
-            $('td#centri-label').hide("slow");
+            trCent.hide("slow");
+            trCat.show("slow");
+            trCatAdd.show("slow");
         }
     })
 }
