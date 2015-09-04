@@ -69,7 +69,7 @@ class Application_Resource_Centri extends Zend_Db_Table_Abstract
         $selectByName = $this->select()
             ->setIntegrityCheck(false)
             ->from('CentriAssistenza')
-            ->where('Nome LIKE ?', $nome);
+            ->where('Nome LIKE ?', '%'.$nome.'%');
         $selectByIndirizzo = $this->select() //query piuttosto lenta nell'esecuzione
         ->setIntegrityCheck(false)
             ->from('CentriAssistenza')

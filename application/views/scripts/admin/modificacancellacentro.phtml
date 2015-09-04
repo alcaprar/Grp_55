@@ -2,6 +2,11 @@
 echo'<div class="col-sm-9 padding-right">
                 <div class="features_items"><!--features_items-->
                     <h2 class="title text-center">Modifica prodotti</h2>
+                    <div class="search_box pull-right">
+                    <form action="'.$this->url(array('controller' => 'admin','action' => 'redirectorurlcerca',),'default',true).'" method="post">
+                            <input name="centri[query]" id="query" type="text" placeholder="Cerca centro"/>
+                        </form>
+                    </div>
                     <div  id="cart_items" >
                         <div  class="table-responsive cart_info">
                             <table  class="table table-condensed">

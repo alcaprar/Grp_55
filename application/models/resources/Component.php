@@ -70,7 +70,7 @@ class Application_Resource_Component extends Zend_Db_Table_Abstract
         $selectByName = $this->select()
             ->setIntegrityCheck(false)
             ->from('Componenti')
-            ->where('Nome LIKE ?', $nome);
+            ->where('Nome LIKE ?', '%'.$nome.'%');
         $selectByDescription = $this->select() //query piuttosto lenta nell'esecuzione
         ->setIntegrityCheck(false)
             ->from('Componenti')

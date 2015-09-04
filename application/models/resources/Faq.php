@@ -66,20 +66,16 @@ class Application_Resource_Faq extends Zend_Db_Table_Abstract
     public function getFaqByName($nome, $paged, $order)
     {
         $nome = str_replace('*', '%', $nome);
-        $selectByName = $this->select()
-            ->setIntegrityCheck(false)
-            ->from('Faq')
-            ->where('Nome LIKE ?', $nome);
         $selectByDomanda = $this->select() //query piuttosto lenta nell'esecuzione
         ->setIntegrityCheck(false)
-            ->from('Faq')
+            ->from('FAQ')
             ->where('Domanda LIKE ?', '%'.$nome.'%');
         $selectByRisposta = $this->select() //query piuttosto lenta nell'esecuzione
         ->setIntegrityCheck(false)
-            ->from('Faq')
+            ->from('FAQ')
             ->where('Risposta LIKE ?', '%'.$nome.'%');
         $select = $this->select()
-            ->union(array($selectByName, $selectByDomanda,$selectByRisposta));
+            ->union(array( $selectByDomanda,$selectByRisposta));
         if (true === is_array($order)) {
             $select->order($order);
         }

@@ -2074,7 +2074,7 @@ class AdminController extends Zend_Controller_Action
             $page = $this->_getParam('page', 1);
 
             //se non è nullo recupero i prodotti
-            $utenti = $this->_adminModel->getUtentiByName($query, $page, $order=null);
+            $utenti = $this->_adminModel->getUserByQuery($query, $page, $order=null);
 
             // Definisce le variabili per il viewer
             $this->view->assign(array(
@@ -2098,7 +2098,7 @@ class AdminController extends Zend_Controller_Action
             // Definisce le variabili per il viewer
             $this->view->assign(array(
                     'query' => $query,
-                    'Centri' => $centri
+                    'Centro' => $centri
                 )
             );
             return $this->render('modificacancellacentro');

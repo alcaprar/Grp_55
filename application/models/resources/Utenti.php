@@ -73,7 +73,7 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
         $selectByName = $this->select()
             ->setIntegrityCheck(false)
             ->from('Utenti')
-            ->where('Nome LIKE ?', $nome);
+            ->where('Nome LIKE ?', '%'.$nome.'%');
         $selectByCognome = $this->select() //query piuttosto lenta nell'esecuzione
         ->setIntegrityCheck(false)
             ->from('Utenti')
