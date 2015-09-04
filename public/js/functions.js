@@ -182,3 +182,11 @@ function mostraComponente(id){
     $('#overlay').fadeIn('fast');
     $('.box#comp'+id).fadeIn('slow');
 }
+
+function showDivMalf(id){
+    alert(id);
+    $('p.malf-breve#'+id).toggle();
+    $('p.sol-breve#'+id).toggle();
+    $('p.malf-lungo#'+id).toggle();
+    $('p.sol-lungo#'+id).toggle();
+}

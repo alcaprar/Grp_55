@@ -23,10 +23,13 @@
                                     $soluzione =  strlen($malf->Soluzione) > 50 ? substr($malf->Soluzione,0,50)."..." : $malf->Soluzione;
                                     echo'<tr>
                                     <td  class="cart_description">
-                                        <p>'.$malfunzionamento.'</p>
+                                        <p class="malf-breve" id ="'.$malf->id.'"onclick="showDivMalf(this.id)">'.$malfunzionamento.'</p>
+                                        <p class="malf-lungo" style="display:none" id ="'.$malf->id.'">'.$malf->Malfunzionamento.'</p>
                                     </td>
                                     <td  class="cart_description">
-                                        <p> '.$soluzione.'</p>
+                                        <p class="sol-breve" id ="'.$malf->id.'"onclick="showDivMalf(this.id)">'.$soluzione.'</p>
+                                        <p class="sol-lungo" style="display:none" id ="'.$malf->id.'">'.$malf->Soluzione.'</p>
+
                                     </td>
                                 </tr>';
                                 }
