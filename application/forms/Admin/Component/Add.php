@@ -25,7 +25,9 @@ class Application_Form_Admin_Component_Add extends App_Form_Abstract
 			'destination' => APPLICATION_PATH . '/../public/images/component',
 			'validators' => array(
 			array('Count', false, 1),
-			array('Size', false, 102400),
+			array('Size', false, 102400,array(
+                'messages' => 'File non valido.'
+            )),
 			array('Extension', false, array('jpg', 'gif'))),
             'decorators' => $this->fileDecorators,
 		));

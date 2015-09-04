@@ -113,46 +113,6 @@ class AdminController extends Zend_Controller_Action
         }
     }
 
-    public function redirectorcercaprodottiAction()
-    {
-        $request = $this->getRequest();
-
-        //arrivata una richiesta di cerca
-        if ($request->isPost()) {
-            $post = $request->getPost();
-            $query = $post['query'];
-            $this->_redirector = $this->_helper->getHelper('Redirector');
-
-            $this->_redirector->gotoSimple('cercaprodotti',
-                'admin',
-                null,
-                array('query' => $query));
-        }
-    }
-
-    public function cercaprodottiAction()
-    {
-        $this->view->headTitle('Risultati ricerca');
-        //recupero i parametri
-        $query = $this->_getParam('query', null);
-        if(strpos($query, '*') === 0){
-            $query = str_replace($query, '', 0, strlen('*'));
-        }
-
-        $page = $this->_getParam('page', 1);
-
-        //se non è nullo recupero i prodotti
-        $prodotti = $this->_adminModel->getProdByName($query, $page, $order=null);
-
-        // Definisce le variabili per il viewer
-        $this->view->assign(array(
-                'query' => $query,
-                'Prodotti' => $prodotti
-            )
-        );
-        return $this->render('modificacancellaprodotto');
-    }
-
     public function addproductAction()
     {
         $this->view->headTitle('Aggiungi prodotto');
@@ -873,31 +833,6 @@ class AdminController extends Zend_Controller_Action
         if ($response !== null) {
             $this->getResponse()->setHeader('Content-type', 'application/json')->setBody($response);
         }
-    }
-
-
-
-    public function cercacomponentiAction()
-    {
-        $this->view->headTitle('Risultati ricerca');
-        //recupero i parametri
-        $query = $this->_getParam('query', null);
-        if(strpos($query, '*') === 0){
-            $query = str_replace($query, '', 0, strlen('*'));
-        }
-
-        $page = $this->_getParam('page', 1);
-
-        //se non è nullo recupero i prodotti
-        $prodotti = $this->_adminModel->getCompByName($query, $page, $order=null);
-
-        // Definisce le variabili per il viewer
-        $this->view->assign(array(
-                'query' => $query,
-                'Componenti' => $prodotti
-            )
-        );
-        return $this->render('modificacancellacomponente');
     }
 
 
