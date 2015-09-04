@@ -23,11 +23,15 @@ function getErrorHtml(formErrors) {
         return;
 
     var out = '<ul>';
-    for (errorKey in formErrors) {
-        out += '<li>' + formErrors[errorKey] + '</li>';
-    }
+    var firstKey = getFirstKey(formErrors);
+    out += '<li>' + formErrors[firstKey] + '</li>';
     out += '</ul>';
     return out;
+}
+
+function getFirstKey(data) {
+    for (var prop in data)
+        return prop;
 }
 
 function searchDelay(box, callback, delay, baseUrl, actionUrl, div) {
@@ -90,6 +94,7 @@ function liveSearchMalfunction(baseUrl, actionUrl, searchKeyword){
 function filterMalf(input, ul){
     $(input).on('input', function () {
         var query = $(input).val().split(" ")[0];
+        alert(query);
         $(ul).find('li').hide();
         $(ul).find('li').filter(":contains('" + query + "')").show();
     });
