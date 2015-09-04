@@ -1023,7 +1023,7 @@ h2.title {
 .category-tab ul {
   background: #40403E;
   border-bottom: 1px solid #FE980F;
-  list-style: none outside none;
+  list-style: circle;
   margin: 0 0 30px;
   padding: 0;
   width: 100%;
@@ -1032,7 +1032,7 @@ h2.title {
 .category-tab ul.componenti {
   background: #ffffff;
   border-bottom: none;
-  list-style: disc outside none;
+  list-style: circle;
   margin: 0 0 0 0px;
   padding: 0;
   width: 100%;
@@ -1052,6 +1052,7 @@ h2.title {
   border: 0 none;
   border-radius: 0;
   color: #B3AFA8;
+  padding-left: 8px;
   display: block;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
@@ -2643,6 +2644,15 @@ tr.border_bottom td {
   filter: alpha(opacity=80);
 }
 #loading {
+  top: 50%;
+  left: 50%;
+
+  position: fixed;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
+#overlaymalf {
   top: 50%;
   left: 50%;
 

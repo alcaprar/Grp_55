@@ -1,3 +1,17 @@
+<script>
+	function mostraMalfunzionamento(id){
+		var malf = $('div.malf#'+id).html();
+		var sol = $('div.sol#'+id).html();
+		alert(sol);
+		var over = '<div id="overlay">' +
+			'<p id="overlaymalf">ID =' +id+'</br>' +
+			'Malf = '+malf+'</br>' +
+			'Sol = '+sol+'</p>' +
+			'</div>';
+		$(over).appendTo('body');
+	}
+</script>
+
 <section>
     <div class="container">
         <div class="row">
@@ -77,19 +91,16 @@
 							</div>
 							<div class="tab-pane fade" id="malfunzionamenti" >
 								<div class="col-sm-12">
-								    <p > Lista Malfunzionamenti:</p>
+								    <p> Lista Malfunzionamenti:</p>
 								    <div class="search_box pull-right">
                         				<input id="querymalffaq" type="text" placeholder="Cerca nella lista"/>
                     				</div>
 								        <ul class="componenti">';
 								foreach($this->Malfunzionamenti as $malf)
 								{
-									echo '<div class="faq-c">
-                                <div class="faq-q a"><span class="faq-t">+</span>'.$malf->Malfunzionamento.'</div>
-                                <div class="faq-a a">
-                                <p>'.$malf->Soluzione.'</p>
-                                </div>
-                             </div>';
+									echo '<li><a id="malf-'.$malf->id.'" onclick="mostraMalfunzionamento(this.id)">-'.$malf->Nome.'</a></li>
+									<div class="malf" id="malf-'.$malf->id.'" style="display:none">'.$malf->Malfunzionamento.'</div>
+									<div class="sol" id="malf-'.$malf->id.'" style="display:none">'.$malf->Soluzione.'</div>';
 								}?>
 								</ul>
 
