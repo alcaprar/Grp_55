@@ -85,7 +85,7 @@ function liveSearchMalfunction(baseUrl, actionUrl, searchKeyword){
             $.post(actionUrl, { query: searchKeyword }, function(data) {
                 $('ul#contentmalf').empty();
                 $.each(data, function() {
-                    $('ul#contentmalf').append('<li><a href="' + baseUrl + searchKeyword + '">' + this.Malfunzionamento + '</a></li>');
+                    $('ul#contentmalf').append('<li><a href="' + baseUrl + searchKeyword + '">' + this.Nome + '</a></li>');
                 });
             }, "json");
         }
