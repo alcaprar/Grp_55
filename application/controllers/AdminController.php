@@ -119,7 +119,8 @@ class AdminController extends Zend_Controller_Action
 
         //arrivata una richiesta di cerca
         if ($request->isPost()) {
-            $query = $request->getPost()['query'];
+            $post = $request->getPost();
+            $query = $post['query'];
             $this->_redirector = $this->_helper->getHelper('Redirector');
 
             $this->_redirector->gotoSimple('cercaprodotti',
@@ -251,7 +252,7 @@ class AdminController extends Zend_Controller_Action
         //creo le checkbox dei componenti
         $multicheckbox = $this->_editProductForm->getElement('Componenti');
         $rows = $this->_adminModel->selectComponent($paged=null,$order=null);
-        $componenti = [];
+        $componenti = array();
         foreach($rows->toArray() as $row)
         {
             $componenti[$row['id']] = $row['Nome'];
@@ -317,7 +318,7 @@ class AdminController extends Zend_Controller_Action
             //popolo la select con la lista delle categorie
             $select = $this->_addProductForm->getElement('idCategoria');
             $rows = $this->_adminModel->getCategorie();
-            $categorie = [];
+            $categorie = array();
             foreach($rows->toArray() as $row)
             {
                 $categorie[$row['id']] = $row['Nome'];
@@ -327,7 +328,7 @@ class AdminController extends Zend_Controller_Action
             //creo le checkbox dei componenti
             $multicheckbox = $this->_addProductForm->getElement('Componenti');
             $rows = $this->_adminModel->selectComponent($paged=null,$order=null);
-            $componenti = [];
+            $componenti = array();
             foreach($rows->toArray() as $row)
             {
                 $componenti[$row['id']] = $row['Nome'];
@@ -410,7 +411,7 @@ class AdminController extends Zend_Controller_Action
             //creo le checkbox dei componenti
             $multicheckbox = $this->_editProductForm->getElement('Componenti');
             $rows = $this->_adminModel->selectComponent($paged=null,$order=null);
-            $componenti = [];
+            $componenti = array();
             foreach($rows->toArray() as $row)
             {
                 $componenti[$row['id']] = $row['Nome'];
@@ -1274,7 +1275,7 @@ class AdminController extends Zend_Controller_Action
         $select = $this->_addUserForm->getElement('centri');
 
         $rows = $this->_adminModel->selectCentro($paged=null,$order=null);
-        $centri = [];
+        $centri = array();
 
         foreach($rows->toArray() as $row)
         {
@@ -1301,7 +1302,7 @@ class AdminController extends Zend_Controller_Action
         $select = $this->_editUserForm->getElement('centri');
 
         $rows = $this->_adminModel->selectCentro($paged=null,$order=null);
-        $centri = [];
+        $centri = array();
 
         foreach($rows->toArray() as $row)
         {
@@ -1401,7 +1402,7 @@ class AdminController extends Zend_Controller_Action
             $select = $this->_addUserForm->getElement('centri');
 
             $rows = $this->_adminModel->selectCentro($paged=null,$order=null);
-            $centri = [];
+            $centri =array();
 
             foreach($rows->toArray() as $row)
             {
@@ -1485,7 +1486,7 @@ class AdminController extends Zend_Controller_Action
             $select = $this->_editUserForm->getElement('centri');
 
             $rows = $this->_adminModel->selectCentro($paged=null,$order=null);
-            $centri = [];
+            $centri =array();
 
             foreach($rows->toArray() as $row)
             {
@@ -1779,7 +1780,7 @@ class AdminController extends Zend_Controller_Action
         $select = $this->_addCategoryForm->getElement('Tipo');
 
         $rows = $this->_adminModel->getTopCats();
-        $topcategorie = [];
+        $topcategorie =array();
 
         foreach($rows->toArray() as $row)
         {
@@ -1828,7 +1829,7 @@ class AdminController extends Zend_Controller_Action
         $select = $this->_editCategoryForm->getElement('Tipo');
 
         $rows = $this->_adminModel->getTopCats();
-        $topcategorie = [];
+        $topcategorie =array();
 
         foreach($rows->toArray() as $row)
         {
@@ -1868,7 +1869,7 @@ class AdminController extends Zend_Controller_Action
             $select = $this->_addCategoryForm->getElement('Tipo');
 
             $rows = $this->_adminModel->getTopCats();
-            $topcategorie = [];
+            $topcategorie =array();
 
             foreach($rows->toArray() as $row)
             {
