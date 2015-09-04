@@ -2688,4 +2688,6 @@ tr.border_bottom td {
     overflow:auto;
 }
 
-
+.malfDiv .solDiv{
+  position: relative;
+}

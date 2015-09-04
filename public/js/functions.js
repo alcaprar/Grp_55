@@ -166,3 +166,11 @@ function addUser(){
         }
     })
 }
+
+function showDiv(i){
+    $(function(){
+        $(i).hover(function() { // When hovering
+            $(i).find('div').toggle(); // Toggle the element's visibility
+        });
+    });
+}

@@ -12,7 +12,9 @@ echo'<div class="col-sm-9 padding-right">
                                 <tr class="cart_menu">
                                     <td class="description">Nome</td>
                                     <td class="description">Malfunzionamento</td>
+                                    <td></td>
                                     <td class="description">Soluzione</td>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                 </tr>
@@ -29,8 +31,16 @@ echo'<div class="col-sm-9 padding-right">
                                     <td  class="cart_description">
                                         <p>'.$malfunzionamento.'</p>
                                     </td>
+                                    <td>
+                                        <i class="fa fa-ellipsis-h" id="'.$malf->id.'"></i>
+                                        <div class="malfDiv" id="'.$malf->id.'" style="display: none">'.$malf->Malfunzionamento.'</div>
+                                    </td>
                                     <td  class="cart_description">
                                         <p> '.$soluzione.'</p>
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-ellipsis-h" id="'.$malf->id.'"></i>
+                                        <div class="solDiv" id="'.$malf->id.'" style="display: none">'.$malf->Soluzione.'</div>
                                     </td>
                                     <td  class="cart_delete">
                                         <p><a class="cart_quantity_delete" href="'.$this->url(array(
