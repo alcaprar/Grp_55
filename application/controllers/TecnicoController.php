@@ -19,7 +19,7 @@ class TecnicoController extends Zend_Controller_Action
         $navMenus = array();
 
         foreach($TopCats as $topcat) {
-            $categorie = $this->_tecnicoModel->getCatsByParId($topcat->Nome);
+            $categorie = $this->_tecnicoModel->getCatsByParId($topcat->id);
             $this->_logger->log($categorie, Zend_Log::DEBUG);
             $navCatArray = array();
             foreach($categorie as $cat)

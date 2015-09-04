@@ -24,7 +24,7 @@ class PublicController extends Zend_Controller_Action
         $navMenus = array();
 
         foreach($TopCats as $topcat) {
-            $categorie = $this->_publicModel->getCatsByParId($topcat->Nome);
+            $categorie = $this->_publicModel->getCatsByParId($topcat->id);
             $navCatArray = array();
             foreach($categorie as $cat)
             {
