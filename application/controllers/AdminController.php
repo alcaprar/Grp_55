@@ -1370,14 +1370,14 @@ class AdminController extends Zend_Controller_Action
         unset($values['Categorie']);
 
         $idUser = $this->_adminModel->insertUser($values);
-        if($values['Ruolo']=='tec')
+        if($values['Ruolo']=='tecnico')
         {
             $this->_adminModel->insertAppartenenza($centro, $idUser);
-        }else
-        {
-            foreach ($categorie as $categoria)
-            {
-                $this->_adminModel->associateStaffCategoria($idUser,$categoria);
+        }else {
+            if (!empty($categorie)) {
+                foreach ($categorie as $categoria) {
+                $this->_adminModel->associateStaffCategoria($idUser, $categoria);
+                }
             }
         }
 
@@ -1452,7 +1452,7 @@ class AdminController extends Zend_Controller_Action
         unset($values['centri']);
         unset($values['Categorie']);
 
-        if($values['Ruolo']=='tec')
+        if($values['Ruolo']=='tecnico')
         {
             $this->_adminModel->updateAppartenenza($centro, $id);
         }else{
@@ -1463,7 +1463,7 @@ class AdminController extends Zend_Controller_Action
 
     }
 
-    public function cancellauserAction()
+    public function cancellautenteAction()
     {
         $this->view->headTitle('Cancella utente');
         //recupero l'id del prodotto da rimuovere

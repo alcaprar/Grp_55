@@ -44,7 +44,7 @@ class Application_Resource_Faq extends Zend_Db_Table_Abstract
     //rimuove una faq
     public function deleteFaq($id)
     {
-        $this->fetchRow($this->select()->where('id = ?', $id))->delete();
+        $this->delete('id = '.$id);
     }
 
     //aggiorna la faq

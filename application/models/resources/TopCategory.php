@@ -32,7 +32,7 @@ class Application_Resource_TopCategory extends Zend_Db_Table_Abstract
 
     public function deleteTopCategory($id)
     {
-        $this->fetchRow($this->select()->where('id = ?', $id))->delete();
+        $this->delete('id = '.$id);
     }
 
     public function updateTopCategory($categoria, $id)

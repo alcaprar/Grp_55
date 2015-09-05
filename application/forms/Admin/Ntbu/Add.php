@@ -15,7 +15,7 @@ class Application_Form_Admin_Ntbu_Add extends App_Form_Abstract
             'label' => 'Nome',
             'filters' => array('StringTrim'),
             'required' => true,
-            'validators' => array(array('StringLength',true, array(1,25))),
+            'validators' => array(array('StringLength',true, array(1,60))),
             'decorators' => $this->elementDecorators,
         ));
 

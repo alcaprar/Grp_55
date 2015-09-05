@@ -84,7 +84,9 @@ class Application_Form_Admin_Centri_Edit extends App_Form_Abstract
             'filters' => array('StringTrim'),
             'required' => false,
             'validators' => array(
-                array('EmailAddress',  true  ),
+                array('EmailAddress',  true, array(
+                    'messages' => 'Email non valida.')
+                ),
                 array('StringLength',true, array(1,100))),
             'decorators' => $this->elementDecorators,
         ));

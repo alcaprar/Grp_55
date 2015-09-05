@@ -45,7 +45,7 @@ class Application_Resource_Component extends Zend_Db_Table_Abstract
     //rimuove un componente
     public function deleteComponent($id)
     {
-        $this->fetchRow($this->select()->where('id = ?', $id))->delete();
+        $this->delete('id = '.$id);
     }
 
     //aggiorna il componente

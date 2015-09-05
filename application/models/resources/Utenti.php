@@ -48,7 +48,7 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
     //rimuove un utente
     public function deleteUser($id)
     {
-        $this->fetchRow($this->select()->where('idUtenti = ?', $id))->delete();
+        $this->delete('idUtenti = '.$id);
     }
 
     //aggiorna l'user
