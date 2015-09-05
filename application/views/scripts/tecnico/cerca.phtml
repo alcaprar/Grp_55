@@ -10,28 +10,41 @@
                             <table  class="table table-condensed">
                                 <thead>
                                 <tr class="cart_menu">
+                                    <td class="description">Nome</td>
                                     <td class="description">Malfunzionamento</td>
-                                    <td class="description">Soluzione</td>
                                     <td></td>
+                                    <td class="description">Soluzione</td>
                                     <td></td>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="fbody">'
                                 <?php
                                 foreach($this->Malfunzionamenti as $malf){
-                                    echo'<tr>
-                                    <td  class="cart_description">';
-                                    echo strlen($malf->Malfunzionamento) > 50 ?
-                                        '<p id ="malfBreve-'.$malf->id.'" onclick="showDivRicerca(this.id)">'.substr($malf->Malfunzionamento,0,50).'...<i class="fa fa-plus"></i></p>
-        <p style="display:none" id ="malfLungo-'.$malf->id.'" onclick="showDivRicerca(this.id)">'.$malf->Malfunzionamento.'<i class="fa fa-minus"></i></p>':
-                                        '<p>'.$malf->Malfunzionamento.'</p>';
-                                    echo'</td>
-                <td  class="cart_description">';
-                                    echo strlen($malf->Soluzione) > 50 ?
-                                        '<p id ="solBreve-'.$malf->id.'" onclick="showDivRicerca(this.id)">'.substr($malf->Soluzione,0,50).'...<i class="fa fa-plus"></i></p>
-        <p style="display:none" id ="solLungo-'.$malf->id.'" onclick="showDivRicerca(this.id)">'.$malf->Soluzione.'<i class="fa fa-minus"></i></p>':
-                                        '<p>'.$malf->Soluzione.'</p>';
-                                    echo '</td>
+                                    $malfunzionamento =  strlen($malf->Malfunzionamento) > 50 ? substr($malf->Malfunzionamento,0,50)."..." : $malf->Malfunzionamento;
+                                    $soluzione =  strlen($malf->Soluzione) > 50 ? substr($malf->Soluzione,0,50)."..." : $malf->Soluzione;
+                                    echo'
+                                <tr>
+                                    <td class="cart_description">
+                                        <p>'.$malf->Nome.'</p>
+                                    </td>
+                                    <td  class="cart_description">
+                                        <p>'.$malfunzionamento.'</p>
+                                        <div class="boxMalf" id="m-'.$malf->id.'">
+                                            <p>'.$malf->Malfunzionamento.'</p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-plus-square pointer" onclick="showMalf(this.id)" id="m-'.$malf->id.'"></i>
+                                    </td>
+                                    <td  class="cart_description">
+                                        <p>'.$soluzione.'</p>
+                                        <div class="boxSolution" id="s-'.$malf->id.'">
+                                            <p>'.$malf->Soluzione.'</p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-plus-square pointer" onclick="showSolution(this.id)" id="s-'.$malf->id.'"></i>
+                                    </td>
                                 </tr>';
                                 }
                                 echo'</tbody>

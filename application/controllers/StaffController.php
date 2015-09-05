@@ -255,6 +255,56 @@ class StaffController extends Zend_Controller_Action
         return $this->_editMalfunctionForm;
     }
 
+    public function redirectorurlcercaAction()
+    {
+        $request = $this->getRequest();
+
+        //arrivata una richiesta di cerca
+        if ($request->isPost()) {
+            $this->_redirector = $this->_helper->getHelper('Redirector');
+
+            $post = $request->getPost();
+
+            if(!is_null($post['malfunzionamenti']))
+            {
+                $query = $post['malfunzionamenti']['query'];
+                $this->_redirector->gotoSimple('cerca', 'staff', null,array('malfunzionamento' => $query));
+            }else{
+                $this->_redirector->gotoSimple('index', 'admin', null);
+            }
+        }
+    }
+
+    public function cercaAction()
+    {
+        $this->view->headTitle('Risultati ricerca');
+        //recupero i parametri
+        if(!is_null($query=$this->_getParam('malfunzionamento', null)))
+        {
+            if(strpos($query, '*') === 0){
+                $query = str_replace($query, '', 0, strlen('*'));
+            }
+
+            $page = $this->_getParam('page', 1);
+
+            //se non è nullo recupero i malfunzionamenti
+            $malfunzionamenti = $this->_staffModel->getMalfunctionsByName($query, $page, $order=null);
+
+            // Definisce le variabili per il viewer
+            $this->view->assign(array(
+                    'query' => $query,
+                    'Malfunzionamenti' => $malfunzionamenti
+                )
+            );
+            return $this->render('modificacancellamalfunzionamento');
+        }
+        else
+        {
+            $this->_redirector = $this->_helper->getHelper('Redirector');
+            $this->_redirector->gotoSimple('index', 'staff', null);
+        }
+    }
+
 
     //Cancella l'identità e poi reindirizza all'azione index del controller public
     public function logoutAction()
