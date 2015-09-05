@@ -2760,3 +2760,8 @@ tr.border_bottom td {
 .pointer{
   cursor: pointer;
 }
+
+.who-div {
+  float: right;
+  width: 35%;
+}
