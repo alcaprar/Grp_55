@@ -51,13 +51,21 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="logo pull-left">
-                        <a href=" <?= $this->url(array(
-                            'controller' => 'index',
+                        <?php
+                        if($this->layout()->Ruolo !== "unregistered") echo '
+                        <a href="'.$this->url(array(
+                            'controller' => 'tecnico',
                             'action'     => 'index',
                         ),
                             'default',true
-                        );
-                        ?>"><img class="border-radius" height="54" width="140" src="<?php echo $this->baseURL();?>/images/home/logo.png" alt="" /></a>
+                        ).'"><img class="border-radius" height="54" width="140" src="'.$this->baseURL().'/images/home/logo.png" alt="" /></a>';
+                        else echo'
+                        <a href="'.$this->url(array(
+                                'controller' => 'public',
+                                'action'     => 'index',
+                            ),
+                                'default',true
+                            ).'"><img class="border-radius" height="54" width="140" src="'.$this->baseURL().'/images/home/logo.png" alt="" /></a>';?>
                     </div>
                 </div>
                 <div class="col-sm-8">

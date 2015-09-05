@@ -55,7 +55,7 @@ class Application_Resource_Category extends Zend_Db_Table_Abstract
     {
         $select = $this->select()
             ->from('Categorie')
-            ->order('Nome');
+            ->order(array('Tipo','Nome'));
         if(true ===is_array($where)){
             $select->where('id IN(?)',$where);
         }
