@@ -166,7 +166,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $navigationTop = new Zend_Navigation($configTop);
 
 
-        $view->navigation($navigationMain)->setAcl($this->_acl)
+        $view->navigation($navigationMain)
+            ->setAcl($this->_acl)
             ->setRole($this->_role);
         $view->navigation($navigationTop)->setAcl($this->_acl)
             ->setRole($this->_role);
