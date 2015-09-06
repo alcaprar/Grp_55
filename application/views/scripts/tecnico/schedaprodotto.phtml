@@ -99,27 +99,27 @@ echo'<div class="box" id="malf'.$malf->id.'">
 								<div class="col-sm-12">
 								    <p>Lista note tecniche di buon uso:</p>
 								    <ul class="componenti">';
-                foreach($this->Ntbu as $ntbu)
-                {
-                    echo '<div class="faq-c">
-                                <div class="faq-q"><span class="faq-t">+</span>'.$ntbu->Nome.'</div>
-                                <div class="faq-a">
-                                <p>'.$ntbu->Descrizione.'</p>
-                                </div>
-                             </div>';
-                };echo'
-                </ul>
+									foreach($this->Ntbu as $ntbu)
+									{
+										echo '<div class="faq-c">
+													<div class="faq-q"><span class="faq-t">+</span>'.$ntbu->Nome.'</div>
+													<div class="faq-a">
+													<p>'.$ntbu->Descrizione.'</p>
+													</div>
+												 </div>';
+									};echo'
+									</ul>
 
 								</div>
 							</div>
 							<div class="tab-pane fade" id="componenti" >
 								<div class="col-sm-12">
 								    <p > Lista componenti:</p>
-								        <ul class="componenti">';
-				foreach($this->Componenti as $comp)
-				{	echo '<li><span id="'.$comp->id.'" onclick="mostraComponente(this.id)">- '.$comp->Nome.'</span></li>';
-				}
-                echo '</ul>
+									<ul class="componenti">';
+									foreach($this->Componenti as $comp)
+									{	echo '<li><span id="'.$comp->id.'" onclick="mostraComponente(this.id)">- '.$comp->Nome.'</span></li>';
+									}
+									echo '</ul>
 								</div>
 							</div>
 							<div class="tab-pane fade" id="malfunzionamenti" >
