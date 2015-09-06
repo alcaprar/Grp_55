@@ -32,6 +32,7 @@
                 <?php
                 echo '<div class="features_items"><!--features_items-->
                           <h2 class="title text-center">Risultati ricerca</h2>';
+                if(sizeof($this->Prodotti)==0) echo'<div class="text-center"> Nessun prodotto trovato.</div>';
                 //stampo i singoli prodotti
                 foreach($this->Prodotti as $prod){
                     $urlfoto = ($prod->Foto=='' || is_null($prod->Foto))?($this->baseURL().'/images/product-details/image-coming-soon.png'):($this->baseURL().'/images/products/'. $prod->Foto);
