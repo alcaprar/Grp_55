@@ -24,9 +24,9 @@ class Application_Model_Acl extends Zend_Acl
         $this->allow('tecnico','public','logout');
         $this->deny('tecnico','public','login');
         $this->allow('tecnico','tecnico');
-        $this->allow('staff','staff');
+        $this->allow('staff',array('error','staff'));
         $this->allow('staff','public','logout');
-        $this->allow('admin','admin');
+        $this->allow('admin',array('error','admin'));
         $this->allow('admin','public','logout');
     }
 }
