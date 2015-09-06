@@ -47,10 +47,6 @@ function searchDelay(box, callback, delay, baseUrl, actionUrl, div) {
             callback(baseUrl, actionUrl, searchKeyword);
         }, delay );
     });
-    //se la searchbox � vuota svuota anche l'elenco di risultati per nascondere il div
-    $(box).on('blur', function () {
-        if($(box).val() == null) $(div).find('ul').empty();
-    });
     //necessario per effettuare una ricerca anche in caso di backspace o delete
     $(box).on('keyUp', function(e){
         if(e.keyCode == 8 || e.keyCode == 46){
