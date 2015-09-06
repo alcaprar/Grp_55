@@ -19,6 +19,7 @@
                                 </thead>
                                 <tbody id="fbody">'
                                 <?php
+                                if(sizeof($this->Malfunzionamenti)==0) echo'<td class="text-center"> Nessun malfunzionamento trovato.</td>';
                                 foreach($this->Malfunzionamenti as $malf){
                                     $malfunzionamento =  strlen($malf->Malfunzionamento) > 50 ? substr($malf->Malfunzionamento,0,50)."..." : $malf->Malfunzionamento;
                                     $soluzione =  strlen($malf->Soluzione) > 50 ? substr($malf->Soluzione,0,50)."..." : $malf->Soluzione;
