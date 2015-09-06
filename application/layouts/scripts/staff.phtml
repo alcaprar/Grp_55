@@ -106,30 +106,9 @@
                             </div>
                             <div id="malfunzionamenti" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <ul>
-                                        <li><a href=" <?= $this->url(array(
-                                                'controller' => 'staff',
-                                                'action' => 'addmalfunction'),
-                                                'default',true
-                                            );
-                                            ?>">Aggiungi Malfunzionamento</a></li>
-                                    </ul>
-                                    <ul>
-                                        <li><a href=" <?= $this->url(array(
-                                                'controller' => 'staff',
-                                                'action' => 'associatemalfunction'),
-                                                'default',true
-                                            );
-                                            ?>">Associa/Dissocia Malfunzionamento</a></li>
-                                    </ul>
-                                    <ul>
-                                        <li><a href=" <?= $this->url(array(
-                                                'controller' => 'staff',
-                                                'action' => 'modificacancellamalfunzionamento'),
-                                                'default',true
-                                            );
-                                            ?>">Modifica/cancella Malfunzionamento</a></li>
-                                    </ul>
+                                    <?php echo $this->navigation()->menu()
+                                        ->setUlClass('nav')
+                                        ->renderMenu($this->layout()->staffMenu) ?>
                                 </div>
                             </div>
                         </div>

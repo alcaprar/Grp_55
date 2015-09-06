@@ -386,6 +386,43 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     }
 
+    protected function _initNavigationStaff()
+    {
+        $this->bootstrap('layout');
+        $layout = $this->getResource('layout');
+
+        $navStaffArray = array(
+            array(
+                'controller'=>'staff',
+                'action'=>'addmalfunction',
+                'label'=>'Aggiungi malfunzionamento',
+                'resource' => 'staff',
+                'privilege' => 'index'
+            ),
+            array(
+                'controller'=>'staff',
+                'action'=>'associatemalfunction',
+                'label'=>'Associa/Dissocia Malfunzionamento',
+                'resource' => 'staff',
+                'privilege' => 'index'
+            ),
+            array(
+                'controller'=>'staff',
+                'action'=>'modificacancellamalfunzionamento',
+                'label'=>'Modifica/cancella Malfunzionamento',
+                'resource' => 'staff',
+                'privilege' => 'index'
+            ),
+        );
+
+        $configStaff = new Zend_Config($navStaffArray);
+
+        $navigationStaff= new Zend_Navigation($configStaff);
+
+        $layout->staffMenu = $navigationStaff;
+
+    }
+
     protected function _initMail()
     {
         try {
